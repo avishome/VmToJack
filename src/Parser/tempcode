@@ -1,0 +1,52 @@
+            while(true){
+                if(areEqu(diq,GetCorentToken())){
+                    result = result + GetCorentToken();
+                    nextToken();
+                    if(diq.length>0 && diq[diq.length-1]=="*"){
+                        continue;
+                    }else{
+                        break;
+                    }
+                }
+                if(hasDic(diq)){
+                    xmllib:Element? r = recurcive(diq);
+                    if(r is xmllib:Element){
+                        result = result + GetCorentToken();
+                        nextToken();
+                        if(diq.length>0 && diq[diq.length-1]=="*"){
+                            continue;
+                        }else{
+                            break;
+                        }
+                    }
+                }
+
+                if(diq.length>0 && (diq[diq.length-1]=="*" || diq[diq.length-1]=="?")){
+                        break;
+                }else{
+                        return null;
+                }
+            }
+
+
+
+
+public function recurcive(string dicduq) returns xmllib:Element? {
+    xml result = xml` `;
+    foreach var diq in getDic(dicduq) {
+        if(diq is string){
+
+        }
+        else {
+            foreach var options in diq{
+                xmllib:Element? R = recurcive(options);
+                if(R is xmllib:Element){
+                    result = result + R;
+                   break;
+                }
+            }
+        }
+    }
+    xmllib:Element tokens = <xmllib:Element> xml `<tokens/>`;
+    return tokens;
+}

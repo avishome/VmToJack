@@ -2,31 +2,38 @@ import fileReader;
 import ballerina/io;
 import ballerina/lang.'int as ints;
 import ballerina/stringutils;
-
+import ballerina/lang.'xml as xmllib;
+import ballerina/log;
 public function main() {
-    int i= 0;
+    xmllib:Element tokens = <xmllib:Element> xml `<tokens/>`;
+    xml listxml = xml` `;
     fileReader:Reader | error reader = new ("files/main.jack");
+    string writePath = "./files/sample.xml";
     if (reader is fileReader:Reader) {
         Tokenizer | error parser = new (reader);
         if (parser is Tokenizer) {
             while (true) {
                 Token token = parser.getNextToken();
                 match token.tokenType {
-                    //SYMBOL | KEYWORD | IDENTIFIER | INTEGER_CONSTANT | STRING_CONSTANT
-                    SYMBOL => {
-                        io:println("Type: " + SYMBOL + " | Value: " + token["arg1"].toString() + " | Line: " + token["arg2"].toString() + " | Place: " + token["arg3"].toString());
+                    "SYMBOL" => {
+                        listxml = listxml + (xml `<symbol>${token["arg1"].toString()}</symbol>`);
+                        //io:println("Type: " + "SYMBOL" + " | Value: " + token["arg1"].toString() + " | Line: " + token["arg2"].toString() + " | Place: " + token["arg3"].toString());
                     }
-                    KEYWORD => {
-                        io:println("Type: " + KEYWORD + " | Value: " + token["arg1"].toString()  + " | Line: " + token["arg2"].toString() + " | Place: " + token["arg3"].toString());
+                    "KEYWORD" => {
+                        listxml = listxml + (xml `<keyword>${token["arg1"].toString()}</keyword>`);
+                        //io:println("Type: " + "KEYWORD" + " | Value: " + token["arg1"].toString()  + " | Line: " + token["arg2"].toString() + " | Place: " + token["arg3"].toString());
                     }
-                    IDENTIFIER => {
-                        io:println("Type: " + IDENTIFIER + " | Value: " + token["arg1"].toString() + " | Line: " + token["arg2"].toString() + " | Place: " + token["arg3"].toString());
+                    "IDENTIFIER" => {
+                        listxml = listxml + (xml `<identifier>${token["arg1"].toString()}</identifier>`);
+                        //io:println("Type: " + "IDENTIFIER" + " | Value: " + token["arg1"].toString() + " | Line: " + token["arg2"].toString() + " | Place: " + token["arg3"].toString());
                     }
-                    INTEGER_CONSTANT => {
-                        io:println("Type: " + INTEGER_CONSTANT + " | Value: " + token["arg1"].toString() + " | Line: " + token["arg2"].toString() + " | Place: " + token["arg3"].toString());
+                    "INTEGER_CONSTANT" => {
+                        listxml = listxml + (xml `<integerConstant>${token["arg1"].toString()}</integerConstant>`);
+                        //io:println("Type: " + "INTEGER_CONSTANT" + " | Value: " + token["arg1"].toString() + " | Line: " + token["arg2"].toString() + " | Place: " + token["arg3"].toString());
                     }
-                    STRING_CONSTANT => {
-                        io:println("Type: " + STRING_CONSTANT + " | Value: " + token["arg1"].toString() + " | Line: " + token["arg2"].toString() + " | Place: " + token["arg3"].toString());
+                    "STRING_CONSTANT" => {
+                        listxml = listxml + (xml `<stringConstant>${token["arg1"].toString()}</stringConstant>`);
+                        //io:println("Type: " + "STRING_CONSTANT" + " | Value: " + token["arg1"].toString() + " | Line: " + token["arg2"].toString() + " | Place: " + token["arg3"].toString());
                     }
                     
                     _ => {
@@ -44,8 +51,17 @@ public function main() {
             io:println(parser);
         }
     }
+    tokens.setChildren(listxml);
+    var wResult = write(tokens, writePath);
+    if (wResult is error) {
+        log:printError("Error occurred while writing xml: ", wResult);
+    } else {
+        io:println("Preparing to read the content written");
+    }
+    
 }
- 
+
+
 public const CLASS = "CLASS";
 public const CONSTRUCTOR = "CONSTRUCTOR";
 public const FUNCTION = "FUNCTION";
@@ -484,4 +500,21 @@ function toArray(string str) returns string[] {
 
 function log(any | error content) {
     io:println(content);
+}
+public function write(xml content, string path) returns @tainted error? {
+
+    io:WritableByteChannel wbc = check io:openWritableFile(path);
+
+    io:WritableCharacterChannel wch = new (wbc, "UTF8");
+    var result = wch.writeXml(content);
+
+    closeWc(wch);
+    return result;
+}
+public function closeWc(io:WritableCharacterChannel wc) {
+    var result = wc.close();
+    if (result is error) {
+        log:printError("Error occurred while closing character stream",
+                        err = result);
+    }
 }
