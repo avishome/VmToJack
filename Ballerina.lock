@@ -7,3 +7,13 @@ ballerina_version = "1.2.1"
 org_name = "oriel"
 name = "fileReader"
 version = "0.1.0"
+
+[[imports."oriel/Parser:0.1.0"]]
+org_name = "oriel"
+name = "fileReader"
+version = "0.1.0"
+
+[[imports."oriel/Parser:0.1.0"]]
+org_name = "oriel"
+name = "Tokenizer"
+version = "0.1.0"

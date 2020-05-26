@@ -7,8 +7,8 @@ public function main() {
     int i= 0;
     fileReader:Reader | error reader = new ("files/main.jack");
     if (reader is fileReader:Reader) {
-        Parser | error parser = new (reader);
-        if (parser is Parser) {
+        Tokenizer | error parser = new (reader);
+        if (parser is Tokenizer) {
             while (true) {
                 Token token = parser.getNextToken();
                 match token.tokenType {
@@ -109,7 +109,7 @@ public type Token record {|
     string | int arg3?;
 |};
 
-public type Parser object {
+public type Tokenizer object {
     private fileReader:Reader reader;
     private int row = 1;
     private int fromRowStart = 0;
