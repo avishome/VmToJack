@@ -1,7 +1,7 @@
 org_name = "oriel"
 version = "0.1.0"
 lockfile_version = "1.0.0"
-ballerina_version = "1.2.1"
+ballerina_version = "1.2.4"
 
 [[imports."oriel/Tokenizer:0.1.0"]]
 org_name = "oriel"
