@@ -1,64 +1,72 @@
 import fileReader;
+import ballerina/file;
 import ballerina/io;
 import ballerina/lang.'int as ints;
-import ballerina/stringutils;
 import ballerina/lang.'xml as xmllib;
 import ballerina/log;
-public function main() {
-    xmllib:Element tokens = <xmllib:Element> xml `<tokens/>`;
-    xml listxml = xml` `;
-    fileReader:Reader | error reader = new ("files/main.jack");
-    string writePath = "./files/sample.xml";
-    if (reader is fileReader:Reader) {
-        Tokenizer | error parser = new (reader);
-        if (parser is Tokenizer) {
-            while (true) {
-                Token token = parser.getNextToken();
-                match token.tokenType {
-                    "SYMBOL" => {
-                        listxml = listxml + (xml `<symbol>${token["arg1"].toString()}</symbol>`);
-                        //io:println("Type: " + "SYMBOL" + " | Value: " + token["arg1"].toString() + " | Line: " + token["arg2"].toString() + " | Place: " + token["arg3"].toString());
+import ballerina/stringutils;
+
+public function main(string... args) {
+    if (args.length() < 1) {
+        io:println("Please enter a source file");
+    } else {
+        file:FileInfo[]|error readDirResults = file:readDir(<@untained>args[0]);
+        if (readDirResults is error) {
+            io:println(readDirResults);
+            return;
+        } else {
+            string code = "";
+            foreach file:FileInfo item in readDirResults {
+                if (item.getName().endsWith(".jack")) {
+                    io:println("Proccessing file: " + item.getName());
+                    xmllib:Element tokens = <xmllib:Element>xml `<tokens/>`;
+                    xml listxml = xml ` `;
+                    fileReader:Reader|error reader = new (<@untained>args[0] + "/" + item.getName());
+                    if (reader is fileReader:Reader) {
+                        Tokenizer|error parser = new (reader);
+                        if (parser is Tokenizer) {
+                            while (true) {
+                                Token token = parser.getNextToken();
+                                match token.tokenType {
+                                    "SYMBOL" => {
+                                        listxml = listxml + (xml `<symbol>${token["arg1"].toString()}</symbol>`);
+                                    }
+                                    "KEYWORD" => {
+                                        listxml = listxml + (xml `<keyword>${token["arg1"].toString()}</keyword>`);
+                                    }
+                                    "IDENTIFIER" => {
+                                        listxml = listxml + (xml `<identifier>${token["arg1"].toString()}</identifier>`);
+                                    }
+                                    "INTEGER_CONSTANT" => {
+                                        listxml = listxml + (xml `<integerConstant>${token["arg1"].toString()}</integerConstant>`);
+                                    }
+                                    "STRING_CONSTANT" => {
+                                        listxml = listxml + (xml `<stringConstant>${token["arg1"].toString()}</stringConstant>`);
+                                    }
+                                }
+                                if (token.tokenType == EOF || token.tokenType == ERROR) {
+                                    if (token.tokenType == ERROR) {
+                                        io:println("Parsing error at row: " + token["arg1"].toString() + " place: " + token["arg2"].toString() + " in file " + <@untained>args[0] + "/" + item.getName());
+                                        return;
+                                    }
+                                    break;
+                                }
+                            }
+                        } else {
+                            io:println(parser);
+                        }
                     }
-                    "KEYWORD" => {
-                        listxml = listxml + (xml `<keyword>${token["arg1"].toString()}</keyword>`);
-                        //io:println("Type: " + "KEYWORD" + " | Value: " + token["arg1"].toString()  + " | Line: " + token["arg2"].toString() + " | Place: " + token["arg3"].toString());
+                    tokens.setChildren(listxml);
+                    var wResult = write(tokens, <@untained>args[0] + "/" + item.getName().substring(0, <int>item.getName().lastIndexOf(".")) + ".xml");
+                    if (wResult is error) {
+                        log:printError("Error occurred while writing xml: ", wResult);
                     }
-                    "IDENTIFIER" => {
-                        listxml = listxml + (xml `<identifier>${token["arg1"].toString()}</identifier>`);
-                        //io:println("Type: " + "IDENTIFIER" + " | Value: " + token["arg1"].toString() + " | Line: " + token["arg2"].toString() + " | Place: " + token["arg3"].toString());
-                    }
-                    "INTEGER_CONSTANT" => {
-                        listxml = listxml + (xml `<integerConstant>${token["arg1"].toString()}</integerConstant>`);
-                        //io:println("Type: " + "INTEGER_CONSTANT" + " | Value: " + token["arg1"].toString() + " | Line: " + token["arg2"].toString() + " | Place: " + token["arg3"].toString());
-                    }
-                    "STRING_CONSTANT" => {
-                        listxml = listxml + (xml `<stringConstant>${token["arg1"].toString()}</stringConstant>`);
-                        //io:println("Type: " + "STRING_CONSTANT" + " | Value: " + token["arg1"].toString() + " | Line: " + token["arg2"].toString() + " | Place: " + token["arg3"].toString());
-                    }
-                    
-                    _ => {
-                        io:println("Type: " + "EOF" + " | Type: " + token["arg1"].toString());
-                    }
-                }
-                if (token.tokenType == EOF || token.tokenType == ERROR) {
-                    if (token.tokenType == ERROR) {
-                        io:println("Parsing error at row: " + token["arg1"].toString() + " place: " + token["arg2"].toString() + " in file \"text.vm\"");
-                    }
-                    break;
                 }
             }
-        } else {
-            io:println(parser);
         }
     }
-    tokens.setChildren(listxml);
-    var wResult = write(tokens, writePath);
-    if (wResult is error) {
-        log:printError("Error occurred while writing xml: ", wResult);
-    } else {
-        io:println("Preparing to read the content written");
-    }
-    
+    fileReader:Reader|error reader = new ("files/main.jack");
+    string writePath = "./files/sample.xml";
 }
 
 
@@ -84,7 +92,7 @@ public const ELSE = "ELSE";
 public const WHILE = "WHILE";
 public const RETURN = "RETURN";
 
-public type KEYWORD_TYPE CLASS | CONSTRUCTOR | FUNCTION | METHOD | FIELD | STATIC | VAR | INT | CHAR | BOOLEAN | VOID | TRUE | FALSE | NULL | THIS | LET | DO | IF | ELSE | WHILE | RETURN;
+public type KEYWORD_TYPE CLASS|CONSTRUCTOR|FUNCTION|METHOD|FIELD|STATIC|VAR|INT|CHAR|BOOLEAN|VOID|TRUE|FALSE|NULL|THIS|LET|DO|IF|ELSE|WHILE|RETURN;
 
 public const BLOCK_OPEN = "BLOCK_OPEN";
 public const BLOCK_CLOSE = "BLOCK_CLOSE";
@@ -106,7 +114,7 @@ public const POINT = "POINT";
 public const COMMA = "COMMA";
 public const SEMICOLON = "SEMICOLON";
 
-public type SYMBOL_TYPE BLOCK_OPEN | BLOCK_CLOSE | ARR_OPEN | ARR_CLOSE | ROUND_OPEN | ROUND_CLOSE | ADD | SUB | NEG | EQ | GT | LT | AND | OR | DIV | POINT | COMMA | SEMICOLON;
+public type SYMBOL_TYPE BLOCK_OPEN|BLOCK_CLOSE|ARR_OPEN|ARR_CLOSE|ROUND_OPEN|ROUND_CLOSE|ADD|SUB|NEG|EQ|GT|LT|AND|OR|DIV|POINT|COMMA|SEMICOLON;
 
 public const SYMBOL = "SYMBOL";
 public const KEYWORD = "KEYWORD";
@@ -116,13 +124,13 @@ public const STRING_CONSTANT = "STRING_CONSTANT";
 public const EOF = "EOF";
 public const ERROR = "ERROR";
 
-public type TOKEN_TYPE SYMBOL | KEYWORD | IDENTIFIER | INTEGER_CONSTANT | STRING_CONSTANT | EOF | ERROR;
+public type TOKEN_TYPE SYMBOL|KEYWORD|IDENTIFIER|INTEGER_CONSTANT|STRING_CONSTANT|EOF|ERROR;
 
 public type Token record {|
     TOKEN_TYPE tokenType;
-    string | int arg1?;
-    string | int arg2?;
-    string | int arg3?;
+    string|int arg1?;
+    string|int arg2?;
+    string|int arg3?;
 |};
 
 public type Tokenizer object {
@@ -135,161 +143,150 @@ public type Tokenizer object {
     }
     public function getNextToken() returns @tainted Token {
         self.readWhiteChar();
-        while (self.endOfLine()) {
+        boolean gotDiv = self.removeComments();
+        if (gotDiv) {
+            return self.handle0Args(SYMBOL, "/");
         }
         if (self.endOfFile()) {
             return {tokenType: EOF};
         }
         if (self.matchWord("+")) {
-            return self.handle0Args(SYMBOL, ADD);
+            return self.handle0Args(SYMBOL, "+");
         }
         if (self.matchWord("-")) {
-            return self.handle0Args(SYMBOL, SUB);
+            return self.handle0Args(SYMBOL, "-");
         }
         if (self.matchWord("~")) {
-            return self.handle0Args(SYMBOL, NEG);
+            return self.handle0Args(SYMBOL, "~");
         }
         if (self.matchWord("=")) {
-            return self.handle0Args(SYMBOL, EQ);
+            return self.handle0Args(SYMBOL, "=");
         }
         if (self.matchWord(">")) {
-            return self.handle0Args(SYMBOL, GT);
+            return self.handle0Args(SYMBOL, ">");
         }
         if (self.matchWord("<")) {
-            return self.handle0Args(SYMBOL, LT);
+            return self.handle0Args(SYMBOL, "<");
         }
         if (self.matchWord("&")) {
-            return self.handle0Args(SYMBOL, AND);
+            return self.handle0Args(SYMBOL, "&");
         }
         if (self.matchWord("|")) {
-            return self.handle0Args(SYMBOL, OR);
+            return self.handle0Args(SYMBOL, "|");
         }
         if (self.matchWord(",")) {
-            return self.handle0Args(SYMBOL, COMMA);
+            return self.handle0Args(SYMBOL, ",");
         }
         if (self.matchWord(";")) {
-            return self.handle0Args(SYMBOL, SEMICOLON);
+            return self.handle0Args(SYMBOL, ";");
         }
         if (self.matchWord("*")) {
-            return self.handle0Args(SYMBOL, MULT);
-        }
-        if (self.matchWord(":")) {
-            return self.handle0Args(SYMBOL, DIV);
+            return self.handle0Args(SYMBOL, "*");
         }
         if (self.matchWord(".")) {
-            return self.handle0Args(SYMBOL, POINT);
+            return self.handle0Args(SYMBOL, ".");
         }
         if (self.matchWord("{")) {
-            return self.handle0Args(SYMBOL, BLOCK_OPEN);
+            return self.handle0Args(SYMBOL, "{");
         }
         if (self.matchWord("}")) {
-            return self.handle0Args(SYMBOL, BLOCK_CLOSE);
+            return self.handle0Args(SYMBOL, "}");
         }
         if (self.matchWord("[")) {
-            return self.handle0Args(SYMBOL, ARR_OPEN);
+            return self.handle0Args(SYMBOL, "[");
         }
         if (self.matchWord("]")) {
-            return self.handle0Args(SYMBOL, ARR_CLOSE);
+            return self.handle0Args(SYMBOL, "]");
         }
         if (self.matchWord("(")) {
-            return self.handle0Args(SYMBOL, ROUND_OPEN);
+            return self.handle0Args(SYMBOL, "(");
         }
         if (self.matchWord(")")) {
-            return self.handle0Args(SYMBOL, ROUND_CLOSE);
+            return self.handle0Args(SYMBOL, ")");
         }
 
         if (self.matchWord("return")) {
-            return self.handle0Args(KEYWORD, RETURN);
+            return self.handle0Args(KEYWORD, "return");
         }
         if (self.matchWord("while")) {
-            return self.handle0Args(KEYWORD, WHILE);
+            return self.handle0Args(KEYWORD, "while");
         }
         if (self.matchWord("else")) {
-            return self.handle0Args(KEYWORD, ELSE);
-        }        
+            return self.handle0Args(KEYWORD, "else");
+        }
         if (self.matchWord("if")) {
-            return self.handle0Args(KEYWORD, IF);
+            return self.handle0Args(KEYWORD, "if");
         }
         if (self.matchWord("do")) {
-            return self.handle0Args(KEYWORD, DO);
+            return self.handle0Args(KEYWORD, "do");
         }
         if (self.matchWord("let")) {
-            return self.handle0Args(KEYWORD, LET);
+            return self.handle0Args(KEYWORD, "let");
         }
         if (self.matchWord("this")) {
-            return self.handle0Args(KEYWORD, THIS);
+            return self.handle0Args(KEYWORD, "this");
         }
         if (self.matchWord("null")) {
-            return self.handle0Args(KEYWORD, NULL);
+            return self.handle0Args(KEYWORD, "null");
         }
         if (self.matchWord("false")) {
-            return self.handle0Args(KEYWORD, FALSE);
+            return self.handle0Args(KEYWORD, "false");
         }
         if (self.matchWord("true")) {
-            return self.handle0Args(KEYWORD, TRUE);
+            return self.handle0Args(KEYWORD, "true");
         }
         if (self.matchWord("void")) {
-            return self.handle0Args(KEYWORD, VOID);
+            return self.handle0Args(KEYWORD, "void");
         }
         if (self.matchWord("boolean")) {
-            return self.handle0Args(KEYWORD, BOOLEAN);
+            return self.handle0Args(KEYWORD, "boolean");
         }
         if (self.matchWord("var")) {
-            return self.handle0Args(KEYWORD, VAR);
+            return self.handle0Args(KEYWORD, "var");
         }
         if (self.matchWord("int")) {
-            return self.handle0Args(KEYWORD, INT);
+            return self.handle0Args(KEYWORD, "int");
         }
         if (self.matchWord("char")) {
-            return self.handle0Args(KEYWORD, CHAR);
+            return self.handle0Args(KEYWORD, "char");
         }
         if (self.matchWord("static")) {
-            return self.handle0Args(KEYWORD, STATIC);
+            return self.handle0Args(KEYWORD, "static");
         }
         if (self.matchWord("field")) {
-            return self.handle0Args(KEYWORD, FIELD);
+            return self.handle0Args(KEYWORD, "field");
         }
         if (self.matchWord("method")) {
-            return self.handle0Args(KEYWORD, METHOD);
+            return self.handle0Args(KEYWORD, "method");
         }
         if (self.matchWord("class")) {
-            return self.handle0Args(KEYWORD, CLASS);
+            return self.handle0Args(KEYWORD, "class");
         }
         if (self.matchWord("constructor")) {
-            return self.handle0Args(KEYWORD, CONSTRUCTOR);
+            return self.handle0Args(KEYWORD, "constructor");
         }
         if (self.matchWord("function")) {
-            return self.handle0Args(KEYWORD, FUNCTION);
+            return self.handle0Args(KEYWORD, "function");
         }
         if (self.matchWord("\"")) {
             string tempstr = "";
             while (!self.matchWord("\"")) {
-                string | boolean chr = self.getNextChar();
-                if(chr is boolean){
+                string|boolean chr = self.getNextChar();
+                if (chr is boolean) {
                     break;
                 }
-                tempstr=tempstr + chr.toString();
+                tempstr = tempstr + chr.toString();
             }
             return self.handle0Args(STRING_CONSTANT, tempstr);
         }
 
-        int | boolean number = self.readNumber();
+        int|boolean number = self.readNumber();
         if (number is int) {
             return self.handle0Args(INTEGER_CONSTANT, number.toString());
         }
-        [string, string] | boolean word = self.readWord();
+        [string, string]|boolean word = self.readWord();
         if (!(word is boolean)) {
             return self.handle0Args(IDENTIFIER, word[0]);
-        }
-
-        if (self.matchWord("//")) {
-            while (true) {
-                if (self.endOfFile() || self.endOfLine()) {
-                    break;
-                }
-                _ = self.getNextChar();
-            }
-            return self.getNextToken();
         }
         return {tokenType: ERROR, arg1: self.row, arg2: self.fromRowStart};
     }
@@ -297,9 +294,33 @@ public type Tokenizer object {
         return {tokenType: aType, arg1: arg1, arg2: self.row, arg3: self.fromRowStart};
     }
 
+    function removeComments() returns @untainted boolean {
+        while (true) {
+            while (self.endOfLine()) {}
+            if (self.matchWord("/")) {
+                string|boolean char;
+                if (self.matchWord("/")) {
+                    char = self.getNextChar();
+                    while (!(char is string && (char == "" || char == "\n" || char == "\r")) && !(char is boolean)) {
+                        char = self.getNextChar();
+                    }
+                } else if (self.matchWord("*")) {
+                    while (!self.matchWord("*/")) {
+                        char = self.getNextChar();
+                    }
+                } else {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
 
     function readWhiteChar() {
-        string | boolean char = self.getNextChar();
+        string|boolean char = self.getNextChar();
         while (char is string && (char == " " || char == "\t")) {
             char = self.getNextChar();
         }
@@ -308,40 +329,14 @@ public type Tokenizer object {
         }
     }
 
-    function endOfLine() returns @tainted boolean {
+    function endOfLine() returns @untainted boolean {
         self.readWhiteChar();
-        if (self.matchWord("//")) {
-            string | boolean char = self.getNextChar();
-            while (true) {
-                if (char is string && (char == "" || char == "\n" || char == "\r")) {
-                    return true;
-                }
-                if (char is boolean) {
-                    return false;
-                }
-                char = self.getNextChar();
-            }
-        }
-        if (self.matchWord("/**")) {
-            string | boolean char;
-            while (!self.matchWord("*/")) {
-                char = self.getNextChar();
-                if (char is boolean) {
-                    return false;
-                }
-            }
-        }
-        string | boolean char = self.getNextChar();
+        string|boolean char = self.getNextChar();
         if (char is string && (char == "" || char == "\n" || char == "\r")) {
             return true;
-        }
-        if (char is string) {
-            if(char != "/"){
-                self.buffer.push(char);
-            }
-            else{
-                //here there is problem thatavoid us us / char for divede
-            }
+        } else if (char is string) {
+            self.buffer.push(char);
+            return false;
         }
         return false;
     }
@@ -349,7 +344,7 @@ public type Tokenizer object {
     function endOfFile() returns @tainted boolean {
         self.readWhiteChar();
         if (self.matchWord("//")) {
-            string | boolean char = self.getNextChar();
+            string|boolean char = self.getNextChar();
             while (true) {
                 if (char is string && (char == "" || char == "\n" || char == "\r")) {
                     self.buffer.push("\n");
@@ -361,7 +356,7 @@ public type Tokenizer object {
                 char = self.getNextChar();
             }
         }
-        string | boolean char = self.getNextChar();
+        string|boolean char = self.getNextChar();
         if (char is boolean) {
             return true;
         }
@@ -371,16 +366,16 @@ public type Tokenizer object {
         return false;
     }
 
-    function readNumber() returns @tainted int | boolean {
+    function readNumber() returns @tainted int|boolean {
         string number = "";
         string[] buffer = self.buffer.clone();
         int leftInBuffer = buffer.length();
         while (true) {
-            string | boolean char = self.getNextChar();
+            string|boolean char = self.getNextChar();
             if (char is boolean) {
                 break;
             } else {
-                int | error res = ints:fromString(char);
+                int|error res = ints:fromString(char);
                 if (res is error) {
                     self.buffer.push(char);
                     if (leftInBuffer == 0) {
@@ -397,7 +392,7 @@ public type Tokenizer object {
                 }
             }
         }
-        int | error res = ints:fromString(number);
+        int|error res = ints:fromString(number);
         if (res is error) {
             self.buffer = buffer;
             return false;
@@ -410,8 +405,7 @@ public type Tokenizer object {
         string[] buffer = self.buffer.clone();
         int leftInBuffer = buffer.length();
         foreach string c in toArray(word) {
-            string | boolean char = self.getNextChar();
-            //io:println("word:"+word +" c:"+c +" char:"+ char.toString());
+            string|boolean char = self.getNextChar();
             if (char is boolean) {
                 self.buffer = buffer;
                 return false;
@@ -425,7 +419,7 @@ public type Tokenizer object {
                 if (leftInBuffer > 0) {
                     leftInBuffer -= 1;
                 } else {
-                    if(char == "/"){
+                    if (char == "/") {
                         char = ":";
                     }
                     buffer.push(char);
@@ -434,35 +428,41 @@ public type Tokenizer object {
         }
         return true;
     }
-    function readWord() returns @tainted boolean | [string, string] {
+    function readWord() returns @tainted boolean|[string, string] {
         string word = "";
         while (true) {
-            string | boolean char = self.getNextChar();
+            string|boolean char = self.getNextChar();
             if (char is boolean && word == "") {
                 return false;
             } else if (char is boolean) {
                 return [word, EOF];
-            } else if (stringutils:matches(char, "[a-zA-Z0-9_.]")) {
+            } else if (stringutils:matches(char, "[a-zA-Z0-9_]")) {
                 word += char;
             } else if (char == "" || char == "\n" || char == "\r") {
                 return word != "" ? [word, "EOL"] : false;
             } else if (char == " ") {
                 return [word, "SPACE"];
+            } else if (char == ".") {
+                self.buffer.push(char);
+                return [word, "DOT"];
             } else {
-                if (word.length()>0){ self.buffer.push(char); return [word, "SPACE"];}
+                if (word.length() > 0) {
+                    self.buffer.push(char);
+                    return [word, "SPACE"];
+                }
                 return false;
             }
         }
         return false;
     }
-    function getNextChar() returns @tainted string | boolean {
+    function getNextChar() returns @tainted string|boolean {
         if (self.buffer.length() > 0) {
             string char = self.buffer[0];
             self.buffer = self.buffer.slice(1);
             return char;
         }
         if (self.reader.hasNext()) {
-            string | error? char = self.reader.readNext();
+            string|error? char = self.reader.readNext();
             if (char is string) {
                 if (char == "\n") {
                     self.row += 1;
@@ -498,7 +498,7 @@ function toArray(string str) returns string[] {
     return array;
 }
 
-function log(any | error content) {
+function log(any|error content) {
     io:println(content);
 }
 public function write(xml content, string path) returns @tainted error? {
@@ -515,6 +515,6 @@ public function closeWc(io:WritableCharacterChannel wc) {
     var result = wc.close();
     if (result is error) {
         log:printError("Error occurred while closing character stream",
-                        err = result);
+            err = result);
     }
 }
