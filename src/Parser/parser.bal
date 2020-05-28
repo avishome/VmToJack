@@ -1,17 +1,41 @@
 import fileReader;
 import ballerina/io;
 import ballerina/lang.'xml as xmllib;
+import ballerina/stringutils;
 
 public function main() {
-    Tree|error tree = new ();
+    Parser|error tree = new ();
 
-    if (tree is Tree) {
-        io:println(tree.addr("class").toJsonString());
-        io:println(tree.tokener.getCurrent().toString());
+    if (tree is Parser) {
+        //io:println(tree.addr("class").toJsonString());
+        //io:println(tree.tokener.getCurrent().toString());
         var i = tree.recurcive("class", 0);
+        if (i is Node) {
+            string xmlFile = i.print();
+            var wResult = write(xmlFile, "files/test.xml");
+
+        }
+
     }
 
 
+}
+
+public function write(string content, string path) returns @tainted int|error? {
+
+    io:WritableByteChannel wbc = check io:openWritableFile(path);
+
+    io:WritableCharacterChannel wch = new (wbc, "UTF8");
+    var result = wch.write(content, 0);
+    closeWc(wch);
+    return result;
+}
+
+public function closeWc(io:WritableCharacterChannel wc) {
+    var result = wc.close();
+    if (result is error) {
+        io:print("Error occurred while closing character stream");
+    }
 }
 
 function getReqMove(int num) returns string {
@@ -25,9 +49,9 @@ function getReqMove(int num) returns string {
 }
 
 
-public type Tree object {
+public type Parser object {
     private map<json> addrMap;
-    public T tokener;
+    public TokenReader tokener;
     public function __init() returns @tainted error? {
         self.tokener = checkpanic new ();
         string FullFile = getTranslateFileAsString("files/diqduq.json");
@@ -40,8 +64,9 @@ public type Tree object {
     public function addrExist(string key) returns boolean {
         return self.addrMap.hasKey(key);
     }
-    public function recurcive(string key, int depth, boolean inDic = true) returns @tainted error|xmllib:Element?| boolean {
+    public function recurcive(string key, int depth, boolean inDic = true) returns @tainted error|Node|boolean {
         boolean isFound = false;
+        Node node = new (key);
         json diqduq;
         if (inDic) {
             diqduq = self.addr(key);
@@ -62,13 +87,24 @@ public type Tree object {
                     string[]|boolean correnttoken = self.tokener.getCurrent();
                     if (correnttoken is string[]) {
                         if (itemInWord == correnttoken[0] || itemInWord == correnttoken[1]) {
+                            Node child = new (correnttoken[1], correnttoken[0]);
+                            if (inDic) {
+                                node.addChild(child);
+                            } else {
+                                node = child;
+                            }
                             self.tokener.releaseCurrent(depth);
                             continue;
                         }
                         if (self.addrExist(itemInWord)) {
-                            io:println(getReqMove(depth) + "recurcive call for dict: " + item);
-                            error|xmllib:Element?| boolean res = self.recurcive(itemInWord, depth + 1);
-                            if (res is boolean && res) {
+                            //io:println(getReqMove(depth) + "recurcive call for dict: " + item);
+                            error|Node|boolean res = self.recurcive(itemInWord, depth + 1);
+                            if (res is Node) {
+                                if (inDic) {
+                                    node.addChild(res);
+                                } else {
+                                    node = res;
+                                }
                                 continue;
                             }
 
@@ -78,25 +114,26 @@ public type Tree object {
                             break;
                         }
                         if (typeOfItem == "R") {
-                            io:println(getReqMove(depth) + "dont found result for: " + item);
+                            //io:println(getReqMove(depth) + "dont found result for: " + item);
                             if (isFound) {
-                                //the tokener also release tokens but the try fail
-                                io:println(getReqMove(depth) + "----------CRITICAL FAIL!!!!----------");
-                                int err = 1/0;
+                            //the tokener also release tokens but the try fail
+                            //io:println(getReqMove(depth) + "----------CRITICAL FAIL!!!!----------");
+                            //int err = 1 / 0;
                             }
                             return false;
                         }
                     }
                 }
-                io:println(getReqMove(depth) + "found result by role (maybe empety also) for: " + item);
+                //io:println(getReqMove(depth) + "found result by role (maybe empety also) for: " + item);
                 isFound = true;
             } else {
                 foreach var i in <json[]>item {
                     if (i is string) {
-                        io:println(getReqMove(depth) + "recurcive call optional item in list: " + i);
-                        error|xmllib:Element?| boolean res = self.recurcive(i, depth + 1, false);
-                        if (res is boolean && res) {
-                            io:println(getReqMove(depth) + i);
+                        //io:println(getReqMove(depth) + "recurcive call optional item in list: " + i);
+                        error|Node|boolean res = self.recurcive(i, depth + 1, false);
+                        if (res is Node) {
+                            node.addChild(res);
+                            //io:println(getReqMove(depth) + i);
                             isFound = true;
                             //if found maching we must return beacuse the tokener release next token and maybe it stolen by next diqduq..
                             break;
@@ -105,12 +142,12 @@ public type Tree object {
                 }
             }
         }
-        io:println(getReqMove(depth) + "finish func with found: " + isFound.toString());
-        return isFound;
+        //io:println(getReqMove(depth) + "finish func with found: " + isFound.toString());
+        return isFound ? node : false;
     }
 };
 
-public type T object {
+public type TokenReader object {
     private string[]|boolean current = false;
     private string[][] tokens = [];
     private int counter = 1;
@@ -140,12 +177,12 @@ public type T object {
         return self.current;
     }
     public function releaseCurrent(int depth) {
-        io:println(getReqMove(depth) + "success(" + self.counter.toString() + "): " + self.current.toString());
+        //io:println(getReqMove(depth) + "success(" + self.counter.toString() + "): " + self.current.toString());
         if (self.tokens.length() > 0) {
             self.current = self.tokens[0];
             self.tokens = self.tokens.slice(1);
             self.counter += 1;
-            io:println(getReqMove(depth) + "next(" + self.counter.toString() + "): " + self.current.toString());
+        //io:println(getReqMove(depth) + "next(" + self.counter.toString() + "): " + self.current.toString());
         } else {
             self.current = false;
         }
@@ -163,7 +200,7 @@ public type T object {
 
         var result = rch.close();
         if (result is error) {
-            io:println("Error occurred while closing character stream");
+        //io:println("Error occurred while closing character stream");
         }
         return xmlResult;
     }
@@ -182,3 +219,42 @@ public function getTranslateFileAsString(string translate) returns @tainted stri
     }
     return "";
 }
+
+public type Node object {
+    private Node? parent = ();
+    private Node[] childeren = [];
+    public string value = "";
+    public string name = "";
+    public function __init(string value, string name = "") {
+        self.name = name;
+        self.value = value;
+    }
+    function isLeaf() returns boolean {
+        return self.childeren.length() == 0;
+    }
+    function setParent(Node parent) {
+        self.parent = parent;
+    }
+    function getChilderen() returns Node[] {
+        return self.childeren;
+    }
+    function addChild(Node child) {
+        child.setParent(self);
+        self.childeren.push(child);
+    }
+    function print() returns string {
+        if (!self.isLeaf()) {
+            string res = "<" + self.value + ">";
+            foreach var child in self.childeren {
+                res += child.print();
+            }
+            res += "</" + self.value + ">";
+            return res;
+        } else {
+            string res = stringutils:replaceAll(self.value, "&", "&amp;");
+            res = stringutils:replaceAll(res, "<", "&lt;");
+            res = stringutils:replaceAll(res, "<", "&gt;");
+            return "<" + self.name + ">" + res + "</" + self.name + ">";
+        }
+    }
+};
