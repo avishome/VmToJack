@@ -69,8 +69,6 @@ public function main(string... args) {
             }
         }
     }
-    fileReader:Reader|error reader = new ("files/main.jack");
-    string writePath = "./files/sample.xml";
 }
 
 
@@ -142,9 +140,11 @@ public type Tokenizer object {
     private int row = 1;
     private int fromRowStart = 0;
     private string[] buffer = [];
+    
     public function __init(fileReader:Reader reader) returns @tainted error? {
         self.reader = reader;
     }
+
     public function getNextToken() returns @tainted Token {
         self.readWhiteChar();
         boolean gotDiv = self.removeComments();
@@ -208,7 +208,6 @@ public type Tokenizer object {
         if (self.matchWord(")")) {
             return self.handle0Args(SYMBOL, ")");
         }
-
         if (self.matchWord("return")) {
             return self.handle0Args(KEYWORD, "return");
         }
@@ -294,6 +293,7 @@ public type Tokenizer object {
         }
         return {tokenType: ERROR, arg1: self.row, arg2: self.fromRowStart};
     }
+
     function handle0Args(TOKEN_TYPE aType, string arg1) returns @tainted Token {
         return {tokenType: aType, arg1: arg1, arg2: self.row, arg3: self.fromRowStart};
     }
@@ -321,7 +321,6 @@ public type Tokenizer object {
         }
         return false;
     }
-
 
     function readWhiteChar() {
         string|boolean char = self.getNextChar();
@@ -432,6 +431,7 @@ public type Tokenizer object {
         }
         return true;
     }
+
     function readWord() returns @tainted boolean|[string, string] {
         string word = "";
         while (true) {
@@ -459,6 +459,7 @@ public type Tokenizer object {
         }
         return false;
     }
+
     function getNextChar() returns @tainted string|boolean {
         if (self.buffer.length() > 0) {
             string char = self.buffer[0];
@@ -484,16 +485,6 @@ public type Tokenizer object {
     }
 };
 
-function isIn(string char, string[] chars) returns boolean {
-    boolean res = false;
-    foreach string c in chars {
-        if (c == char) {
-            return true;
-        }
-    }
-    return false;
-}
-
 function toArray(string str) returns string[] {
     string[] array = [];
     foreach string c in str {
@@ -502,18 +493,14 @@ function toArray(string str) returns string[] {
     return array;
 }
 
-function log(any|error content) {
-    io:println(content);
-}
 public function write(string content, string path) returns @tainted int|error? {
-
     io:WritableByteChannel wbc = check io:openWritableFile(path);
-
     io:WritableCharacterChannel wch = new (wbc, "UTF8");
     var result = wch.write(content, 0);
     closeWc(wch);
     return result;
 }
+
 public function closeWc(io:WritableCharacterChannel wc) {
     var result = wc.close();
     if (result is error) {

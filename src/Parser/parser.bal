@@ -18,14 +18,9 @@ public function main(string... args) {
             foreach file:FileInfo item in readDirResults {
                 if (item.getName().endsWith("T.xml")) {
                     io:println("Proccessing file: " + item.getName());
-
-                    Parser|error tree = new (<@untained>args[0] + "/" + item.getName());
-
-                    if (tree is Parser) {
-                        //io:println(tree.addr("class").toJsonString());
-                        //io:println(tree.tokener.getCurrent().toString());
-                        var root = tree.recurcive("class", 0);
-                        //io:println(i);
+                    Parser|error parser = new (<@untained>args[0] + "/" + item.getName());
+                    if (parser is Parser) {
+                        var root = parser.recurcive("class");
                         if (root is Node) {
                             root.cleanSubtree();
                             string xmlFile = root.printXML();
@@ -39,14 +34,10 @@ public function main(string... args) {
             }
         }
     }
-
-
 }
 
 public function write(string content, string path) returns @tainted int|error? {
-
     io:WritableByteChannel wbc = check io:openWritableFile(path);
-
     io:WritableCharacterChannel wch = new (wbc, "UTF8");
     var result = wch.write(content, 0);
     closeWc(wch);
@@ -56,20 +47,9 @@ public function write(string content, string path) returns @tainted int|error? {
 public function closeWc(io:WritableCharacterChannel wc) {
     var result = wc.close();
     if (result is error) {
-    //io:print("Error occurred while closing character stream");
+        io:print("Error occurred while closing character stream");
     }
 }
-
-function getReqMove(int num) returns string {
-    string s = "";
-    int n = num;
-    while (n > 0) {
-        s += "| ";
-        n -= 1;
-    }
-    return s;
-}
-
 
 public type Parser object {
     private map<json> addrMap;
@@ -86,7 +66,7 @@ public type Parser object {
     public function addrExist(string key) returns boolean {
         return self.addrMap.hasKey(key);
     }
-    public function recurcive(string key, int depth, boolean inDic = true) returns @tainted error|Node|boolean {
+    public function recurcive(string key, boolean inDic = true) returns @tainted error|Node|boolean {
         boolean isFound = false;
         Node node = new (key);
         json diqduq;
@@ -115,12 +95,11 @@ public type Parser object {
                             } else {
                                 node = child;
                             }
-                            self.tokener.releaseCurrent(depth);
+                            self.tokener.releaseCurrent();
                             continue;
                         }
                         if (self.addrExist(itemInWord)) {
-                            //io:println(getReqMove(depth) + "recurcive call for dict: " + item);
-                            error|Node|boolean res = self.recurcive(itemInWord, depth + 1);
+                            error|Node|boolean res = self.recurcive(itemInWord);
                             if (res is Node) {
                                 if (inDic) {
                                     node.addChild(res);
@@ -131,42 +110,31 @@ public type Parser object {
                             }
 
                         }
-                        //
-
-
                         if (typeOfItem == "*" || typeOfItem == "?") {
                             break;
                         }
                         if (typeOfItem == "R") {
-                            //io:println(getReqMove(depth) + "dont found result for: " + item);
                             if (isFound) {
-                            //the tokener also release tokens but the try fail
-                            //io:println(getReqMove(depth) + "----------CRITICAL FAIL!!!!----------");
-                            //int err = 1 / 0;
+                                io:println("----------CRITICAL FAIL!!!!----------");
                             }
                             return false;
                         }
                     }
                 }
-                //io:println(getReqMove(depth) + "found result by role (maybe empety also) for: " + item);
                 isFound = true;
             } else {
                 foreach var i in <json[]>item {
                     if (i is string) {
-                        //io:println(getReqMove(depth) + "recurcive call optional item in list: " + i);
-                        error|Node|boolean res = self.recurcive(i, depth + 1, false);
+                        error|Node|boolean res = self.recurcive(i, false);
                         if (res is Node) {
                             node.addChild(res);
-                            //io:println(getReqMove(depth) + i);
                             isFound = true;
-                            //if found maching we must return beacuse the tokener release next token and maybe it stolen by next diqduq..
                             break;
                         }
                     }
                 }
             }
         }
-        //io:println(getReqMove(depth) + "finish func with found: " + isFound.toString());
         return isFound ? node : false;
     }
 };
@@ -200,31 +168,22 @@ public type TokenReader object {
     public function getCurrent() returns @tainted string[]|boolean {
         return self.current;
     }
-    public function releaseCurrent(int depth) {
-        //io:println(getReqMove(depth) + "success(" + self.counter.toString() + "): " + self.current.toString());
+    public function releaseCurrent() {
         if (self.tokens.length() > 0) {
             self.current = self.tokens[0];
             self.tokens = self.tokens.slice(1);
             self.counter += 1;
-        //io:println(getReqMove(depth) + "next(" + self.counter.toString() + "): " + self.current.toString());
         } else {
             self.current = false;
         }
     }
-    public function getCounter() returns int {
-        return self.counter;
-    }
-    public function readXml(string path) returns @tainted xml|error {
-
+    private function readXml(string path) returns @tainted xml|error {
         io:ReadableByteChannel rbc = check io:openReadableFile(path);
-
         io:ReadableCharacterChannel rch = new (rbc, "UTF8");
-
         var xmlResult = rch.readXml();
-
         var result = rch.close();
         if (result is error) {
-        //io:println("Error occurred while closing character stream");
+            io:println("Error occurred while closing character stream");
         }
         return xmlResult;
     }
@@ -253,6 +212,34 @@ public type Node object {
         self.name = name;
         self.value = value;
     }
+
+    public function isLeaf() returns boolean {
+        return self.childeren.length() == 0;
+    }
+
+    public function getChilderen() returns Node[] {
+        return self.childeren;
+    }
+
+    public function addChild(Node child) {
+        child.setParent(self);
+        self.childeren.push(child);
+    }
+
+    public function printXML() returns string {
+        return self.printSubTree(0);
+    }
+
+    public function cleanSubtree() {
+        Node[] newChildren = [];
+        foreach var child in self.childeren {
+            foreach var c in child.getCleardChilderen() {
+                newChildren.push(c);
+            }
+        }
+        self.childeren = newChildren;
+    }
+
     private function getCleardChilderen() returns Node[] {
         Node[] newChildren = [];
         string[] toRemove = ["unaryOp", "subterm3", "subterm2", "subsubexpressionList", "keywordConstant", "subsubroutineCall1", "type", "subClassVarDec", "className", "parameterList1", "subparameterList", "subexpression", "op", "subletStatement", "subtemp1", "subvarDec", "statement", "subVarName", "subVarName1", "subroutineCall", "subsubroutineCall2", "subroutineName", "subexpressionList"];
@@ -269,65 +256,36 @@ public type Node object {
         }
     }
 
-    public function cleanSubtree() {
-        Node[] newChildren = [];
-        foreach var child in self.childeren {
-            foreach var c in child.getCleardChilderen() {
-                newChildren.push(c);
-            }
-        }
-        self.childeren = newChildren;
-    }
-    public function isLeaf() returns boolean {
-        return self.childeren.length() == 0;
-    }
-    public function setParent(Node parent) {
+    private function setParent(Node parent) {
         self.parent = parent;
     }
-    public function getChilderen() returns Node[] {
-        return self.childeren;
+
+    private function getOffset(int num) returns string {
+        string s = "";
+        int n = num;
+        while (n > 0) {
+            s += "\t";
+            n -= 1;
+        }
+        return s;
     }
-    public function addChild(Node child) {
-        child.setParent(self);
-        self.childeren.push(child);
-    }
-    public function printXML() returns string {
-        return self.printSubTree(0);
-    }
-    public function printSubTree(int depth) returns string {
+
+    private function printSubTree(int depth) returns string {
         if (!self.isLeaf()) {
-            string res = getOffset(depth) + "<" + self.name + ">\n";
+            string res = self.getOffset(depth) + "<" + self.name + ">\n";
             foreach var child in self.childeren {
                 res += child.printSubTree(depth + 1);
             }
-            res += getOffset(depth) + "</" + self.name + ">\n";
+            res += self.getOffset(depth) + "</" + self.name + ">\n";
             return res;
         } else {
             string res = stringutils:replaceAll(self.value, "&", "&amp;");
             res = stringutils:replaceAll(res, "<", "&lt;");
             res = stringutils:replaceAll(res, ">", "&gt;");
             if (res == "") {
-                res = "\n" + getOffset(depth);
+                res = "\n" + self.getOffset(depth);
             }
-            return getOffset(depth) + "<" + self.name + ">" + res + "</" + self.name + ">\n";
+            return self.getOffset(depth) + "<" + self.name + ">" + res + "</" + self.name + ">\n";
         }
-    //string ch = "";
-    //if (!self.isLeaf()) {
-    //    foreach var child in self.childeren {
-    ////ch += child.print(i + 1);
-    //    }
-    //}
-    //return getReqMove(i) + "{name:" + self.name + " ,value:" + self.value + " }\n" + ch;
     }
 };
-
-function getOffset(int num) returns string {
-    string s = "";
-    int n = num;
-    while (n > 0) {
-        s += "\t";
-        n -= 1;
-    }
-    return s;
-}
-
