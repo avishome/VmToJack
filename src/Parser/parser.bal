@@ -30,7 +30,9 @@ public function main(string... args) {
                             root.cleanSubtree();
                             string xmlFile = root.printXML();
                             var wResult = write(xmlFile, <@untained>args[0] + "/" + item.getName().substring(0, <int>item.getName().lastIndexOf("T.")) + ".xml");
-                            io:println(wResult);
+                            if (wResult is error) {
+                                io:println(wResult);
+                            }
                         }
                     }
                 }
@@ -304,6 +306,9 @@ public type Node object {
             string res = stringutils:replaceAll(self.value, "&", "&amp;");
             res = stringutils:replaceAll(res, "<", "&lt;");
             res = stringutils:replaceAll(res, ">", "&gt;");
+            if (res == "") {
+                res = "\n" + getOffset(depth);
+            }
             return getOffset(depth) + "<" + self.name + ">" + res + "</" + self.name + ">\n";
         }
     //string ch = "";
