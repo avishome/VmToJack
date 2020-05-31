@@ -8,7 +8,7 @@ import ballerina/stringutils;
 
 public function main(string... args) {
     if (args.length() < 1) {
-        io:println("Please enter a source file");
+        io:println("Please enter a source folder");
     } else {
         file:FileInfo[]|error readDirResults = file:readDir(<@untained>args[0]);
         if (readDirResults is error) {
@@ -21,27 +21,31 @@ public function main(string... args) {
                     io:println("Proccessing file: " + item.getName());
                     xmllib:Element tokens = <xmllib:Element>xml `<tokens/>`;
                     xml listxml = xml ` `;
+                    string output = "<tokens>\n";
                     fileReader:Reader|error reader = new (<@untained>args[0] + "/" + item.getName());
                     if (reader is fileReader:Reader) {
                         Tokenizer|error parser = new (reader);
                         if (parser is Tokenizer) {
                             while (true) {
                                 Token token = parser.getNextToken();
+                                string res = stringutils:replaceAll(token["arg1"].toString(), "&", "&amp;");
+                                res = stringutils:replaceAll(res, "<", "&lt;");
+                                res = stringutils:replaceAll(res, ">", "&gt;");
                                 match token.tokenType {
                                     "SYMBOL" => {
-                                        listxml = listxml + (xml `<symbol>${token["arg1"].toString()}</symbol>`);
+                                        output = output + "\t<symbol>" + res + "</symbol>\n";
                                     }
                                     "KEYWORD" => {
-                                        listxml = listxml + (xml `<keyword>${token["arg1"].toString()}</keyword>`);
+                                        output = output + "\t<keyword>" + res + "</keyword>\n";
                                     }
                                     "IDENTIFIER" => {
-                                        listxml = listxml + (xml `<identifier>${token["arg1"].toString()}</identifier>`);
+                                        output = output + "\t<identifier>" + res + "</identifier>\n";
                                     }
                                     "INTEGER_CONSTANT" => {
-                                        listxml = listxml + (xml `<integerConstant>${token["arg1"].toString()}</integerConstant>`);
+                                        output = output + "\t<integerConstant>" + res + "</integerConstant>\n";
                                     }
                                     "STRING_CONSTANT" => {
-                                        listxml = listxml + (xml `<stringConstant>${token["arg1"].toString()}</stringConstant>`);
+                                        output = output + "\t<stringConstant>" + res + "</stringConstant>\n";
                                     }
                                 }
                                 if (token.tokenType == EOF || token.tokenType == ERROR) {
@@ -56,8 +60,8 @@ public function main(string... args) {
                             io:println(parser);
                         }
                     }
-                    tokens.setChildren(listxml);
-                    var wResult = write(tokens, <@untained>args[0] + "/" + item.getName().substring(0, <int>item.getName().lastIndexOf(".")) + ".xml");
+                    output += "</tokens>";
+                    var wResult = write(output, <@untained>args[0] + "/" + item.getName().substring(0, <int>item.getName().lastIndexOf(".")) + "T.xml");
                     if (wResult is error) {
                         log:printError("Error occurred while writing xml: ", wResult);
                     }
@@ -501,13 +505,12 @@ function toArray(string str) returns string[] {
 function log(any|error content) {
     io:println(content);
 }
-public function write(xml content, string path) returns @tainted error? {
+public function write(string content, string path) returns @tainted int|error? {
 
     io:WritableByteChannel wbc = check io:openWritableFile(path);
 
     io:WritableCharacterChannel wch = new (wbc, "UTF8");
-    var result = wch.writeXml(content);
-
+    var result = wch.write(content, 0);
     closeWc(wch);
     return result;
 }

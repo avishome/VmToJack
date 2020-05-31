@@ -1,21 +1,41 @@
 import fileReader;
+import ballerina/file;
 import ballerina/io;
 import ballerina/lang.'xml as xmllib;
 import ballerina/stringutils;
 
-public function main() {
-    Parser|error tree = new ();
 
-    if (tree is Parser) {
-        //io:println(tree.addr("class").toJsonString());
-        //io:println(tree.tokener.getCurrent().toString());
-        var i = tree.recurcive("class", 0);
-        if (i is Node) {
-            string xmlFile = i.print();
-            var wResult = write(xmlFile, "files/test.xml");
+public function main(string... args) {
+    if (args.length() < 1) {
+        io:println("Please enter a source folder");
+    } else {
+        file:FileInfo[]|error readDirResults = file:readDir(<@untained>args[0]);
+        if (readDirResults is error) {
+            io:println(readDirResults);
+            return;
+        } else {
+            string code = "";
+            foreach file:FileInfo item in readDirResults {
+                if (item.getName().endsWith("T.xml")) {
+                    io:println("Proccessing file: " + item.getName());
 
+                    Parser|error tree = new (<@untained>args[0] + "/" + item.getName());
+
+                    if (tree is Parser) {
+                        //io:println(tree.addr("class").toJsonString());
+                        //io:println(tree.tokener.getCurrent().toString());
+                        var root = tree.recurcive("class", 0);
+                        //io:println(i);
+                        if (root is Node) {
+                            root.cleanSubtree();
+                            string xmlFile = root.printXML();
+                            var wResult = write(xmlFile, <@untained>args[0] + "/" + item.getName().substring(0, <int>item.getName().lastIndexOf("T.")) + ".xml");
+                            io:println(wResult);
+                        }
+                    }
+                }
+            }
         }
-
     }
 
 
@@ -34,7 +54,7 @@ public function write(string content, string path) returns @tainted int|error? {
 public function closeWc(io:WritableCharacterChannel wc) {
     var result = wc.close();
     if (result is error) {
-        io:print("Error occurred while closing character stream");
+    //io:print("Error occurred while closing character stream");
     }
 }
 
@@ -52,8 +72,8 @@ function getReqMove(int num) returns string {
 public type Parser object {
     private map<json> addrMap;
     public TokenReader tokener;
-    public function __init() returns @tainted error? {
-        self.tokener = checkpanic new ();
+    public function __init(string file) returns @tainted error? {
+        self.tokener = checkpanic new (file);
         string FullFile = getTranslateFileAsString("files/diqduq.json");
         json js = checkpanic FullFile.fromJsonString();
         self.addrMap = <map<json>>js;
@@ -87,7 +107,7 @@ public type Parser object {
                     string[]|boolean correnttoken = self.tokener.getCurrent();
                     if (correnttoken is string[]) {
                         if (itemInWord == correnttoken[0] || itemInWord == correnttoken[1]) {
-                            Node child = new (correnttoken[1], correnttoken[0]);
+                            Node child = new (correnttoken[0], correnttoken[1]);
                             if (inDic) {
                                 node.addChild(child);
                             } else {
@@ -110,6 +130,8 @@ public type Parser object {
 
                         }
                         //
+
+
                         if (typeOfItem == "*" || typeOfItem == "?") {
                             break;
                         }
@@ -151,8 +173,8 @@ public type TokenReader object {
     private string[]|boolean current = false;
     private string[][] tokens = [];
     private int counter = 1;
-    public function __init() returns @tainted error? {
-        xml|error tokens = self.readXml("files/Main.xml");
+    public function __init(string file) returns @tainted error? {
+        xml|error tokens = self.readXml(file);
         if (tokens is error) {
             return tokens;
         } else {
@@ -223,38 +245,84 @@ public function getTranslateFileAsString(string translate) returns @tainted stri
 public type Node object {
     private Node? parent = ();
     private Node[] childeren = [];
-    public string value = "";
-    public string name = "";
-    public function __init(string value, string name = "") {
+    private string value = "";
+    private string name = "";
+    public function __init(string name, string value = "") {
         self.name = name;
         self.value = value;
     }
-    function isLeaf() returns boolean {
+    private function getCleardChilderen() returns Node[] {
+        Node[] newChildren = [];
+        string[] toRemove = ["unaryOp", "subterm3", "subterm2", "subsubexpressionList", "keywordConstant", "subsubroutineCall1", "type", "subClassVarDec", "className", "parameterList1", "subparameterList", "subexpression", "op", "subletStatement", "subtemp1", "subvarDec", "statement", "subVarName", "subVarName1", "subroutineCall", "subsubroutineCall2", "subroutineName", "subexpressionList"];
+        foreach var child in self.childeren {
+            foreach var c in child.getCleardChilderen() {
+                newChildren.push(c);
+            }
+        }
+        if (toRemove.indexOf(self.name) != ()) {
+            return newChildren;
+        } else {
+            self.childeren = newChildren;
+            return [self];
+        }
+    }
+
+    public function cleanSubtree() {
+        Node[] newChildren = [];
+        foreach var child in self.childeren {
+            foreach var c in child.getCleardChilderen() {
+                newChildren.push(c);
+            }
+        }
+        self.childeren = newChildren;
+    }
+    public function isLeaf() returns boolean {
         return self.childeren.length() == 0;
     }
-    function setParent(Node parent) {
+    public function setParent(Node parent) {
         self.parent = parent;
     }
-    function getChilderen() returns Node[] {
+    public function getChilderen() returns Node[] {
         return self.childeren;
     }
-    function addChild(Node child) {
+    public function addChild(Node child) {
         child.setParent(self);
         self.childeren.push(child);
     }
-    function print() returns string {
+    public function printXML() returns string {
+        return self.printSubTree(0);
+    }
+    public function printSubTree(int depth) returns string {
         if (!self.isLeaf()) {
-            string res = "<" + self.value + ">";
+            string res = getOffset(depth) + "<" + self.name + ">\n";
             foreach var child in self.childeren {
-                res += child.print();
+                res += child.printSubTree(depth + 1);
             }
-            res += "</" + self.value + ">";
+            res += getOffset(depth) + "</" + self.name + ">\n";
             return res;
         } else {
             string res = stringutils:replaceAll(self.value, "&", "&amp;");
             res = stringutils:replaceAll(res, "<", "&lt;");
-            res = stringutils:replaceAll(res, "<", "&gt;");
-            return "<" + self.name + ">" + res + "</" + self.name + ">";
+            res = stringutils:replaceAll(res, ">", "&gt;");
+            return getOffset(depth) + "<" + self.name + ">" + res + "</" + self.name + ">\n";
         }
+    //string ch = "";
+    //if (!self.isLeaf()) {
+    //    foreach var child in self.childeren {
+    ////ch += child.print(i + 1);
+    //    }
+    //}
+    //return getReqMove(i) + "{name:" + self.name + " ,value:" + self.value + " }\n" + ch;
     }
 };
+
+function getOffset(int num) returns string {
+    string s = "";
+    int n = num;
+    while (n > 0) {
+        s += "\t";
+        n -= 1;
+    }
+    return s;
+}
+
