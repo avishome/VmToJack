@@ -1,643 +1,643 @@
 <class>
-	<keyword>class</keyword>
-	<identifier>SquareGame</identifier>
-	<symbol>{</symbol>
+	<keyword row="15" col="5" >class</keyword>
+	<identifier row="15" col="17" >SquareGame</identifier>
+	<symbol row="15" col="18" >{</symbol>
 	<classVarDec>
-		<keyword>field</keyword>
-		<identifier>Square</identifier>
-		<identifier>square</identifier>
-		<symbol>;</symbol>
+		<keyword row="18" col="9" >field</keyword>
+		<identifier row="18" col="17" >Square</identifier>
+		<identifier row="18" col="24" >square</identifier>
+		<symbol row="18" col="24" >;</symbol>
 	</classVarDec>
 	<classVarDec>
-		<keyword>field</keyword>
-		<keyword>int</keyword>
-		<identifier>direction</identifier>
-		<symbol>;</symbol>
+		<keyword row="21" col="9" >field</keyword>
+		<keyword row="21" col="13" >int</keyword>
+		<identifier row="21" col="24" >direction</identifier>
+		<symbol row="21" col="24" >;</symbol>
 	</classVarDec>
 	<subroutineDec>
-		<keyword>constructor</keyword>
-		<identifier>SquareGame</identifier>
-		<identifier>new</identifier>
-		<symbol>(</symbol>
+		<keyword row="24" col="15" >constructor</keyword>
+		<identifier row="24" col="27" >SquareGame</identifier>
+		<identifier row="24" col="31" >new</identifier>
+		<symbol row="24" col="31" >(</symbol>
 		<parameterList>
 		</parameterList>
-		<symbol>)</symbol>
+		<symbol row="24" col="32" >)</symbol>
 		<subroutineBody>
-			<symbol>{</symbol>
+			<symbol row="24" col="34" >{</symbol>
 			<statements>
 				<letStatement>
-					<keyword>let</keyword>
-					<identifier>square</identifier>
-					<symbol>=</symbol>
+					<keyword row="25" col="11" >let</keyword>
+					<identifier row="25" col="19" >square</identifier>
+					<symbol row="25" col="20" >=</symbol>
 					<expression>
 						<term>
-							<identifier>Square</identifier>
-							<symbol>.</symbol>
-							<identifier>new</identifier>
-							<symbol>(</symbol>
+							<identifier row="25" col="28" >Square</identifier>
+							<symbol row="25" col="28" >.</symbol>
+							<identifier row="25" col="32" >new</identifier>
+							<symbol row="25" col="32" >(</symbol>
 							<expressionList>
 								<expression>
 									<term>
-										<integerConstant>0</integerConstant>
+										<integerConstant row="25" col="34" >0</integerConstant>
 									</term>
 								</expression>
-								<symbol>,</symbol>
+								<symbol row="25" col="34" >,</symbol>
 								<expression>
 									<term>
-										<integerConstant>0</integerConstant>
+										<integerConstant row="25" col="37" >0</integerConstant>
 									</term>
 								</expression>
-								<symbol>,</symbol>
+								<symbol row="25" col="37" >,</symbol>
 								<expression>
 									<term>
-										<integerConstant>30</integerConstant>
+										<integerConstant row="25" col="41" >30</integerConstant>
 									</term>
 								</expression>
 							</expressionList>
-							<symbol>)</symbol>
+							<symbol row="25" col="41" >)</symbol>
 						</term>
 					</expression>
-					<symbol>;</symbol>
+					<symbol row="25" col="42" >;</symbol>
 				</letStatement>
 				<letStatement>
-					<keyword>let</keyword>
-					<identifier>direction</identifier>
-					<symbol>=</symbol>
+					<keyword row="26" col="11" >let</keyword>
+					<identifier row="26" col="22" >direction</identifier>
+					<symbol row="26" col="23" >=</symbol>
 					<expression>
 						<term>
-							<integerConstant>0</integerConstant>
+							<integerConstant row="26" col="26" >0</integerConstant>
 						</term>
 					</expression>
-					<symbol>;</symbol>
+					<symbol row="26" col="26" >;</symbol>
 				</letStatement>
 				<returnStatement>
-					<keyword>return</keyword>
+					<keyword row="28" col="14" >return</keyword>
 					<expression>
 						<term>
-							<keyword>this</keyword>
+							<keyword row="28" col="19" >this</keyword>
 						</term>
 					</expression>
-					<symbol>;</symbol>
+					<symbol row="28" col="20" >;</symbol>
 				</returnStatement>
 			</statements>
-			<symbol>}</symbol>
+			<symbol row="29" col="5" >}</symbol>
 		</subroutineBody>
 	</subroutineDec>
 	<subroutineDec>
-		<keyword>method</keyword>
-		<keyword>void</keyword>
-		<identifier>dispose</identifier>
-		<symbol>(</symbol>
+		<keyword row="32" col="10" >method</keyword>
+		<keyword row="32" col="15" >void</keyword>
+		<identifier row="32" col="24" >dispose</identifier>
+		<symbol row="32" col="24" >(</symbol>
 		<parameterList>
 		</parameterList>
-		<symbol>)</symbol>
+		<symbol row="32" col="25" >)</symbol>
 		<subroutineBody>
-			<symbol>{</symbol>
+			<symbol row="32" col="27" >{</symbol>
 			<statements>
 				<doStatement>
-					<keyword>do</keyword>
-					<identifier>square</identifier>
-					<symbol>.</symbol>
-					<identifier>dispose</identifier>
-					<symbol>(</symbol>
+					<keyword row="33" col="10" >do</keyword>
+					<identifier row="33" col="18" >square</identifier>
+					<symbol row="33" col="18" >.</symbol>
+					<identifier row="33" col="26" >dispose</identifier>
+					<symbol row="33" col="26" >(</symbol>
 					<expressionList>
 					</expressionList>
-					<symbol>)</symbol>
-					<symbol>;</symbol>
+					<symbol row="33" col="27" >)</symbol>
+					<symbol row="33" col="28" >;</symbol>
 				</doStatement>
 				<doStatement>
-					<keyword>do</keyword>
-					<identifier>Memory</identifier>
-					<symbol>.</symbol>
-					<identifier>deAlloc</identifier>
-					<symbol>(</symbol>
+					<keyword row="34" col="10" >do</keyword>
+					<identifier row="34" col="18" >Memory</identifier>
+					<symbol row="34" col="18" >.</symbol>
+					<identifier row="34" col="26" >deAlloc</identifier>
+					<symbol row="34" col="26" >(</symbol>
 					<expressionList>
 						<expression>
 							<term>
-								<keyword>this</keyword>
+								<keyword row="34" col="30" >this</keyword>
 							</term>
 						</expression>
 					</expressionList>
-					<symbol>)</symbol>
-					<symbol>;</symbol>
+					<symbol row="34" col="31" >)</symbol>
+					<symbol row="34" col="32" >;</symbol>
 				</doStatement>
 				<returnStatement>
-					<keyword>return</keyword>
-					<symbol>;</symbol>
+					<keyword row="35" col="14" >return</keyword>
+					<symbol row="35" col="15" >;</symbol>
 				</returnStatement>
 			</statements>
-			<symbol>}</symbol>
+			<symbol row="36" col="5" >}</symbol>
 		</subroutineBody>
 	</subroutineDec>
 	<subroutineDec>
-		<keyword>method</keyword>
-		<keyword>void</keyword>
-		<identifier>run</identifier>
-		<symbol>(</symbol>
+		<keyword row="40" col="10" >method</keyword>
+		<keyword row="40" col="15" >void</keyword>
+		<identifier row="40" col="20" >run</identifier>
+		<symbol row="40" col="20" >(</symbol>
 		<parameterList>
 		</parameterList>
-		<symbol>)</symbol>
+		<symbol row="40" col="21" >)</symbol>
 		<subroutineBody>
-			<symbol>{</symbol>
+			<symbol row="40" col="23" >{</symbol>
 			<varDec>
-				<keyword>var</keyword>
-				<keyword>char</keyword>
-				<identifier>key</identifier>
-				<symbol>;</symbol>
+				<keyword row="41" col="11" >var</keyword>
+				<keyword row="41" col="16" >char</keyword>
+				<identifier row="41" col="21" >key</identifier>
+				<symbol row="41" col="21" >;</symbol>
 			</varDec>
 			<varDec>
-				<keyword>var</keyword>
-				<keyword>boolean</keyword>
-				<identifier>exit</identifier>
-				<symbol>;</symbol>
+				<keyword row="42" col="11" >var</keyword>
+				<keyword row="42" col="19" >boolean</keyword>
+				<identifier row="42" col="25" >exit</identifier>
+				<symbol row="42" col="25" >;</symbol>
 			</varDec>
 			<statements>
 				<letStatement>
-					<keyword>let</keyword>
-					<identifier>exit</identifier>
-					<symbol>=</symbol>
+					<keyword row="44" col="11" >let</keyword>
+					<identifier row="44" col="17" >exit</identifier>
+					<symbol row="44" col="18" >=</symbol>
 					<expression>
 						<term>
-							<keyword>false</keyword>
+							<keyword row="44" col="24" >false</keyword>
 						</term>
 					</expression>
-					<symbol>;</symbol>
+					<symbol row="44" col="25" >;</symbol>
 				</letStatement>
 				<whileStatement>
-					<keyword>while</keyword>
-					<symbol>(</symbol>
+					<keyword row="46" col="13" >while</keyword>
+					<symbol row="46" col="15" >(</symbol>
 					<expression>
 						<term>
-							<symbol>~</symbol>
+							<symbol row="46" col="16" >~</symbol>
 							<term>
-								<identifier>exit</identifier>
+								<identifier row="46" col="21" >exit</identifier>
 							</term>
 						</term>
 					</expression>
-					<symbol>)</symbol>
-					<symbol>{</symbol>
+					<symbol row="46" col="21" >)</symbol>
+					<symbol row="46" col="23" >{</symbol>
 					<statements>
 						<whileStatement>
-							<keyword>while</keyword>
-							<symbol>(</symbol>
+							<keyword row="48" col="17" >while</keyword>
+							<symbol row="48" col="19" >(</symbol>
 							<expression>
 								<term>
-									<identifier>key</identifier>
+									<identifier row="48" col="23" >key</identifier>
 								</term>
-								<symbol>=</symbol>
+								<symbol row="48" col="24" >=</symbol>
 								<term>
-									<integerConstant>0</integerConstant>
+									<integerConstant row="48" col="27" >0</integerConstant>
 								</term>
 							</expression>
-							<symbol>)</symbol>
-							<symbol>{</symbol>
+							<symbol row="48" col="27" >)</symbol>
+							<symbol row="48" col="29" >{</symbol>
 							<statements>
 								<letStatement>
-									<keyword>let</keyword>
-									<identifier>key</identifier>
-									<symbol>=</symbol>
+									<keyword row="49" col="19" >let</keyword>
+									<identifier row="49" col="24" >key</identifier>
+									<symbol row="49" col="25" >=</symbol>
 									<expression>
 										<term>
-											<identifier>Keyboard</identifier>
-											<symbol>.</symbol>
-											<identifier>keyPressed</identifier>
-											<symbol>(</symbol>
+											<identifier row="49" col="35" >Keyboard</identifier>
+											<symbol row="49" col="35" >.</symbol>
+											<identifier row="49" col="46" >keyPressed</identifier>
+											<symbol row="49" col="46" >(</symbol>
 											<expressionList>
 											</expressionList>
-											<symbol>)</symbol>
+											<symbol row="49" col="47" >)</symbol>
 										</term>
 									</expression>
-									<symbol>;</symbol>
+									<symbol row="49" col="48" >;</symbol>
 								</letStatement>
 								<doStatement>
-									<keyword>do</keyword>
-									<identifier>moveSquare</identifier>
-									<symbol>(</symbol>
+									<keyword row="50" col="18" >do</keyword>
+									<identifier row="50" col="30" >moveSquare</identifier>
+									<symbol row="50" col="30" >(</symbol>
 									<expressionList>
 									</expressionList>
-									<symbol>)</symbol>
-									<symbol>;</symbol>
+									<symbol row="50" col="31" >)</symbol>
+									<symbol row="50" col="32" >;</symbol>
 								</doStatement>
 							</statements>
-							<symbol>}</symbol>
+							<symbol row="51" col="13" >}</symbol>
 						</whileStatement>
 						<ifStatement>
-							<keyword>if</keyword>
-							<symbol>(</symbol>
+							<keyword row="53" col="14" >if</keyword>
+							<symbol row="53" col="16" >(</symbol>
 							<expression>
 								<term>
-									<identifier>key</identifier>
+									<identifier row="53" col="20" >key</identifier>
 								</term>
-								<symbol>=</symbol>
+								<symbol row="53" col="21" >=</symbol>
 								<term>
-									<integerConstant>81</integerConstant>
+									<integerConstant row="53" col="25" >81</integerConstant>
 								</term>
 							</expression>
-							<symbol>)</symbol>
-							<symbol>{</symbol>
+							<symbol row="53" col="25" >)</symbol>
+							<symbol row="53" col="27" >{</symbol>
 							<statements>
 								<letStatement>
-									<keyword>let</keyword>
-									<identifier>exit</identifier>
-									<symbol>=</symbol>
+									<keyword row="54" col="19" >let</keyword>
+									<identifier row="54" col="25" >exit</identifier>
+									<symbol row="54" col="26" >=</symbol>
 									<expression>
 										<term>
-											<keyword>true</keyword>
+											<keyword row="54" col="31" >true</keyword>
 										</term>
 									</expression>
-									<symbol>;</symbol>
+									<symbol row="54" col="32" >;</symbol>
 								</letStatement>
 							</statements>
-							<symbol>}</symbol>
+							<symbol row="55" col="13" >}</symbol>
 						</ifStatement>
 						<ifStatement>
-							<keyword>if</keyword>
-							<symbol>(</symbol>
+							<keyword row="56" col="14" >if</keyword>
+							<symbol row="56" col="16" >(</symbol>
 							<expression>
 								<term>
-									<identifier>key</identifier>
+									<identifier row="56" col="20" >key</identifier>
 								</term>
-								<symbol>=</symbol>
+								<symbol row="56" col="21" >=</symbol>
 								<term>
-									<integerConstant>90</integerConstant>
+									<integerConstant row="56" col="25" >90</integerConstant>
 								</term>
 							</expression>
-							<symbol>)</symbol>
-							<symbol>{</symbol>
+							<symbol row="56" col="25" >)</symbol>
+							<symbol row="56" col="27" >{</symbol>
 							<statements>
 								<doStatement>
-									<keyword>do</keyword>
-									<identifier>square</identifier>
-									<symbol>.</symbol>
-									<identifier>decSize</identifier>
-									<symbol>(</symbol>
+									<keyword row="57" col="18" >do</keyword>
+									<identifier row="57" col="26" >square</identifier>
+									<symbol row="57" col="26" >.</symbol>
+									<identifier row="57" col="34" >decSize</identifier>
+									<symbol row="57" col="34" >(</symbol>
 									<expressionList>
 									</expressionList>
-									<symbol>)</symbol>
-									<symbol>;</symbol>
+									<symbol row="57" col="35" >)</symbol>
+									<symbol row="57" col="36" >;</symbol>
 								</doStatement>
 							</statements>
-							<symbol>}</symbol>
+							<symbol row="58" col="13" >}</symbol>
 						</ifStatement>
 						<ifStatement>
-							<keyword>if</keyword>
-							<symbol>(</symbol>
+							<keyword row="59" col="14" >if</keyword>
+							<symbol row="59" col="16" >(</symbol>
 							<expression>
 								<term>
-									<identifier>key</identifier>
+									<identifier row="59" col="20" >key</identifier>
 								</term>
-								<symbol>=</symbol>
+								<symbol row="59" col="21" >=</symbol>
 								<term>
-									<integerConstant>88</integerConstant>
+									<integerConstant row="59" col="25" >88</integerConstant>
 								</term>
 							</expression>
-							<symbol>)</symbol>
-							<symbol>{</symbol>
+							<symbol row="59" col="25" >)</symbol>
+							<symbol row="59" col="27" >{</symbol>
 							<statements>
 								<doStatement>
-									<keyword>do</keyword>
-									<identifier>square</identifier>
-									<symbol>.</symbol>
-									<identifier>incSize</identifier>
-									<symbol>(</symbol>
+									<keyword row="60" col="18" >do</keyword>
+									<identifier row="60" col="26" >square</identifier>
+									<symbol row="60" col="26" >.</symbol>
+									<identifier row="60" col="34" >incSize</identifier>
+									<symbol row="60" col="34" >(</symbol>
 									<expressionList>
 									</expressionList>
-									<symbol>)</symbol>
-									<symbol>;</symbol>
+									<symbol row="60" col="35" >)</symbol>
+									<symbol row="60" col="36" >;</symbol>
 								</doStatement>
 							</statements>
-							<symbol>}</symbol>
+							<symbol row="61" col="13" >}</symbol>
 						</ifStatement>
 						<ifStatement>
-							<keyword>if</keyword>
-							<symbol>(</symbol>
+							<keyword row="62" col="14" >if</keyword>
+							<symbol row="62" col="16" >(</symbol>
 							<expression>
 								<term>
-									<identifier>key</identifier>
+									<identifier row="62" col="20" >key</identifier>
 								</term>
-								<symbol>=</symbol>
+								<symbol row="62" col="21" >=</symbol>
 								<term>
-									<integerConstant>131</integerConstant>
+									<integerConstant row="62" col="26" >131</integerConstant>
 								</term>
 							</expression>
-							<symbol>)</symbol>
-							<symbol>{</symbol>
+							<symbol row="62" col="26" >)</symbol>
+							<symbol row="62" col="28" >{</symbol>
 							<statements>
 								<letStatement>
-									<keyword>let</keyword>
-									<identifier>direction</identifier>
-									<symbol>=</symbol>
+									<keyword row="63" col="19" >let</keyword>
+									<identifier row="63" col="30" >direction</identifier>
+									<symbol row="63" col="31" >=</symbol>
 									<expression>
 										<term>
-											<integerConstant>1</integerConstant>
+											<integerConstant row="63" col="34" >1</integerConstant>
 										</term>
 									</expression>
-									<symbol>;</symbol>
+									<symbol row="63" col="34" >;</symbol>
 								</letStatement>
 							</statements>
-							<symbol>}</symbol>
+							<symbol row="64" col="13" >}</symbol>
 						</ifStatement>
 						<ifStatement>
-							<keyword>if</keyword>
-							<symbol>(</symbol>
+							<keyword row="65" col="14" >if</keyword>
+							<symbol row="65" col="16" >(</symbol>
 							<expression>
 								<term>
-									<identifier>key</identifier>
+									<identifier row="65" col="20" >key</identifier>
 								</term>
-								<symbol>=</symbol>
+								<symbol row="65" col="21" >=</symbol>
 								<term>
-									<integerConstant>133</integerConstant>
+									<integerConstant row="65" col="26" >133</integerConstant>
 								</term>
 							</expression>
-							<symbol>)</symbol>
-							<symbol>{</symbol>
+							<symbol row="65" col="26" >)</symbol>
+							<symbol row="65" col="28" >{</symbol>
 							<statements>
 								<letStatement>
-									<keyword>let</keyword>
-									<identifier>direction</identifier>
-									<symbol>=</symbol>
+									<keyword row="66" col="19" >let</keyword>
+									<identifier row="66" col="30" >direction</identifier>
+									<symbol row="66" col="31" >=</symbol>
 									<expression>
 										<term>
-											<integerConstant>2</integerConstant>
+											<integerConstant row="66" col="34" >2</integerConstant>
 										</term>
 									</expression>
-									<symbol>;</symbol>
+									<symbol row="66" col="34" >;</symbol>
 								</letStatement>
 							</statements>
-							<symbol>}</symbol>
+							<symbol row="67" col="13" >}</symbol>
 						</ifStatement>
 						<ifStatement>
-							<keyword>if</keyword>
-							<symbol>(</symbol>
+							<keyword row="68" col="14" >if</keyword>
+							<symbol row="68" col="16" >(</symbol>
 							<expression>
 								<term>
-									<identifier>key</identifier>
+									<identifier row="68" col="20" >key</identifier>
 								</term>
-								<symbol>=</symbol>
+								<symbol row="68" col="21" >=</symbol>
 								<term>
-									<integerConstant>130</integerConstant>
+									<integerConstant row="68" col="26" >130</integerConstant>
 								</term>
 							</expression>
-							<symbol>)</symbol>
-							<symbol>{</symbol>
+							<symbol row="68" col="26" >)</symbol>
+							<symbol row="68" col="28" >{</symbol>
 							<statements>
 								<letStatement>
-									<keyword>let</keyword>
-									<identifier>direction</identifier>
-									<symbol>=</symbol>
+									<keyword row="69" col="19" >let</keyword>
+									<identifier row="69" col="30" >direction</identifier>
+									<symbol row="69" col="31" >=</symbol>
 									<expression>
 										<term>
-											<integerConstant>3</integerConstant>
+											<integerConstant row="69" col="34" >3</integerConstant>
 										</term>
 									</expression>
-									<symbol>;</symbol>
+									<symbol row="69" col="34" >;</symbol>
 								</letStatement>
 							</statements>
-							<symbol>}</symbol>
+							<symbol row="70" col="13" >}</symbol>
 						</ifStatement>
 						<ifStatement>
-							<keyword>if</keyword>
-							<symbol>(</symbol>
+							<keyword row="71" col="14" >if</keyword>
+							<symbol row="71" col="16" >(</symbol>
 							<expression>
 								<term>
-									<identifier>key</identifier>
+									<identifier row="71" col="20" >key</identifier>
 								</term>
-								<symbol>=</symbol>
+								<symbol row="71" col="21" >=</symbol>
 								<term>
-									<integerConstant>132</integerConstant>
+									<integerConstant row="71" col="26" >132</integerConstant>
 								</term>
 							</expression>
-							<symbol>)</symbol>
-							<symbol>{</symbol>
+							<symbol row="71" col="26" >)</symbol>
+							<symbol row="71" col="28" >{</symbol>
 							<statements>
 								<letStatement>
-									<keyword>let</keyword>
-									<identifier>direction</identifier>
-									<symbol>=</symbol>
+									<keyword row="72" col="19" >let</keyword>
+									<identifier row="72" col="30" >direction</identifier>
+									<symbol row="72" col="31" >=</symbol>
 									<expression>
 										<term>
-											<integerConstant>4</integerConstant>
+											<integerConstant row="72" col="34" >4</integerConstant>
 										</term>
 									</expression>
-									<symbol>;</symbol>
+									<symbol row="72" col="34" >;</symbol>
 								</letStatement>
 							</statements>
-							<symbol>}</symbol>
+							<symbol row="73" col="13" >}</symbol>
 						</ifStatement>
 						<whileStatement>
-							<keyword>while</keyword>
-							<symbol>(</symbol>
+							<keyword row="76" col="17" >while</keyword>
+							<symbol row="76" col="19" >(</symbol>
 							<expression>
 								<term>
-									<symbol>~</symbol>
+									<symbol row="76" col="20" >~</symbol>
 									<term>
-										<symbol>(</symbol>
+										<symbol row="76" col="21" >(</symbol>
 										<expression>
 											<term>
-												<identifier>key</identifier>
+												<identifier row="76" col="25" >key</identifier>
 											</term>
-											<symbol>=</symbol>
+											<symbol row="76" col="26" >=</symbol>
 											<term>
-												<integerConstant>0</integerConstant>
+												<integerConstant row="76" col="29" >0</integerConstant>
 											</term>
 										</expression>
-										<symbol>)</symbol>
+										<symbol row="76" col="29" >)</symbol>
 									</term>
 								</term>
 							</expression>
-							<symbol>)</symbol>
-							<symbol>{</symbol>
+							<symbol row="76" col="30" >)</symbol>
+							<symbol row="76" col="32" >{</symbol>
 							<statements>
 								<letStatement>
-									<keyword>let</keyword>
-									<identifier>key</identifier>
-									<symbol>=</symbol>
+									<keyword row="77" col="19" >let</keyword>
+									<identifier row="77" col="24" >key</identifier>
+									<symbol row="77" col="25" >=</symbol>
 									<expression>
 										<term>
-											<identifier>Keyboard</identifier>
-											<symbol>.</symbol>
-											<identifier>keyPressed</identifier>
-											<symbol>(</symbol>
+											<identifier row="77" col="35" >Keyboard</identifier>
+											<symbol row="77" col="35" >.</symbol>
+											<identifier row="77" col="46" >keyPressed</identifier>
+											<symbol row="77" col="46" >(</symbol>
 											<expressionList>
 											</expressionList>
-											<symbol>)</symbol>
+											<symbol row="77" col="47" >)</symbol>
 										</term>
 									</expression>
-									<symbol>;</symbol>
+									<symbol row="77" col="48" >;</symbol>
 								</letStatement>
 								<doStatement>
-									<keyword>do</keyword>
-									<identifier>moveSquare</identifier>
-									<symbol>(</symbol>
+									<keyword row="78" col="18" >do</keyword>
+									<identifier row="78" col="30" >moveSquare</identifier>
+									<symbol row="78" col="30" >(</symbol>
 									<expressionList>
 									</expressionList>
-									<symbol>)</symbol>
-									<symbol>;</symbol>
+									<symbol row="78" col="31" >)</symbol>
+									<symbol row="78" col="32" >;</symbol>
 								</doStatement>
 							</statements>
-							<symbol>}</symbol>
+							<symbol row="79" col="13" >}</symbol>
 						</whileStatement>
 					</statements>
-					<symbol>}</symbol>
+					<symbol row="80" col="9" >}</symbol>
 				</whileStatement>
 				<returnStatement>
-					<keyword>return</keyword>
-					<symbol>;</symbol>
+					<keyword row="82" col="14" >return</keyword>
+					<symbol row="82" col="15" >;</symbol>
 				</returnStatement>
 			</statements>
-			<symbol>}</symbol>
+			<symbol row="83" col="2" >}</symbol>
 		</subroutineBody>
 	</subroutineDec>
 	<subroutineDec>
-		<keyword>method</keyword>
-		<keyword>void</keyword>
-		<identifier>moveSquare</identifier>
-		<symbol>(</symbol>
+		<keyword row="86" col="10" >method</keyword>
+		<keyword row="86" col="15" >void</keyword>
+		<identifier row="86" col="27" >moveSquare</identifier>
+		<symbol row="86" col="27" >(</symbol>
 		<parameterList>
 		</parameterList>
-		<symbol>)</symbol>
+		<symbol row="86" col="28" >)</symbol>
 		<subroutineBody>
-			<symbol>{</symbol>
+			<symbol row="86" col="30" >{</symbol>
 			<statements>
 				<ifStatement>
-					<keyword>if</keyword>
-					<symbol>(</symbol>
+					<keyword row="87" col="10" >if</keyword>
+					<symbol row="87" col="12" >(</symbol>
 					<expression>
 						<term>
-							<identifier>direction</identifier>
+							<identifier row="87" col="22" >direction</identifier>
 						</term>
-						<symbol>=</symbol>
+						<symbol row="87" col="23" >=</symbol>
 						<term>
-							<integerConstant>1</integerConstant>
+							<integerConstant row="87" col="26" >1</integerConstant>
 						</term>
 					</expression>
-					<symbol>)</symbol>
-					<symbol>{</symbol>
+					<symbol row="87" col="26" >)</symbol>
+					<symbol row="87" col="28" >{</symbol>
 					<statements>
 						<doStatement>
-							<keyword>do</keyword>
-							<identifier>square</identifier>
-							<symbol>.</symbol>
-							<identifier>moveUp</identifier>
-							<symbol>(</symbol>
+							<keyword row="88" col="14" >do</keyword>
+							<identifier row="88" col="22" >square</identifier>
+							<symbol row="88" col="22" >.</symbol>
+							<identifier row="88" col="29" >moveUp</identifier>
+							<symbol row="88" col="29" >(</symbol>
 							<expressionList>
 							</expressionList>
-							<symbol>)</symbol>
-							<symbol>;</symbol>
+							<symbol row="88" col="30" >)</symbol>
+							<symbol row="88" col="31" >;</symbol>
 						</doStatement>
 					</statements>
-					<symbol>}</symbol>
+					<symbol row="89" col="9" >}</symbol>
 				</ifStatement>
 				<ifStatement>
-					<keyword>if</keyword>
-					<symbol>(</symbol>
+					<keyword row="90" col="10" >if</keyword>
+					<symbol row="90" col="12" >(</symbol>
 					<expression>
 						<term>
-							<identifier>direction</identifier>
+							<identifier row="90" col="22" >direction</identifier>
 						</term>
-						<symbol>=</symbol>
+						<symbol row="90" col="23" >=</symbol>
 						<term>
-							<integerConstant>2</integerConstant>
+							<integerConstant row="90" col="26" >2</integerConstant>
 						</term>
 					</expression>
-					<symbol>)</symbol>
-					<symbol>{</symbol>
+					<symbol row="90" col="26" >)</symbol>
+					<symbol row="90" col="28" >{</symbol>
 					<statements>
 						<doStatement>
-							<keyword>do</keyword>
-							<identifier>square</identifier>
-							<symbol>.</symbol>
-							<identifier>moveDown</identifier>
-							<symbol>(</symbol>
+							<keyword row="91" col="14" >do</keyword>
+							<identifier row="91" col="22" >square</identifier>
+							<symbol row="91" col="22" >.</symbol>
+							<identifier row="91" col="31" >moveDown</identifier>
+							<symbol row="91" col="31" >(</symbol>
 							<expressionList>
 							</expressionList>
-							<symbol>)</symbol>
-							<symbol>;</symbol>
+							<symbol row="91" col="32" >)</symbol>
+							<symbol row="91" col="33" >;</symbol>
 						</doStatement>
 					</statements>
-					<symbol>}</symbol>
+					<symbol row="92" col="9" >}</symbol>
 				</ifStatement>
 				<ifStatement>
-					<keyword>if</keyword>
-					<symbol>(</symbol>
+					<keyword row="93" col="10" >if</keyword>
+					<symbol row="93" col="12" >(</symbol>
 					<expression>
 						<term>
-							<identifier>direction</identifier>
+							<identifier row="93" col="22" >direction</identifier>
 						</term>
-						<symbol>=</symbol>
+						<symbol row="93" col="23" >=</symbol>
 						<term>
-							<integerConstant>3</integerConstant>
+							<integerConstant row="93" col="26" >3</integerConstant>
 						</term>
 					</expression>
-					<symbol>)</symbol>
-					<symbol>{</symbol>
+					<symbol row="93" col="26" >)</symbol>
+					<symbol row="93" col="28" >{</symbol>
 					<statements>
 						<doStatement>
-							<keyword>do</keyword>
-							<identifier>square</identifier>
-							<symbol>.</symbol>
-							<identifier>moveLeft</identifier>
-							<symbol>(</symbol>
+							<keyword row="94" col="14" >do</keyword>
+							<identifier row="94" col="22" >square</identifier>
+							<symbol row="94" col="22" >.</symbol>
+							<identifier row="94" col="31" >moveLeft</identifier>
+							<symbol row="94" col="31" >(</symbol>
 							<expressionList>
 							</expressionList>
-							<symbol>)</symbol>
-							<symbol>;</symbol>
+							<symbol row="94" col="32" >)</symbol>
+							<symbol row="94" col="33" >;</symbol>
 						</doStatement>
 					</statements>
-					<symbol>}</symbol>
+					<symbol row="95" col="9" >}</symbol>
 				</ifStatement>
 				<ifStatement>
-					<keyword>if</keyword>
-					<symbol>(</symbol>
+					<keyword row="96" col="10" >if</keyword>
+					<symbol row="96" col="12" >(</symbol>
 					<expression>
 						<term>
-							<identifier>direction</identifier>
+							<identifier row="96" col="22" >direction</identifier>
 						</term>
-						<symbol>=</symbol>
+						<symbol row="96" col="23" >=</symbol>
 						<term>
-							<integerConstant>4</integerConstant>
+							<integerConstant row="96" col="26" >4</integerConstant>
 						</term>
 					</expression>
-					<symbol>)</symbol>
-					<symbol>{</symbol>
+					<symbol row="96" col="26" >)</symbol>
+					<symbol row="96" col="28" >{</symbol>
 					<statements>
 						<doStatement>
-							<keyword>do</keyword>
-							<identifier>square</identifier>
-							<symbol>.</symbol>
-							<identifier>moveRight</identifier>
-							<symbol>(</symbol>
+							<keyword row="97" col="14" >do</keyword>
+							<identifier row="97" col="22" >square</identifier>
+							<symbol row="97" col="22" >.</symbol>
+							<identifier row="97" col="32" >moveRight</identifier>
+							<symbol row="97" col="32" >(</symbol>
 							<expressionList>
 							</expressionList>
-							<symbol>)</symbol>
-							<symbol>;</symbol>
+							<symbol row="97" col="33" >)</symbol>
+							<symbol row="97" col="34" >;</symbol>
 						</doStatement>
 					</statements>
-					<symbol>}</symbol>
+					<symbol row="98" col="9" >}</symbol>
 				</ifStatement>
 				<doStatement>
-					<keyword>do</keyword>
-					<identifier>Sys</identifier>
-					<symbol>.</symbol>
-					<identifier>wait</identifier>
-					<symbol>(</symbol>
+					<keyword row="100" col="10" >do</keyword>
+					<identifier row="100" col="15" >Sys</identifier>
+					<symbol row="100" col="15" >.</symbol>
+					<identifier row="100" col="20" >wait</identifier>
+					<symbol row="100" col="20" >(</symbol>
 					<expressionList>
 						<expression>
 							<term>
-								<integerConstant>5</integerConstant>
+								<integerConstant row="100" col="22" >5</integerConstant>
 							</term>
 						</expression>
 					</expressionList>
-					<symbol>)</symbol>
-					<symbol>;</symbol>
+					<symbol row="100" col="22" >)</symbol>
+					<symbol row="100" col="23" >;</symbol>
 				</doStatement>
 				<returnStatement>
-					<keyword>return</keyword>
-					<symbol>;</symbol>
+					<keyword row="101" col="14" >return</keyword>
+					<symbol row="101" col="15" >;</symbol>
 				</returnStatement>
 			</statements>
-			<symbol>}</symbol>
+			<symbol row="102" col="5" >}</symbol>
 		</subroutineBody>
 	</subroutineDec>
-	<symbol>}</symbol>
+	<symbol row="103" col="1" >}</symbol>
 </class>

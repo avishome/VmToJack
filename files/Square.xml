@@ -1,1211 +1,1211 @@
 <class>
-	<keyword>class</keyword>
-	<identifier>Square</identifier>
-	<symbol>{</symbol>
+	<keyword row="11" col="5" >class</keyword>
+	<identifier row="11" col="13" >Square</identifier>
+	<symbol row="11" col="14" >{</symbol>
 	<classVarDec>
-		<keyword>field</keyword>
-		<keyword>int</keyword>
-		<identifier>x</identifier>
-		<symbol>,</symbol>
-		<identifier>y</identifier>
-		<symbol>;</symbol>
+		<keyword row="14" col="9" >field</keyword>
+		<keyword row="14" col="13" >int</keyword>
+		<identifier row="14" col="16" >x</identifier>
+		<symbol row="14" col="16" >,</symbol>
+		<identifier row="14" col="19" >y</identifier>
+		<symbol row="14" col="19" >;</symbol>
 	</classVarDec>
 	<classVarDec>
-		<keyword>field</keyword>
-		<keyword>int</keyword>
-		<identifier>size</identifier>
-		<symbol>;</symbol>
+		<keyword row="17" col="9" >field</keyword>
+		<keyword row="17" col="13" >int</keyword>
+		<identifier row="17" col="19" >size</identifier>
+		<symbol row="17" col="19" >;</symbol>
 	</classVarDec>
 	<subroutineDec>
-		<keyword>constructor</keyword>
-		<identifier>Square</identifier>
-		<identifier>new</identifier>
-		<symbol>(</symbol>
+		<keyword row="20" col="15" >constructor</keyword>
+		<identifier row="20" col="23" >Square</identifier>
+		<identifier row="20" col="27" >new</identifier>
+		<symbol row="20" col="27" >(</symbol>
 		<parameterList>
-			<keyword>int</keyword>
-			<identifier>Ax</identifier>
-			<symbol>,</symbol>
-			<keyword>int</keyword>
-			<identifier>Ay</identifier>
-			<symbol>,</symbol>
-			<keyword>int</keyword>
-			<identifier>Asize</identifier>
+			<keyword row="20" col="30" >int</keyword>
+			<identifier row="20" col="34" >Ax</identifier>
+			<symbol row="20" col="34" >,</symbol>
+			<keyword row="20" col="38" >int</keyword>
+			<identifier row="20" col="42" >Ay</identifier>
+			<symbol row="20" col="42" >,</symbol>
+			<keyword row="20" col="46" >int</keyword>
+			<identifier row="20" col="53" >Asize</identifier>
 		</parameterList>
-		<symbol>)</symbol>
+		<symbol row="20" col="53" >)</symbol>
 		<subroutineBody>
-			<symbol>{</symbol>
+			<symbol row="20" col="55" >{</symbol>
 			<statements>
 				<letStatement>
-					<keyword>let</keyword>
-					<identifier>x</identifier>
-					<symbol>=</symbol>
+					<keyword row="21" col="11" >let</keyword>
+					<identifier row="21" col="14" >x</identifier>
+					<symbol row="21" col="15" >=</symbol>
 					<expression>
 						<term>
-							<identifier>Ax</identifier>
+							<identifier row="21" col="19" >Ax</identifier>
 						</term>
 					</expression>
-					<symbol>;</symbol>
+					<symbol row="21" col="19" >;</symbol>
 				</letStatement>
 				<letStatement>
-					<keyword>let</keyword>
-					<identifier>y</identifier>
-					<symbol>=</symbol>
+					<keyword row="22" col="11" >let</keyword>
+					<identifier row="22" col="14" >y</identifier>
+					<symbol row="22" col="15" >=</symbol>
 					<expression>
 						<term>
-							<identifier>Ay</identifier>
+							<identifier row="22" col="19" >Ay</identifier>
 						</term>
 					</expression>
-					<symbol>;</symbol>
+					<symbol row="22" col="19" >;</symbol>
 				</letStatement>
 				<letStatement>
-					<keyword>let</keyword>
-					<identifier>size</identifier>
-					<symbol>=</symbol>
+					<keyword row="23" col="11" >let</keyword>
+					<identifier row="23" col="17" >size</identifier>
+					<symbol row="23" col="18" >=</symbol>
 					<expression>
 						<term>
-							<identifier>Asize</identifier>
+							<identifier row="23" col="25" >Asize</identifier>
 						</term>
 					</expression>
-					<symbol>;</symbol>
+					<symbol row="23" col="25" >;</symbol>
 				</letStatement>
 				<doStatement>
-					<keyword>do</keyword>
-					<identifier>draw</identifier>
-					<symbol>(</symbol>
+					<keyword row="25" col="10" >do</keyword>
+					<identifier row="25" col="16" >draw</identifier>
+					<symbol row="25" col="16" >(</symbol>
 					<expressionList>
 					</expressionList>
-					<symbol>)</symbol>
-					<symbol>;</symbol>
+					<symbol row="25" col="17" >)</symbol>
+					<symbol row="25" col="18" >;</symbol>
 				</doStatement>
 				<returnStatement>
-					<keyword>return</keyword>
+					<keyword row="27" col="14" >return</keyword>
 					<expression>
 						<term>
-							<keyword>this</keyword>
+							<keyword row="27" col="19" >this</keyword>
 						</term>
 					</expression>
-					<symbol>;</symbol>
+					<symbol row="27" col="20" >;</symbol>
 				</returnStatement>
 			</statements>
-			<symbol>}</symbol>
+			<symbol row="28" col="5" >}</symbol>
 		</subroutineBody>
 	</subroutineDec>
 	<subroutineDec>
-		<keyword>method</keyword>
-		<keyword>void</keyword>
-		<identifier>dispose</identifier>
-		<symbol>(</symbol>
+		<keyword row="31" col="10" >method</keyword>
+		<keyword row="31" col="15" >void</keyword>
+		<identifier row="31" col="24" >dispose</identifier>
+		<symbol row="31" col="24" >(</symbol>
 		<parameterList>
 		</parameterList>
-		<symbol>)</symbol>
+		<symbol row="31" col="25" >)</symbol>
 		<subroutineBody>
-			<symbol>{</symbol>
+			<symbol row="31" col="27" >{</symbol>
 			<statements>
 				<doStatement>
-					<keyword>do</keyword>
-					<identifier>Memory</identifier>
-					<symbol>.</symbol>
-					<identifier>deAlloc</identifier>
-					<symbol>(</symbol>
+					<keyword row="32" col="10" >do</keyword>
+					<identifier row="32" col="18" >Memory</identifier>
+					<symbol row="32" col="18" >.</symbol>
+					<identifier row="32" col="26" >deAlloc</identifier>
+					<symbol row="32" col="26" >(</symbol>
 					<expressionList>
 						<expression>
 							<term>
-								<keyword>this</keyword>
+								<keyword row="32" col="30" >this</keyword>
 							</term>
 						</expression>
 					</expressionList>
-					<symbol>)</symbol>
-					<symbol>;</symbol>
+					<symbol row="32" col="31" >)</symbol>
+					<symbol row="32" col="32" >;</symbol>
 				</doStatement>
 				<returnStatement>
-					<keyword>return</keyword>
-					<symbol>;</symbol>
+					<keyword row="33" col="14" >return</keyword>
+					<symbol row="33" col="15" >;</symbol>
 				</returnStatement>
 			</statements>
-			<symbol>}</symbol>
+			<symbol row="34" col="5" >}</symbol>
 		</subroutineBody>
 	</subroutineDec>
 	<subroutineDec>
-		<keyword>method</keyword>
-		<keyword>void</keyword>
-		<identifier>draw</identifier>
-		<symbol>(</symbol>
+		<keyword row="37" col="10" >method</keyword>
+		<keyword row="37" col="15" >void</keyword>
+		<identifier row="37" col="21" >draw</identifier>
+		<symbol row="37" col="21" >(</symbol>
 		<parameterList>
 		</parameterList>
-		<symbol>)</symbol>
+		<symbol row="37" col="22" >)</symbol>
 		<subroutineBody>
-			<symbol>{</symbol>
+			<symbol row="37" col="24" >{</symbol>
 			<statements>
 				<doStatement>
-					<keyword>do</keyword>
-					<identifier>Screen</identifier>
-					<symbol>.</symbol>
-					<identifier>setColor</identifier>
-					<symbol>(</symbol>
+					<keyword row="38" col="10" >do</keyword>
+					<identifier row="38" col="18" >Screen</identifier>
+					<symbol row="38" col="18" >.</symbol>
+					<identifier row="38" col="27" >setColor</identifier>
+					<symbol row="38" col="27" >(</symbol>
 					<expressionList>
 						<expression>
 							<term>
-								<keyword>true</keyword>
+								<keyword row="38" col="31" >true</keyword>
 							</term>
 						</expression>
 					</expressionList>
-					<symbol>)</symbol>
-					<symbol>;</symbol>
+					<symbol row="38" col="32" >)</symbol>
+					<symbol row="38" col="33" >;</symbol>
 				</doStatement>
 				<doStatement>
-					<keyword>do</keyword>
-					<identifier>Screen</identifier>
-					<symbol>.</symbol>
-					<identifier>drawRectangle</identifier>
-					<symbol>(</symbol>
+					<keyword row="39" col="10" >do</keyword>
+					<identifier row="39" col="18" >Screen</identifier>
+					<symbol row="39" col="18" >.</symbol>
+					<identifier row="39" col="32" >drawRectangle</identifier>
+					<symbol row="39" col="32" >(</symbol>
 					<expressionList>
 						<expression>
 							<term>
-								<identifier>x</identifier>
+								<identifier row="39" col="34" >x</identifier>
 							</term>
 						</expression>
-						<symbol>,</symbol>
+						<symbol row="39" col="34" >,</symbol>
 						<expression>
 							<term>
-								<identifier>y</identifier>
+								<identifier row="39" col="37" >y</identifier>
 							</term>
 						</expression>
-						<symbol>,</symbol>
+						<symbol row="39" col="37" >,</symbol>
 						<expression>
 							<term>
-								<identifier>x</identifier>
+								<identifier row="39" col="40" >x</identifier>
 							</term>
-							<symbol>+</symbol>
+							<symbol row="39" col="41" >+</symbol>
 							<term>
-								<identifier>size</identifier>
+								<identifier row="39" col="47" >size</identifier>
 							</term>
 						</expression>
-						<symbol>,</symbol>
+						<symbol row="39" col="47" >,</symbol>
 						<expression>
 							<term>
-								<identifier>y</identifier>
+								<identifier row="39" col="50" >y</identifier>
 							</term>
-							<symbol>+</symbol>
+							<symbol row="39" col="51" >+</symbol>
 							<term>
-								<identifier>size</identifier>
+								<identifier row="39" col="57" >size</identifier>
 							</term>
 						</expression>
 					</expressionList>
-					<symbol>)</symbol>
-					<symbol>;</symbol>
+					<symbol row="39" col="57" >)</symbol>
+					<symbol row="39" col="58" >;</symbol>
 				</doStatement>
 				<returnStatement>
-					<keyword>return</keyword>
-					<symbol>;</symbol>
+					<keyword row="40" col="14" >return</keyword>
+					<symbol row="40" col="15" >;</symbol>
 				</returnStatement>
 			</statements>
-			<symbol>}</symbol>
+			<symbol row="41" col="5" >}</symbol>
 		</subroutineBody>
 	</subroutineDec>
 	<subroutineDec>
-		<keyword>method</keyword>
-		<keyword>void</keyword>
-		<identifier>erase</identifier>
-		<symbol>(</symbol>
+		<keyword row="44" col="10" >method</keyword>
+		<keyword row="44" col="15" >void</keyword>
+		<identifier row="44" col="22" >erase</identifier>
+		<symbol row="44" col="22" >(</symbol>
 		<parameterList>
 		</parameterList>
-		<symbol>)</symbol>
+		<symbol row="44" col="23" >)</symbol>
 		<subroutineBody>
-			<symbol>{</symbol>
+			<symbol row="44" col="25" >{</symbol>
 			<statements>
 				<doStatement>
-					<keyword>do</keyword>
-					<identifier>Screen</identifier>
-					<symbol>.</symbol>
-					<identifier>setColor</identifier>
-					<symbol>(</symbol>
+					<keyword row="45" col="10" >do</keyword>
+					<identifier row="45" col="18" >Screen</identifier>
+					<symbol row="45" col="18" >.</symbol>
+					<identifier row="45" col="27" >setColor</identifier>
+					<symbol row="45" col="27" >(</symbol>
 					<expressionList>
 						<expression>
 							<term>
-								<keyword>false</keyword>
+								<keyword row="45" col="32" >false</keyword>
 							</term>
 						</expression>
 					</expressionList>
-					<symbol>)</symbol>
-					<symbol>;</symbol>
+					<symbol row="45" col="33" >)</symbol>
+					<symbol row="45" col="34" >;</symbol>
 				</doStatement>
 				<doStatement>
-					<keyword>do</keyword>
-					<identifier>Screen</identifier>
-					<symbol>.</symbol>
-					<identifier>drawRectangle</identifier>
-					<symbol>(</symbol>
+					<keyword row="46" col="10" >do</keyword>
+					<identifier row="46" col="18" >Screen</identifier>
+					<symbol row="46" col="18" >.</symbol>
+					<identifier row="46" col="32" >drawRectangle</identifier>
+					<symbol row="46" col="32" >(</symbol>
 					<expressionList>
 						<expression>
 							<term>
-								<identifier>x</identifier>
+								<identifier row="46" col="34" >x</identifier>
 							</term>
 						</expression>
-						<symbol>,</symbol>
+						<symbol row="46" col="34" >,</symbol>
 						<expression>
 							<term>
-								<identifier>y</identifier>
+								<identifier row="46" col="37" >y</identifier>
 							</term>
 						</expression>
-						<symbol>,</symbol>
+						<symbol row="46" col="37" >,</symbol>
 						<expression>
 							<term>
-								<identifier>x</identifier>
+								<identifier row="46" col="40" >x</identifier>
 							</term>
-							<symbol>+</symbol>
+							<symbol row="46" col="41" >+</symbol>
 							<term>
-								<identifier>size</identifier>
+								<identifier row="46" col="47" >size</identifier>
 							</term>
 						</expression>
-						<symbol>,</symbol>
+						<symbol row="46" col="47" >,</symbol>
 						<expression>
 							<term>
-								<identifier>y</identifier>
+								<identifier row="46" col="50" >y</identifier>
 							</term>
-							<symbol>+</symbol>
+							<symbol row="46" col="51" >+</symbol>
 							<term>
-								<identifier>size</identifier>
+								<identifier row="46" col="57" >size</identifier>
 							</term>
 						</expression>
 					</expressionList>
-					<symbol>)</symbol>
-					<symbol>;</symbol>
+					<symbol row="46" col="57" >)</symbol>
+					<symbol row="46" col="58" >;</symbol>
 				</doStatement>
 				<returnStatement>
-					<keyword>return</keyword>
-					<symbol>;</symbol>
+					<keyword row="47" col="14" >return</keyword>
+					<symbol row="47" col="15" >;</symbol>
 				</returnStatement>
 			</statements>
-			<symbol>}</symbol>
+			<symbol row="48" col="5" >}</symbol>
 		</subroutineBody>
 	</subroutineDec>
 	<subroutineDec>
-		<keyword>method</keyword>
-		<keyword>void</keyword>
-		<identifier>incSize</identifier>
-		<symbol>(</symbol>
+		<keyword row="51" col="10" >method</keyword>
+		<keyword row="51" col="15" >void</keyword>
+		<identifier row="51" col="24" >incSize</identifier>
+		<symbol row="51" col="24" >(</symbol>
 		<parameterList>
 		</parameterList>
-		<symbol>)</symbol>
+		<symbol row="51" col="25" >)</symbol>
 		<subroutineBody>
-			<symbol>{</symbol>
+			<symbol row="51" col="27" >{</symbol>
 			<statements>
 				<ifStatement>
-					<keyword>if</keyword>
-					<symbol>(</symbol>
+					<keyword row="52" col="10" >if</keyword>
+					<symbol row="52" col="12" >(</symbol>
 					<expression>
 						<term>
-							<symbol>(</symbol>
+							<symbol row="52" col="13" >(</symbol>
 							<expression>
 								<term>
-									<symbol>(</symbol>
+									<symbol row="52" col="14" >(</symbol>
 									<expression>
 										<term>
-											<identifier>y</identifier>
+											<identifier row="52" col="16" >y</identifier>
 										</term>
-										<symbol>+</symbol>
+										<symbol row="52" col="17" >+</symbol>
 										<term>
-											<identifier>size</identifier>
+											<identifier row="52" col="23" >size</identifier>
 										</term>
 									</expression>
-									<symbol>)</symbol>
+									<symbol row="52" col="23" >)</symbol>
 								</term>
-								<symbol>&lt;</symbol>
+								<symbol row="52" col="25" >&lt;</symbol>
 								<term>
-									<integerConstant>254</integerConstant>
+									<integerConstant row="52" col="30" >254</integerConstant>
 								</term>
 							</expression>
-							<symbol>)</symbol>
+							<symbol row="52" col="30" >)</symbol>
 						</term>
-						<symbol>&amp;</symbol>
+						<symbol row="52" col="32" >&amp;</symbol>
 						<term>
-							<symbol>(</symbol>
+							<symbol row="52" col="34" >(</symbol>
 							<expression>
 								<term>
-									<symbol>(</symbol>
+									<symbol row="52" col="35" >(</symbol>
 									<expression>
 										<term>
-											<identifier>x</identifier>
+											<identifier row="52" col="37" >x</identifier>
 										</term>
-										<symbol>+</symbol>
+										<symbol row="52" col="38" >+</symbol>
 										<term>
-											<identifier>size</identifier>
+											<identifier row="52" col="44" >size</identifier>
 										</term>
 									</expression>
-									<symbol>)</symbol>
+									<symbol row="52" col="44" >)</symbol>
 								</term>
-								<symbol>&lt;</symbol>
+								<symbol row="52" col="46" >&lt;</symbol>
 								<term>
-									<integerConstant>510</integerConstant>
+									<integerConstant row="52" col="51" >510</integerConstant>
 								</term>
 							</expression>
-							<symbol>)</symbol>
+							<symbol row="52" col="51" >)</symbol>
 						</term>
 					</expression>
-					<symbol>)</symbol>
-					<symbol>{</symbol>
+					<symbol row="52" col="52" >)</symbol>
+					<symbol row="52" col="54" >{</symbol>
 					<statements>
 						<doStatement>
-							<keyword>do</keyword>
-							<identifier>erase</identifier>
-							<symbol>(</symbol>
+							<keyword row="53" col="14" >do</keyword>
+							<identifier row="53" col="21" >erase</identifier>
+							<symbol row="53" col="21" >(</symbol>
 							<expressionList>
 							</expressionList>
-							<symbol>)</symbol>
-							<symbol>;</symbol>
+							<symbol row="53" col="22" >)</symbol>
+							<symbol row="53" col="23" >;</symbol>
 						</doStatement>
 						<letStatement>
-							<keyword>let</keyword>
-							<identifier>size</identifier>
-							<symbol>=</symbol>
+							<keyword row="54" col="15" >let</keyword>
+							<identifier row="54" col="21" >size</identifier>
+							<symbol row="54" col="22" >=</symbol>
 							<expression>
 								<term>
-									<identifier>size</identifier>
+									<identifier row="54" col="28" >size</identifier>
 								</term>
-								<symbol>+</symbol>
+								<symbol row="54" col="29" >+</symbol>
 								<term>
-									<integerConstant>2</integerConstant>
+									<integerConstant row="54" col="32" >2</integerConstant>
 								</term>
 							</expression>
-							<symbol>;</symbol>
+							<symbol row="54" col="32" >;</symbol>
 						</letStatement>
 						<doStatement>
-							<keyword>do</keyword>
-							<identifier>draw</identifier>
-							<symbol>(</symbol>
+							<keyword row="55" col="14" >do</keyword>
+							<identifier row="55" col="20" >draw</identifier>
+							<symbol row="55" col="20" >(</symbol>
 							<expressionList>
 							</expressionList>
-							<symbol>)</symbol>
-							<symbol>;</symbol>
+							<symbol row="55" col="21" >)</symbol>
+							<symbol row="55" col="22" >;</symbol>
 						</doStatement>
 					</statements>
-					<symbol>}</symbol>
+					<symbol row="56" col="9" >}</symbol>
 				</ifStatement>
 				<returnStatement>
-					<keyword>return</keyword>
-					<symbol>;</symbol>
+					<keyword row="57" col="14" >return</keyword>
+					<symbol row="57" col="15" >;</symbol>
 				</returnStatement>
 			</statements>
-			<symbol>}</symbol>
+			<symbol row="58" col="5" >}</symbol>
 		</subroutineBody>
 	</subroutineDec>
 	<subroutineDec>
-		<keyword>method</keyword>
-		<keyword>void</keyword>
-		<identifier>decSize</identifier>
-		<symbol>(</symbol>
+		<keyword row="61" col="10" >method</keyword>
+		<keyword row="61" col="15" >void</keyword>
+		<identifier row="61" col="24" >decSize</identifier>
+		<symbol row="61" col="24" >(</symbol>
 		<parameterList>
 		</parameterList>
-		<symbol>)</symbol>
+		<symbol row="61" col="25" >)</symbol>
 		<subroutineBody>
-			<symbol>{</symbol>
+			<symbol row="61" col="27" >{</symbol>
 			<statements>
 				<ifStatement>
-					<keyword>if</keyword>
-					<symbol>(</symbol>
+					<keyword row="62" col="10" >if</keyword>
+					<symbol row="62" col="12" >(</symbol>
 					<expression>
 						<term>
-							<identifier>size</identifier>
+							<identifier row="62" col="17" >size</identifier>
 						</term>
-						<symbol>&gt;</symbol>
+						<symbol row="62" col="18" >&gt;</symbol>
 						<term>
-							<integerConstant>2</integerConstant>
+							<integerConstant row="62" col="21" >2</integerConstant>
 						</term>
 					</expression>
-					<symbol>)</symbol>
-					<symbol>{</symbol>
+					<symbol row="62" col="21" >)</symbol>
+					<symbol row="62" col="23" >{</symbol>
 					<statements>
 						<doStatement>
-							<keyword>do</keyword>
-							<identifier>erase</identifier>
-							<symbol>(</symbol>
+							<keyword row="63" col="14" >do</keyword>
+							<identifier row="63" col="21" >erase</identifier>
+							<symbol row="63" col="21" >(</symbol>
 							<expressionList>
 							</expressionList>
-							<symbol>)</symbol>
-							<symbol>;</symbol>
+							<symbol row="63" col="22" >)</symbol>
+							<symbol row="63" col="23" >;</symbol>
 						</doStatement>
 						<letStatement>
-							<keyword>let</keyword>
-							<identifier>size</identifier>
-							<symbol>=</symbol>
+							<keyword row="64" col="15" >let</keyword>
+							<identifier row="64" col="21" >size</identifier>
+							<symbol row="64" col="22" >=</symbol>
 							<expression>
 								<term>
-									<identifier>size</identifier>
+									<identifier row="64" col="28" >size</identifier>
 								</term>
-								<symbol>-</symbol>
+								<symbol row="64" col="29" >-</symbol>
 								<term>
-									<integerConstant>2</integerConstant>
+									<integerConstant row="64" col="32" >2</integerConstant>
 								</term>
 							</expression>
-							<symbol>;</symbol>
+							<symbol row="64" col="32" >;</symbol>
 						</letStatement>
 						<doStatement>
-							<keyword>do</keyword>
-							<identifier>draw</identifier>
-							<symbol>(</symbol>
+							<keyword row="65" col="14" >do</keyword>
+							<identifier row="65" col="20" >draw</identifier>
+							<symbol row="65" col="20" >(</symbol>
 							<expressionList>
 							</expressionList>
-							<symbol>)</symbol>
-							<symbol>;</symbol>
+							<symbol row="65" col="21" >)</symbol>
+							<symbol row="65" col="22" >;</symbol>
 						</doStatement>
 					</statements>
-					<symbol>}</symbol>
+					<symbol row="66" col="9" >}</symbol>
 				</ifStatement>
 				<returnStatement>
-					<keyword>return</keyword>
-					<symbol>;</symbol>
+					<keyword row="67" col="14" >return</keyword>
+					<symbol row="67" col="15" >;</symbol>
 				</returnStatement>
 			</statements>
-			<symbol>}</symbol>
+			<symbol row="68" col="2" >}</symbol>
 		</subroutineBody>
 	</subroutineDec>
 	<subroutineDec>
-		<keyword>method</keyword>
-		<keyword>void</keyword>
-		<identifier>moveUp</identifier>
-		<symbol>(</symbol>
+		<keyword row="71" col="10" >method</keyword>
+		<keyword row="71" col="15" >void</keyword>
+		<identifier row="71" col="23" >moveUp</identifier>
+		<symbol row="71" col="23" >(</symbol>
 		<parameterList>
 		</parameterList>
-		<symbol>)</symbol>
+		<symbol row="71" col="24" >)</symbol>
 		<subroutineBody>
-			<symbol>{</symbol>
+			<symbol row="71" col="26" >{</symbol>
 			<statements>
 				<ifStatement>
-					<keyword>if</keyword>
-					<symbol>(</symbol>
+					<keyword row="72" col="10" >if</keyword>
+					<symbol row="72" col="12" >(</symbol>
 					<expression>
 						<term>
-							<identifier>y</identifier>
+							<identifier row="72" col="14" >y</identifier>
 						</term>
-						<symbol>&gt;</symbol>
+						<symbol row="72" col="15" >&gt;</symbol>
 						<term>
-							<integerConstant>1</integerConstant>
+							<integerConstant row="72" col="18" >1</integerConstant>
 						</term>
 					</expression>
-					<symbol>)</symbol>
-					<symbol>{</symbol>
+					<symbol row="72" col="18" >)</symbol>
+					<symbol row="72" col="20" >{</symbol>
 					<statements>
 						<doStatement>
-							<keyword>do</keyword>
-							<identifier>Screen</identifier>
-							<symbol>.</symbol>
-							<identifier>setColor</identifier>
-							<symbol>(</symbol>
+							<keyword row="73" col="14" >do</keyword>
+							<identifier row="73" col="22" >Screen</identifier>
+							<symbol row="73" col="22" >.</symbol>
+							<identifier row="73" col="31" >setColor</identifier>
+							<symbol row="73" col="31" >(</symbol>
 							<expressionList>
 								<expression>
 									<term>
-										<keyword>false</keyword>
+										<keyword row="73" col="36" >false</keyword>
 									</term>
 								</expression>
 							</expressionList>
-							<symbol>)</symbol>
-							<symbol>;</symbol>
+							<symbol row="73" col="37" >)</symbol>
+							<symbol row="73" col="38" >;</symbol>
 						</doStatement>
 						<doStatement>
-							<keyword>do</keyword>
-							<identifier>Screen</identifier>
-							<symbol>.</symbol>
-							<identifier>drawRectangle</identifier>
-							<symbol>(</symbol>
+							<keyword row="74" col="14" >do</keyword>
+							<identifier row="74" col="22" >Screen</identifier>
+							<symbol row="74" col="22" >.</symbol>
+							<identifier row="74" col="36" >drawRectangle</identifier>
+							<symbol row="74" col="36" >(</symbol>
 							<expressionList>
 								<expression>
 									<term>
-										<identifier>x</identifier>
+										<identifier row="74" col="38" >x</identifier>
 									</term>
 								</expression>
-								<symbol>,</symbol>
+								<symbol row="74" col="38" >,</symbol>
 								<expression>
 									<term>
-										<symbol>(</symbol>
+										<symbol row="74" col="40" >(</symbol>
 										<expression>
 											<term>
-												<identifier>y</identifier>
+												<identifier row="74" col="42" >y</identifier>
 											</term>
-											<symbol>+</symbol>
+											<symbol row="74" col="43" >+</symbol>
 											<term>
-												<identifier>size</identifier>
+												<identifier row="74" col="49" >size</identifier>
 											</term>
 										</expression>
-										<symbol>)</symbol>
+										<symbol row="74" col="49" >)</symbol>
 									</term>
-									<symbol>-</symbol>
+									<symbol row="74" col="51" >-</symbol>
 									<term>
-										<integerConstant>1</integerConstant>
-									</term>
-								</expression>
-								<symbol>,</symbol>
-								<expression>
-									<term>
-										<identifier>x</identifier>
-									</term>
-									<symbol>+</symbol>
-									<term>
-										<identifier>size</identifier>
+										<integerConstant row="74" col="54" >1</integerConstant>
 									</term>
 								</expression>
-								<symbol>,</symbol>
+								<symbol row="74" col="54" >,</symbol>
 								<expression>
 									<term>
-										<identifier>y</identifier>
+										<identifier row="74" col="57" >x</identifier>
 									</term>
-									<symbol>+</symbol>
+									<symbol row="74" col="58" >+</symbol>
 									<term>
-										<identifier>size</identifier>
+										<identifier row="74" col="64" >size</identifier>
+									</term>
+								</expression>
+								<symbol row="74" col="64" >,</symbol>
+								<expression>
+									<term>
+										<identifier row="74" col="67" >y</identifier>
+									</term>
+									<symbol row="74" col="68" >+</symbol>
+									<term>
+										<identifier row="74" col="74" >size</identifier>
 									</term>
 								</expression>
 							</expressionList>
-							<symbol>)</symbol>
-							<symbol>;</symbol>
+							<symbol row="74" col="74" >)</symbol>
+							<symbol row="74" col="75" >;</symbol>
 						</doStatement>
 						<letStatement>
-							<keyword>let</keyword>
-							<identifier>y</identifier>
-							<symbol>=</symbol>
+							<keyword row="75" col="15" >let</keyword>
+							<identifier row="75" col="18" >y</identifier>
+							<symbol row="75" col="19" >=</symbol>
 							<expression>
 								<term>
-									<identifier>y</identifier>
+									<identifier row="75" col="22" >y</identifier>
 								</term>
-								<symbol>-</symbol>
+								<symbol row="75" col="23" >-</symbol>
 								<term>
-									<integerConstant>2</integerConstant>
+									<integerConstant row="75" col="26" >2</integerConstant>
 								</term>
 							</expression>
-							<symbol>;</symbol>
+							<symbol row="75" col="26" >;</symbol>
 						</letStatement>
 						<doStatement>
-							<keyword>do</keyword>
-							<identifier>Screen</identifier>
-							<symbol>.</symbol>
-							<identifier>setColor</identifier>
-							<symbol>(</symbol>
+							<keyword row="76" col="14" >do</keyword>
+							<identifier row="76" col="22" >Screen</identifier>
+							<symbol row="76" col="22" >.</symbol>
+							<identifier row="76" col="31" >setColor</identifier>
+							<symbol row="76" col="31" >(</symbol>
 							<expressionList>
 								<expression>
 									<term>
-										<keyword>true</keyword>
+										<keyword row="76" col="35" >true</keyword>
 									</term>
 								</expression>
 							</expressionList>
-							<symbol>)</symbol>
-							<symbol>;</symbol>
+							<symbol row="76" col="36" >)</symbol>
+							<symbol row="76" col="37" >;</symbol>
 						</doStatement>
 						<doStatement>
-							<keyword>do</keyword>
-							<identifier>Screen</identifier>
-							<symbol>.</symbol>
-							<identifier>drawRectangle</identifier>
-							<symbol>(</symbol>
+							<keyword row="77" col="14" >do</keyword>
+							<identifier row="77" col="22" >Screen</identifier>
+							<symbol row="77" col="22" >.</symbol>
+							<identifier row="77" col="36" >drawRectangle</identifier>
+							<symbol row="77" col="36" >(</symbol>
 							<expressionList>
 								<expression>
 									<term>
-										<identifier>x</identifier>
+										<identifier row="77" col="38" >x</identifier>
 									</term>
 								</expression>
-								<symbol>,</symbol>
+								<symbol row="77" col="38" >,</symbol>
 								<expression>
 									<term>
-										<identifier>y</identifier>
+										<identifier row="77" col="41" >y</identifier>
 									</term>
 								</expression>
-								<symbol>,</symbol>
+								<symbol row="77" col="41" >,</symbol>
 								<expression>
 									<term>
-										<identifier>x</identifier>
+										<identifier row="77" col="44" >x</identifier>
 									</term>
-									<symbol>+</symbol>
+									<symbol row="77" col="45" >+</symbol>
 									<term>
-										<identifier>size</identifier>
+										<identifier row="77" col="51" >size</identifier>
 									</term>
 								</expression>
-								<symbol>,</symbol>
+								<symbol row="77" col="51" >,</symbol>
 								<expression>
 									<term>
-										<identifier>y</identifier>
+										<identifier row="77" col="54" >y</identifier>
 									</term>
-									<symbol>+</symbol>
+									<symbol row="77" col="55" >+</symbol>
 									<term>
-										<integerConstant>1</integerConstant>
+										<integerConstant row="77" col="58" >1</integerConstant>
 									</term>
 								</expression>
 							</expressionList>
-							<symbol>)</symbol>
-							<symbol>;</symbol>
+							<symbol row="77" col="58" >)</symbol>
+							<symbol row="77" col="59" >;</symbol>
 						</doStatement>
 					</statements>
-					<symbol>}</symbol>
+					<symbol row="78" col="9" >}</symbol>
 				</ifStatement>
 				<returnStatement>
-					<keyword>return</keyword>
-					<symbol>;</symbol>
+					<keyword row="79" col="14" >return</keyword>
+					<symbol row="79" col="15" >;</symbol>
 				</returnStatement>
 			</statements>
-			<symbol>}</symbol>
+			<symbol row="80" col="5" >}</symbol>
 		</subroutineBody>
 	</subroutineDec>
 	<subroutineDec>
-		<keyword>method</keyword>
-		<keyword>void</keyword>
-		<identifier>moveDown</identifier>
-		<symbol>(</symbol>
+		<keyword row="83" col="10" >method</keyword>
+		<keyword row="83" col="15" >void</keyword>
+		<identifier row="83" col="25" >moveDown</identifier>
+		<symbol row="83" col="25" >(</symbol>
 		<parameterList>
 		</parameterList>
-		<symbol>)</symbol>
+		<symbol row="83" col="26" >)</symbol>
 		<subroutineBody>
-			<symbol>{</symbol>
+			<symbol row="83" col="28" >{</symbol>
 			<statements>
 				<ifStatement>
-					<keyword>if</keyword>
-					<symbol>(</symbol>
+					<keyword row="84" col="10" >if</keyword>
+					<symbol row="84" col="12" >(</symbol>
 					<expression>
 						<term>
-							<symbol>(</symbol>
+							<symbol row="84" col="13" >(</symbol>
 							<expression>
 								<term>
-									<identifier>y</identifier>
+									<identifier row="84" col="15" >y</identifier>
 								</term>
-								<symbol>+</symbol>
+								<symbol row="84" col="16" >+</symbol>
 								<term>
-									<identifier>size</identifier>
+									<identifier row="84" col="22" >size</identifier>
 								</term>
 							</expression>
-							<symbol>)</symbol>
+							<symbol row="84" col="22" >)</symbol>
 						</term>
-						<symbol>&lt;</symbol>
+						<symbol row="84" col="24" >&lt;</symbol>
 						<term>
-							<integerConstant>254</integerConstant>
+							<integerConstant row="84" col="29" >254</integerConstant>
 						</term>
 					</expression>
-					<symbol>)</symbol>
-					<symbol>{</symbol>
+					<symbol row="84" col="29" >)</symbol>
+					<symbol row="84" col="31" >{</symbol>
 					<statements>
 						<doStatement>
-							<keyword>do</keyword>
-							<identifier>Screen</identifier>
-							<symbol>.</symbol>
-							<identifier>setColor</identifier>
-							<symbol>(</symbol>
+							<keyword row="85" col="14" >do</keyword>
+							<identifier row="85" col="22" >Screen</identifier>
+							<symbol row="85" col="22" >.</symbol>
+							<identifier row="85" col="31" >setColor</identifier>
+							<symbol row="85" col="31" >(</symbol>
 							<expressionList>
 								<expression>
 									<term>
-										<keyword>false</keyword>
+										<keyword row="85" col="36" >false</keyword>
 									</term>
 								</expression>
 							</expressionList>
-							<symbol>)</symbol>
-							<symbol>;</symbol>
+							<symbol row="85" col="37" >)</symbol>
+							<symbol row="85" col="38" >;</symbol>
 						</doStatement>
 						<doStatement>
-							<keyword>do</keyword>
-							<identifier>Screen</identifier>
-							<symbol>.</symbol>
-							<identifier>drawRectangle</identifier>
-							<symbol>(</symbol>
+							<keyword row="86" col="14" >do</keyword>
+							<identifier row="86" col="22" >Screen</identifier>
+							<symbol row="86" col="22" >.</symbol>
+							<identifier row="86" col="36" >drawRectangle</identifier>
+							<symbol row="86" col="36" >(</symbol>
 							<expressionList>
 								<expression>
 									<term>
-										<identifier>x</identifier>
+										<identifier row="86" col="38" >x</identifier>
 									</term>
 								</expression>
-								<symbol>,</symbol>
+								<symbol row="86" col="38" >,</symbol>
 								<expression>
 									<term>
-										<identifier>y</identifier>
+										<identifier row="86" col="41" >y</identifier>
 									</term>
 								</expression>
-								<symbol>,</symbol>
+								<symbol row="86" col="41" >,</symbol>
 								<expression>
 									<term>
-										<identifier>x</identifier>
+										<identifier row="86" col="44" >x</identifier>
 									</term>
-									<symbol>+</symbol>
+									<symbol row="86" col="45" >+</symbol>
 									<term>
-										<identifier>size</identifier>
+										<identifier row="86" col="51" >size</identifier>
 									</term>
 								</expression>
-								<symbol>,</symbol>
+								<symbol row="86" col="51" >,</symbol>
 								<expression>
 									<term>
-										<identifier>y</identifier>
+										<identifier row="86" col="54" >y</identifier>
 									</term>
-									<symbol>+</symbol>
+									<symbol row="86" col="55" >+</symbol>
 									<term>
-										<integerConstant>1</integerConstant>
+										<integerConstant row="86" col="58" >1</integerConstant>
 									</term>
 								</expression>
 							</expressionList>
-							<symbol>)</symbol>
-							<symbol>;</symbol>
+							<symbol row="86" col="58" >)</symbol>
+							<symbol row="86" col="59" >;</symbol>
 						</doStatement>
 						<letStatement>
-							<keyword>let</keyword>
-							<identifier>y</identifier>
-							<symbol>=</symbol>
+							<keyword row="87" col="15" >let</keyword>
+							<identifier row="87" col="18" >y</identifier>
+							<symbol row="87" col="19" >=</symbol>
 							<expression>
 								<term>
-									<identifier>y</identifier>
+									<identifier row="87" col="22" >y</identifier>
 								</term>
-								<symbol>+</symbol>
+								<symbol row="87" col="23" >+</symbol>
 								<term>
-									<integerConstant>2</integerConstant>
+									<integerConstant row="87" col="26" >2</integerConstant>
 								</term>
 							</expression>
-							<symbol>;</symbol>
+							<symbol row="87" col="26" >;</symbol>
 						</letStatement>
 						<doStatement>
-							<keyword>do</keyword>
-							<identifier>Screen</identifier>
-							<symbol>.</symbol>
-							<identifier>setColor</identifier>
-							<symbol>(</symbol>
+							<keyword row="88" col="14" >do</keyword>
+							<identifier row="88" col="22" >Screen</identifier>
+							<symbol row="88" col="22" >.</symbol>
+							<identifier row="88" col="31" >setColor</identifier>
+							<symbol row="88" col="31" >(</symbol>
 							<expressionList>
 								<expression>
 									<term>
-										<keyword>true</keyword>
+										<keyword row="88" col="35" >true</keyword>
 									</term>
 								</expression>
 							</expressionList>
-							<symbol>)</symbol>
-							<symbol>;</symbol>
+							<symbol row="88" col="36" >)</symbol>
+							<symbol row="88" col="37" >;</symbol>
 						</doStatement>
 						<doStatement>
-							<keyword>do</keyword>
-							<identifier>Screen</identifier>
-							<symbol>.</symbol>
-							<identifier>drawRectangle</identifier>
-							<symbol>(</symbol>
+							<keyword row="89" col="14" >do</keyword>
+							<identifier row="89" col="22" >Screen</identifier>
+							<symbol row="89" col="22" >.</symbol>
+							<identifier row="89" col="36" >drawRectangle</identifier>
+							<symbol row="89" col="36" >(</symbol>
 							<expressionList>
 								<expression>
 									<term>
-										<identifier>x</identifier>
+										<identifier row="89" col="38" >x</identifier>
 									</term>
 								</expression>
-								<symbol>,</symbol>
+								<symbol row="89" col="38" >,</symbol>
 								<expression>
 									<term>
-										<symbol>(</symbol>
+										<symbol row="89" col="40" >(</symbol>
 										<expression>
 											<term>
-												<identifier>y</identifier>
+												<identifier row="89" col="42" >y</identifier>
 											</term>
-											<symbol>+</symbol>
+											<symbol row="89" col="43" >+</symbol>
 											<term>
-												<identifier>size</identifier>
+												<identifier row="89" col="49" >size</identifier>
 											</term>
 										</expression>
-										<symbol>)</symbol>
+										<symbol row="89" col="49" >)</symbol>
 									</term>
-									<symbol>-</symbol>
+									<symbol row="89" col="51" >-</symbol>
 									<term>
-										<integerConstant>1</integerConstant>
-									</term>
-								</expression>
-								<symbol>,</symbol>
-								<expression>
-									<term>
-										<identifier>x</identifier>
-									</term>
-									<symbol>+</symbol>
-									<term>
-										<identifier>size</identifier>
+										<integerConstant row="89" col="54" >1</integerConstant>
 									</term>
 								</expression>
-								<symbol>,</symbol>
+								<symbol row="89" col="54" >,</symbol>
 								<expression>
 									<term>
-										<identifier>y</identifier>
+										<identifier row="89" col="57" >x</identifier>
 									</term>
-									<symbol>+</symbol>
+									<symbol row="89" col="58" >+</symbol>
 									<term>
-										<identifier>size</identifier>
+										<identifier row="89" col="64" >size</identifier>
+									</term>
+								</expression>
+								<symbol row="89" col="64" >,</symbol>
+								<expression>
+									<term>
+										<identifier row="89" col="67" >y</identifier>
+									</term>
+									<symbol row="89" col="68" >+</symbol>
+									<term>
+										<identifier row="89" col="74" >size</identifier>
 									</term>
 								</expression>
 							</expressionList>
-							<symbol>)</symbol>
-							<symbol>;</symbol>
+							<symbol row="89" col="74" >)</symbol>
+							<symbol row="89" col="75" >;</symbol>
 						</doStatement>
 					</statements>
-					<symbol>}</symbol>
+					<symbol row="90" col="9" >}</symbol>
 				</ifStatement>
 				<returnStatement>
-					<keyword>return</keyword>
-					<symbol>;</symbol>
+					<keyword row="91" col="14" >return</keyword>
+					<symbol row="91" col="15" >;</symbol>
 				</returnStatement>
 			</statements>
-			<symbol>}</symbol>
+			<symbol row="92" col="5" >}</symbol>
 		</subroutineBody>
 	</subroutineDec>
 	<subroutineDec>
-		<keyword>method</keyword>
-		<keyword>void</keyword>
-		<identifier>moveLeft</identifier>
-		<symbol>(</symbol>
+		<keyword row="95" col="10" >method</keyword>
+		<keyword row="95" col="15" >void</keyword>
+		<identifier row="95" col="25" >moveLeft</identifier>
+		<symbol row="95" col="25" >(</symbol>
 		<parameterList>
 		</parameterList>
-		<symbol>)</symbol>
+		<symbol row="95" col="26" >)</symbol>
 		<subroutineBody>
-			<symbol>{</symbol>
+			<symbol row="95" col="28" >{</symbol>
 			<statements>
 				<ifStatement>
-					<keyword>if</keyword>
-					<symbol>(</symbol>
+					<keyword row="96" col="10" >if</keyword>
+					<symbol row="96" col="12" >(</symbol>
 					<expression>
 						<term>
-							<identifier>x</identifier>
+							<identifier row="96" col="14" >x</identifier>
 						</term>
-						<symbol>&gt;</symbol>
+						<symbol row="96" col="15" >&gt;</symbol>
 						<term>
-							<integerConstant>1</integerConstant>
+							<integerConstant row="96" col="18" >1</integerConstant>
 						</term>
 					</expression>
-					<symbol>)</symbol>
-					<symbol>{</symbol>
+					<symbol row="96" col="18" >)</symbol>
+					<symbol row="96" col="20" >{</symbol>
 					<statements>
 						<doStatement>
-							<keyword>do</keyword>
-							<identifier>Screen</identifier>
-							<symbol>.</symbol>
-							<identifier>setColor</identifier>
-							<symbol>(</symbol>
+							<keyword row="97" col="14" >do</keyword>
+							<identifier row="97" col="22" >Screen</identifier>
+							<symbol row="97" col="22" >.</symbol>
+							<identifier row="97" col="31" >setColor</identifier>
+							<symbol row="97" col="31" >(</symbol>
 							<expressionList>
 								<expression>
 									<term>
-										<keyword>false</keyword>
+										<keyword row="97" col="36" >false</keyword>
 									</term>
 								</expression>
 							</expressionList>
-							<symbol>)</symbol>
-							<symbol>;</symbol>
+							<symbol row="97" col="37" >)</symbol>
+							<symbol row="97" col="38" >;</symbol>
 						</doStatement>
 						<doStatement>
-							<keyword>do</keyword>
-							<identifier>Screen</identifier>
-							<symbol>.</symbol>
-							<identifier>drawRectangle</identifier>
-							<symbol>(</symbol>
+							<keyword row="98" col="14" >do</keyword>
+							<identifier row="98" col="22" >Screen</identifier>
+							<symbol row="98" col="22" >.</symbol>
+							<identifier row="98" col="36" >drawRectangle</identifier>
+							<symbol row="98" col="36" >(</symbol>
 							<expressionList>
 								<expression>
 									<term>
-										<symbol>(</symbol>
+										<symbol row="98" col="37" >(</symbol>
 										<expression>
 											<term>
-												<identifier>x</identifier>
+												<identifier row="98" col="39" >x</identifier>
 											</term>
-											<symbol>+</symbol>
+											<symbol row="98" col="40" >+</symbol>
 											<term>
-												<identifier>size</identifier>
+												<identifier row="98" col="46" >size</identifier>
 											</term>
 										</expression>
-										<symbol>)</symbol>
+										<symbol row="98" col="46" >)</symbol>
 									</term>
-									<symbol>-</symbol>
+									<symbol row="98" col="48" >-</symbol>
 									<term>
-										<integerConstant>1</integerConstant>
-									</term>
-								</expression>
-								<symbol>,</symbol>
-								<expression>
-									<term>
-										<identifier>y</identifier>
+										<integerConstant row="98" col="51" >1</integerConstant>
 									</term>
 								</expression>
-								<symbol>,</symbol>
+								<symbol row="98" col="51" >,</symbol>
 								<expression>
 									<term>
-										<identifier>x</identifier>
-									</term>
-									<symbol>+</symbol>
-									<term>
-										<identifier>size</identifier>
+										<identifier row="98" col="54" >y</identifier>
 									</term>
 								</expression>
-								<symbol>,</symbol>
+								<symbol row="98" col="54" >,</symbol>
 								<expression>
 									<term>
-										<identifier>y</identifier>
+										<identifier row="98" col="57" >x</identifier>
 									</term>
-									<symbol>+</symbol>
+									<symbol row="98" col="58" >+</symbol>
 									<term>
-										<identifier>size</identifier>
+										<identifier row="98" col="64" >size</identifier>
+									</term>
+								</expression>
+								<symbol row="98" col="64" >,</symbol>
+								<expression>
+									<term>
+										<identifier row="98" col="67" >y</identifier>
+									</term>
+									<symbol row="98" col="68" >+</symbol>
+									<term>
+										<identifier row="98" col="74" >size</identifier>
 									</term>
 								</expression>
 							</expressionList>
-							<symbol>)</symbol>
-							<symbol>;</symbol>
+							<symbol row="98" col="74" >)</symbol>
+							<symbol row="98" col="75" >;</symbol>
 						</doStatement>
 						<letStatement>
-							<keyword>let</keyword>
-							<identifier>x</identifier>
-							<symbol>=</symbol>
+							<keyword row="99" col="15" >let</keyword>
+							<identifier row="99" col="18" >x</identifier>
+							<symbol row="99" col="19" >=</symbol>
 							<expression>
 								<term>
-									<identifier>x</identifier>
+									<identifier row="99" col="22" >x</identifier>
 								</term>
-								<symbol>-</symbol>
+								<symbol row="99" col="23" >-</symbol>
 								<term>
-									<integerConstant>2</integerConstant>
+									<integerConstant row="99" col="26" >2</integerConstant>
 								</term>
 							</expression>
-							<symbol>;</symbol>
+							<symbol row="99" col="26" >;</symbol>
 						</letStatement>
 						<doStatement>
-							<keyword>do</keyword>
-							<identifier>Screen</identifier>
-							<symbol>.</symbol>
-							<identifier>setColor</identifier>
-							<symbol>(</symbol>
+							<keyword row="100" col="14" >do</keyword>
+							<identifier row="100" col="22" >Screen</identifier>
+							<symbol row="100" col="22" >.</symbol>
+							<identifier row="100" col="31" >setColor</identifier>
+							<symbol row="100" col="31" >(</symbol>
 							<expressionList>
 								<expression>
 									<term>
-										<keyword>true</keyword>
+										<keyword row="100" col="35" >true</keyword>
 									</term>
 								</expression>
 							</expressionList>
-							<symbol>)</symbol>
-							<symbol>;</symbol>
+							<symbol row="100" col="36" >)</symbol>
+							<symbol row="100" col="37" >;</symbol>
 						</doStatement>
 						<doStatement>
-							<keyword>do</keyword>
-							<identifier>Screen</identifier>
-							<symbol>.</symbol>
-							<identifier>drawRectangle</identifier>
-							<symbol>(</symbol>
+							<keyword row="101" col="14" >do</keyword>
+							<identifier row="101" col="22" >Screen</identifier>
+							<symbol row="101" col="22" >.</symbol>
+							<identifier row="101" col="36" >drawRectangle</identifier>
+							<symbol row="101" col="36" >(</symbol>
 							<expressionList>
 								<expression>
 									<term>
-										<identifier>x</identifier>
+										<identifier row="101" col="38" >x</identifier>
 									</term>
 								</expression>
-								<symbol>,</symbol>
+								<symbol row="101" col="38" >,</symbol>
 								<expression>
 									<term>
-										<identifier>y</identifier>
+										<identifier row="101" col="41" >y</identifier>
 									</term>
 								</expression>
-								<symbol>,</symbol>
+								<symbol row="101" col="41" >,</symbol>
 								<expression>
 									<term>
-										<identifier>x</identifier>
+										<identifier row="101" col="44" >x</identifier>
 									</term>
-									<symbol>+</symbol>
+									<symbol row="101" col="45" >+</symbol>
 									<term>
-										<integerConstant>1</integerConstant>
+										<integerConstant row="101" col="48" >1</integerConstant>
 									</term>
 								</expression>
-								<symbol>,</symbol>
+								<symbol row="101" col="48" >,</symbol>
 								<expression>
 									<term>
-										<identifier>y</identifier>
+										<identifier row="101" col="51" >y</identifier>
 									</term>
-									<symbol>+</symbol>
+									<symbol row="101" col="52" >+</symbol>
 									<term>
-										<identifier>size</identifier>
+										<identifier row="101" col="58" >size</identifier>
 									</term>
 								</expression>
 							</expressionList>
-							<symbol>)</symbol>
-							<symbol>;</symbol>
+							<symbol row="101" col="58" >)</symbol>
+							<symbol row="101" col="59" >;</symbol>
 						</doStatement>
 					</statements>
-					<symbol>}</symbol>
+					<symbol row="102" col="9" >}</symbol>
 				</ifStatement>
 				<returnStatement>
-					<keyword>return</keyword>
-					<symbol>;</symbol>
+					<keyword row="103" col="14" >return</keyword>
+					<symbol row="103" col="15" >;</symbol>
 				</returnStatement>
 			</statements>
-			<symbol>}</symbol>
+			<symbol row="104" col="5" >}</symbol>
 		</subroutineBody>
 	</subroutineDec>
 	<subroutineDec>
-		<keyword>method</keyword>
-		<keyword>void</keyword>
-		<identifier>moveRight</identifier>
-		<symbol>(</symbol>
+		<keyword row="107" col="10" >method</keyword>
+		<keyword row="107" col="15" >void</keyword>
+		<identifier row="107" col="26" >moveRight</identifier>
+		<symbol row="107" col="26" >(</symbol>
 		<parameterList>
 		</parameterList>
-		<symbol>)</symbol>
+		<symbol row="107" col="27" >)</symbol>
 		<subroutineBody>
-			<symbol>{</symbol>
+			<symbol row="107" col="29" >{</symbol>
 			<statements>
 				<ifStatement>
-					<keyword>if</keyword>
-					<symbol>(</symbol>
+					<keyword row="108" col="10" >if</keyword>
+					<symbol row="108" col="12" >(</symbol>
 					<expression>
 						<term>
-							<symbol>(</symbol>
+							<symbol row="108" col="13" >(</symbol>
 							<expression>
 								<term>
-									<identifier>x</identifier>
+									<identifier row="108" col="15" >x</identifier>
 								</term>
-								<symbol>+</symbol>
+								<symbol row="108" col="16" >+</symbol>
 								<term>
-									<identifier>size</identifier>
+									<identifier row="108" col="22" >size</identifier>
 								</term>
 							</expression>
-							<symbol>)</symbol>
+							<symbol row="108" col="22" >)</symbol>
 						</term>
-						<symbol>&lt;</symbol>
+						<symbol row="108" col="24" >&lt;</symbol>
 						<term>
-							<integerConstant>510</integerConstant>
+							<integerConstant row="108" col="29" >510</integerConstant>
 						</term>
 					</expression>
-					<symbol>)</symbol>
-					<symbol>{</symbol>
+					<symbol row="108" col="29" >)</symbol>
+					<symbol row="108" col="31" >{</symbol>
 					<statements>
 						<doStatement>
-							<keyword>do</keyword>
-							<identifier>Screen</identifier>
-							<symbol>.</symbol>
-							<identifier>setColor</identifier>
-							<symbol>(</symbol>
+							<keyword row="109" col="14" >do</keyword>
+							<identifier row="109" col="22" >Screen</identifier>
+							<symbol row="109" col="22" >.</symbol>
+							<identifier row="109" col="31" >setColor</identifier>
+							<symbol row="109" col="31" >(</symbol>
 							<expressionList>
 								<expression>
 									<term>
-										<keyword>false</keyword>
+										<keyword row="109" col="36" >false</keyword>
 									</term>
 								</expression>
 							</expressionList>
-							<symbol>)</symbol>
-							<symbol>;</symbol>
+							<symbol row="109" col="37" >)</symbol>
+							<symbol row="109" col="38" >;</symbol>
 						</doStatement>
 						<doStatement>
-							<keyword>do</keyword>
-							<identifier>Screen</identifier>
-							<symbol>.</symbol>
-							<identifier>drawRectangle</identifier>
-							<symbol>(</symbol>
+							<keyword row="110" col="14" >do</keyword>
+							<identifier row="110" col="22" >Screen</identifier>
+							<symbol row="110" col="22" >.</symbol>
+							<identifier row="110" col="36" >drawRectangle</identifier>
+							<symbol row="110" col="36" >(</symbol>
 							<expressionList>
 								<expression>
 									<term>
-										<identifier>x</identifier>
+										<identifier row="110" col="38" >x</identifier>
 									</term>
 								</expression>
-								<symbol>,</symbol>
+								<symbol row="110" col="38" >,</symbol>
 								<expression>
 									<term>
-										<identifier>y</identifier>
+										<identifier row="110" col="41" >y</identifier>
 									</term>
 								</expression>
-								<symbol>,</symbol>
+								<symbol row="110" col="41" >,</symbol>
 								<expression>
 									<term>
-										<identifier>x</identifier>
+										<identifier row="110" col="44" >x</identifier>
 									</term>
-									<symbol>+</symbol>
+									<symbol row="110" col="45" >+</symbol>
 									<term>
-										<integerConstant>1</integerConstant>
+										<integerConstant row="110" col="48" >1</integerConstant>
 									</term>
 								</expression>
-								<symbol>,</symbol>
+								<symbol row="110" col="48" >,</symbol>
 								<expression>
 									<term>
-										<identifier>y</identifier>
+										<identifier row="110" col="51" >y</identifier>
 									</term>
-									<symbol>+</symbol>
+									<symbol row="110" col="52" >+</symbol>
 									<term>
-										<identifier>size</identifier>
+										<identifier row="110" col="58" >size</identifier>
 									</term>
 								</expression>
 							</expressionList>
-							<symbol>)</symbol>
-							<symbol>;</symbol>
+							<symbol row="110" col="58" >)</symbol>
+							<symbol row="110" col="59" >;</symbol>
 						</doStatement>
 						<letStatement>
-							<keyword>let</keyword>
-							<identifier>x</identifier>
-							<symbol>=</symbol>
+							<keyword row="111" col="15" >let</keyword>
+							<identifier row="111" col="18" >x</identifier>
+							<symbol row="111" col="19" >=</symbol>
 							<expression>
 								<term>
-									<identifier>x</identifier>
+									<identifier row="111" col="22" >x</identifier>
 								</term>
-								<symbol>+</symbol>
+								<symbol row="111" col="23" >+</symbol>
 								<term>
-									<integerConstant>2</integerConstant>
+									<integerConstant row="111" col="26" >2</integerConstant>
 								</term>
 							</expression>
-							<symbol>;</symbol>
+							<symbol row="111" col="26" >;</symbol>
 						</letStatement>
 						<doStatement>
-							<keyword>do</keyword>
-							<identifier>Screen</identifier>
-							<symbol>.</symbol>
-							<identifier>setColor</identifier>
-							<symbol>(</symbol>
+							<keyword row="112" col="14" >do</keyword>
+							<identifier row="112" col="22" >Screen</identifier>
+							<symbol row="112" col="22" >.</symbol>
+							<identifier row="112" col="31" >setColor</identifier>
+							<symbol row="112" col="31" >(</symbol>
 							<expressionList>
 								<expression>
 									<term>
-										<keyword>true</keyword>
+										<keyword row="112" col="35" >true</keyword>
 									</term>
 								</expression>
 							</expressionList>
-							<symbol>)</symbol>
-							<symbol>;</symbol>
+							<symbol row="112" col="36" >)</symbol>
+							<symbol row="112" col="37" >;</symbol>
 						</doStatement>
 						<doStatement>
-							<keyword>do</keyword>
-							<identifier>Screen</identifier>
-							<symbol>.</symbol>
-							<identifier>drawRectangle</identifier>
-							<symbol>(</symbol>
+							<keyword row="113" col="14" >do</keyword>
+							<identifier row="113" col="22" >Screen</identifier>
+							<symbol row="113" col="22" >.</symbol>
+							<identifier row="113" col="36" >drawRectangle</identifier>
+							<symbol row="113" col="36" >(</symbol>
 							<expressionList>
 								<expression>
 									<term>
-										<symbol>(</symbol>
+										<symbol row="113" col="37" >(</symbol>
 										<expression>
 											<term>
-												<identifier>x</identifier>
+												<identifier row="113" col="39" >x</identifier>
 											</term>
-											<symbol>+</symbol>
+											<symbol row="113" col="40" >+</symbol>
 											<term>
-												<identifier>size</identifier>
+												<identifier row="113" col="46" >size</identifier>
 											</term>
 										</expression>
-										<symbol>)</symbol>
+										<symbol row="113" col="46" >)</symbol>
 									</term>
-									<symbol>-</symbol>
+									<symbol row="113" col="48" >-</symbol>
 									<term>
-										<integerConstant>1</integerConstant>
-									</term>
-								</expression>
-								<symbol>,</symbol>
-								<expression>
-									<term>
-										<identifier>y</identifier>
+										<integerConstant row="113" col="51" >1</integerConstant>
 									</term>
 								</expression>
-								<symbol>,</symbol>
+								<symbol row="113" col="51" >,</symbol>
 								<expression>
 									<term>
-										<identifier>x</identifier>
-									</term>
-									<symbol>+</symbol>
-									<term>
-										<identifier>size</identifier>
+										<identifier row="113" col="54" >y</identifier>
 									</term>
 								</expression>
-								<symbol>,</symbol>
+								<symbol row="113" col="54" >,</symbol>
 								<expression>
 									<term>
-										<identifier>y</identifier>
+										<identifier row="113" col="57" >x</identifier>
 									</term>
-									<symbol>+</symbol>
+									<symbol row="113" col="58" >+</symbol>
 									<term>
-										<identifier>size</identifier>
+										<identifier row="113" col="64" >size</identifier>
+									</term>
+								</expression>
+								<symbol row="113" col="64" >,</symbol>
+								<expression>
+									<term>
+										<identifier row="113" col="67" >y</identifier>
+									</term>
+									<symbol row="113" col="68" >+</symbol>
+									<term>
+										<identifier row="113" col="74" >size</identifier>
 									</term>
 								</expression>
 							</expressionList>
-							<symbol>)</symbol>
-							<symbol>;</symbol>
+							<symbol row="113" col="74" >)</symbol>
+							<symbol row="113" col="75" >;</symbol>
 						</doStatement>
 					</statements>
-					<symbol>}</symbol>
+					<symbol row="114" col="9" >}</symbol>
 				</ifStatement>
 				<returnStatement>
-					<keyword>return</keyword>
-					<symbol>;</symbol>
+					<keyword row="115" col="14" >return</keyword>
+					<symbol row="115" col="15" >;</symbol>
 				</returnStatement>
 			</statements>
-			<symbol>}</symbol>
+			<symbol row="116" col="5" >}</symbol>
 		</subroutineBody>
 	</subroutineDec>
-	<symbol>}</symbol>
+	<symbol row="117" col="1" >}</symbol>
 </class>

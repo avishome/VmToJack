@@ -5,7 +5,7 @@ import ballerina/lang.'xml as xmllib;
 import ballerina/stringutils;
 
 
-public function main(string... args) {
+public function main(string... args) returns @tainted error|(){
     if (args.length() < 1) {
         io:println("Please enter a source folder");
     } else {
@@ -21,6 +21,9 @@ public function main(string... args) {
                     Parser|error parser = new (<@untained>args[0] + "/" + item.getName());
                     if (parser is Parser) {
                         var root = parser.recurcive("class");
+                        if (root is error) {
+                            return root;
+                        }
                         if (root is Node) {
                             root.cleanSubtree();
                             string xmlFile = root.printXML();
@@ -54,8 +57,10 @@ public function closeWc(io:WritableCharacterChannel wc) {
 public type Parser object {
     private map<json> addrMap;
     public TokenReader tokener;
+    public string fileName = "";
     public function __init(string file) returns @tainted error? {
         self.tokener = checkpanic new (file);
+        self.fileName = file;
         string FullFile = getTranslateFileAsString("files/diqduq.json");
         json js = checkpanic FullFile.fromJsonString();
         self.addrMap = <map<json>>js;
@@ -89,7 +94,7 @@ public type Parser object {
                     string[]|boolean correnttoken = self.tokener.getCurrent();
                     if (correnttoken is string[]) {
                         if (itemInWord == correnttoken[0] || itemInWord == correnttoken[1]) {
-                            Node child = new (correnttoken[0], correnttoken[1]);
+                            Node child = new (correnttoken[0], correnttoken[1], correnttoken[2], correnttoken[3]);
                             if (inDic) {
                                 node.addChild(child);
                             } else {
@@ -100,6 +105,9 @@ public type Parser object {
                         }
                         if (self.addrExist(itemInWord)) {
                             error|Node|boolean res = self.recurcive(itemInWord);
+                            if (res is error) {
+                                return res;
+                            }
                             if (res is Node) {
                                 if (inDic) {
                                     node.addChild(res);
@@ -115,10 +123,12 @@ public type Parser object {
                         }
                         if (typeOfItem == "R") {
                             if (isFound) {
-                                io:println("----------CRITICAL FAIL!!!!----------");
+                                return error("Parsing error at: \"" + correnttoken[1] + "\" in: " + correnttoken[2] + ":" + correnttoken[3] + ":" + self.fileName);
                             }
                             return false;
                         }
+                    } else {
+                        return error("Parsing error at the end of the file: " + self.fileName);
                     }
                 }
                 isFound = true;
@@ -126,6 +136,9 @@ public type Parser object {
                 foreach var i in <json[]>item {
                     if (i is string) {
                         error|Node|boolean res = self.recurcive(i, false);
+                        if (res is error) {
+                            return res;
+                        }
                         if (res is Node) {
                             node.addChild(res);
                             isFound = true;
@@ -151,7 +164,12 @@ public type TokenReader object {
             xml etokens = tokens/<*>;
             etokens.forEach(function(xml item) {
                 xmllib:Element eItem = <xmllib:Element>item;
-                self.tokens.push([eItem.getName().toString(), eItem.getChildren().toString()]);
+                self.tokens.push([
+                        eItem.getName().toString(),
+                        eItem.getChildren().toString(),
+                        eItem.getAttributes()["row"].toString(),
+                        eItem.getAttributes()["col"].toString()
+                    ]);
             });
             foreach ( xml|string item in etokens.elements()) {
                 if (item is xml) {
@@ -208,9 +226,13 @@ public type Node object {
     private Node[] childeren = [];
     private string value = "";
     private string name = "";
-    public function __init(string name, string value = "") {
+    private string row = "";
+    private string col = "";
+    public function __init(string name, string value = "", string row = "", string col = "") {
         self.name = name;
         self.value = value;
+        self.row = row;
+        self.col = col;
     }
 
     public function isLeaf() returns boolean {
@@ -285,7 +307,11 @@ public type Node object {
             if (res == "") {
                 res = "\n" + self.getOffset(depth);
             }
-            return self.getOffset(depth) + "<" + self.name + ">" + res + "</" + self.name + ">\n";
+            if (self.row != "" || self.col != "") {
+                return self.getOffset(depth) + "<" + self.name + " row=\"" + self.row + "\" col=\"" + self.col + "\" >" + res + "</" + self.name + ">\n";
+            } else {
+                return self.getOffset(depth) + "<" + self.name + ">" + res + "</" + self.name + ">\n";
+            }
         }
     }
 };

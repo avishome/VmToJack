@@ -33,19 +33,19 @@ public function main(string... args) {
                                 res = stringutils:replaceAll(res, ">", "&gt;");
                                 match token.tokenType {
                                     "SYMBOL" => {
-                                        output = output + "\t<symbol>" + res + "</symbol>\n";
+                                        output = output + "\t<symbol row=\"" + token["arg2"].toString() + "\" col=\"" + token["arg3"].toString() + "\">" + res + "</symbol>\n";
                                     }
                                     "KEYWORD" => {
-                                        output = output + "\t<keyword>" + res + "</keyword>\n";
+                                        output = output + "\t<keyword row=\"" + token["arg2"].toString() + "\" col=\"" + token["arg3"].toString() + "\">" + res + "</keyword>\n";
                                     }
                                     "IDENTIFIER" => {
-                                        output = output + "\t<identifier>" + res + "</identifier>\n";
+                                        output = output + "\t<identifier row=\"" + token["arg2"].toString() + "\" col=\"" + token["arg3"].toString() + "\">" + res + "</identifier>\n";
                                     }
                                     "INTEGER_CONSTANT" => {
-                                        output = output + "\t<integerConstant>" + res + "</integerConstant>\n";
+                                        output = output + "\t<integerConstant row=\"" + token["arg2"].toString() + "\" col=\"" + token["arg3"].toString() + "\">" + res + "</integerConstant>\n";
                                     }
                                     "STRING_CONSTANT" => {
-                                        output = output + "\t<stringConstant>" + res + "</stringConstant>\n";
+                                        output = output + "\t<stringConstant row=\"" + token["arg2"].toString() + "\" col=\"" + token["arg3"].toString() + "\">" + res + "</stringConstant>\n";
                                     }
                                 }
                                 if (token.tokenType == EOF || token.tokenType == ERROR) {
@@ -140,7 +140,7 @@ public type Tokenizer object {
     private int row = 1;
     private int fromRowStart = 0;
     private string[] buffer = [];
-    
+
     public function __init(fileReader:Reader reader) returns @tainted error? {
         self.reader = reader;
     }

@@ -1,142 +1,142 @@
 <tokens>
-	<keyword>class</keyword>
-	<identifier>Main</identifier>
-	<symbol>{</symbol>
-	<keyword>function</keyword>
-	<keyword>void</keyword>
-	<identifier>main</identifier>
-	<symbol>(</symbol>
-	<symbol>)</symbol>
-	<symbol>{</symbol>
-	<keyword>var</keyword>
-	<identifier>Array</identifier>
-	<identifier>a</identifier>
-	<symbol>;</symbol>
-	<keyword>var</keyword>
-	<keyword>int</keyword>
-	<identifier>length</identifier>
-	<symbol>;</symbol>
-	<keyword>var</keyword>
-	<keyword>int</keyword>
-	<identifier>i</identifier>
-	<symbol>,</symbol>
-	<identifier>sum</identifier>
-	<symbol>;</symbol>
-	<keyword>let</keyword>
-	<identifier>length</identifier>
-	<symbol>=</symbol>
-	<identifier>Keyboard</identifier>
-	<symbol>.</symbol>
-	<identifier>readInt</identifier>
-	<symbol>(</symbol>
-	<stringConstant>HOW MANY NUMBERS? </stringConstant>
-	<symbol>)</symbol>
-	<symbol>;</symbol>
-	<keyword>let</keyword>
-	<identifier>a</identifier>
-	<symbol>=</symbol>
-	<identifier>Array</identifier>
-	<symbol>.</symbol>
-	<identifier>new</identifier>
-	<symbol>(</symbol>
-	<identifier>length</identifier>
-	<symbol>)</symbol>
-	<symbol>;</symbol>
-	<keyword>let</keyword>
-	<identifier>i</identifier>
-	<symbol>=</symbol>
-	<integerConstant>0</integerConstant>
-	<symbol>;</symbol>
-	<keyword>while</keyword>
-	<symbol>(</symbol>
-	<identifier>i</identifier>
-	<symbol>&lt;</symbol>
-	<identifier>length</identifier>
-	<symbol>)</symbol>
-	<symbol>{</symbol>
-	<keyword>let</keyword>
-	<identifier>a</identifier>
-	<symbol>[</symbol>
-	<identifier>i</identifier>
-	<symbol>]</symbol>
-	<symbol>=</symbol>
-	<identifier>Keyboard</identifier>
-	<symbol>.</symbol>
-	<identifier>readInt</identifier>
-	<symbol>(</symbol>
-	<stringConstant>ENTER THE NEXT NUMBER: </stringConstant>
-	<symbol>)</symbol>
-	<symbol>;</symbol>
-	<keyword>let</keyword>
-	<identifier>i</identifier>
-	<symbol>=</symbol>
-	<identifier>i</identifier>
-	<symbol>+</symbol>
-	<integerConstant>1</integerConstant>
-	<symbol>;</symbol>
-	<symbol>}</symbol>
-	<keyword>let</keyword>
-	<identifier>i</identifier>
-	<symbol>=</symbol>
-	<integerConstant>0</integerConstant>
-	<symbol>;</symbol>
-	<keyword>let</keyword>
-	<identifier>sum</identifier>
-	<symbol>=</symbol>
-	<integerConstant>0</integerConstant>
-	<symbol>;</symbol>
-	<keyword>while</keyword>
-	<symbol>(</symbol>
-	<identifier>i</identifier>
-	<symbol>&lt;</symbol>
-	<identifier>length</identifier>
-	<symbol>)</symbol>
-	<symbol>{</symbol>
-	<keyword>let</keyword>
-	<identifier>sum</identifier>
-	<symbol>=</symbol>
-	<identifier>sum</identifier>
-	<symbol>+</symbol>
-	<identifier>a</identifier>
-	<symbol>[</symbol>
-	<identifier>i</identifier>
-	<symbol>]</symbol>
-	<symbol>;</symbol>
-	<keyword>let</keyword>
-	<identifier>i</identifier>
-	<symbol>=</symbol>
-	<identifier>i</identifier>
-	<symbol>+</symbol>
-	<integerConstant>1</integerConstant>
-	<symbol>;</symbol>
-	<symbol>}</symbol>
-	<keyword>do</keyword>
-	<identifier>Output</identifier>
-	<symbol>.</symbol>
-	<identifier>printString</identifier>
-	<symbol>(</symbol>
-	<stringConstant>THE AVERAGE IS: </stringConstant>
-	<symbol>)</symbol>
-	<symbol>;</symbol>
-	<keyword>do</keyword>
-	<identifier>Output</identifier>
-	<symbol>.</symbol>
-	<identifier>printInt</identifier>
-	<symbol>(</symbol>
-	<identifier>sum</identifier>
-	<symbol>/</symbol>
-	<identifier>length</identifier>
-	<symbol>)</symbol>
-	<symbol>;</symbol>
-	<keyword>do</keyword>
-	<identifier>Output</identifier>
-	<symbol>.</symbol>
-	<identifier>println</identifier>
-	<symbol>(</symbol>
-	<symbol>)</symbol>
-	<symbol>;</symbol>
-	<keyword>return</keyword>
-	<symbol>;</symbol>
-	<symbol>}</symbol>
-	<symbol>}</symbol>
+	<keyword row="7" col="5">class</keyword>
+	<identifier row="7" col="11">Main</identifier>
+	<symbol row="7" col="12">{</symbol>
+	<keyword row="8" col="12">function</keyword>
+	<keyword row="8" col="17">void</keyword>
+	<identifier row="8" col="23">main</identifier>
+	<symbol row="8" col="23">(</symbol>
+	<symbol row="8" col="24">)</symbol>
+	<symbol row="8" col="26">{</symbol>
+	<keyword row="9" col="11">var</keyword>
+	<identifier row="9" col="18">Array</identifier>
+	<identifier row="9" col="20">a</identifier>
+	<symbol row="9" col="20">;</symbol>
+	<keyword row="10" col="11">var</keyword>
+	<keyword row="10" col="15">int</keyword>
+	<identifier row="10" col="23">length</identifier>
+	<symbol row="10" col="23">;</symbol>
+	<keyword row="11" col="4">var</keyword>
+	<keyword row="11" col="8">int</keyword>
+	<identifier row="11" col="11">i</identifier>
+	<symbol row="11" col="11">,</symbol>
+	<identifier row="11" col="16">sum</identifier>
+	<symbol row="11" col="16">;</symbol>
+	<keyword row="13" col="4">let</keyword>
+	<identifier row="13" col="12">length</identifier>
+	<symbol row="13" col="13">=</symbol>
+	<identifier row="13" col="23">Keyboard</identifier>
+	<symbol row="13" col="23">.</symbol>
+	<identifier row="13" col="31">readInt</identifier>
+	<symbol row="13" col="31">(</symbol>
+	<stringConstant row="13" col="51">HOW MANY NUMBERS? </stringConstant>
+	<symbol row="13" col="52">)</symbol>
+	<symbol row="13" col="53">;</symbol>
+	<keyword row="14" col="4">let</keyword>
+	<identifier row="14" col="7">a</identifier>
+	<symbol row="14" col="8">=</symbol>
+	<identifier row="14" col="15">Array</identifier>
+	<symbol row="14" col="15">.</symbol>
+	<identifier row="14" col="19">new</identifier>
+	<symbol row="14" col="19">(</symbol>
+	<identifier row="14" col="26">length</identifier>
+	<symbol row="14" col="26">)</symbol>
+	<symbol row="14" col="27">;</symbol>
+	<keyword row="15" col="4">let</keyword>
+	<identifier row="15" col="7">i</identifier>
+	<symbol row="15" col="8">=</symbol>
+	<integerConstant row="15" col="11">0</integerConstant>
+	<symbol row="15" col="11">;</symbol>
+	<keyword row="17" col="6">while</keyword>
+	<symbol row="17" col="8">(</symbol>
+	<identifier row="17" col="10">i</identifier>
+	<symbol row="17" col="11">&lt;</symbol>
+	<identifier row="17" col="19">length</identifier>
+	<symbol row="17" col="19">)</symbol>
+	<symbol row="17" col="21">{</symbol>
+	<keyword row="18" col="8">let</keyword>
+	<identifier row="18" col="11">a</identifier>
+	<symbol row="18" col="11">[</symbol>
+	<identifier row="18" col="13">i</identifier>
+	<symbol row="18" col="13">]</symbol>
+	<symbol row="18" col="15">=</symbol>
+	<identifier row="18" col="25">Keyboard</identifier>
+	<symbol row="18" col="25">.</symbol>
+	<identifier row="18" col="33">readInt</identifier>
+	<symbol row="18" col="33">(</symbol>
+	<stringConstant row="18" col="58">ENTER THE NEXT NUMBER: </stringConstant>
+	<symbol row="18" col="59">)</symbol>
+	<symbol row="18" col="60">;</symbol>
+	<keyword row="19" col="8">let</keyword>
+	<identifier row="19" col="11">i</identifier>
+	<symbol row="19" col="12">=</symbol>
+	<identifier row="19" col="15">i</identifier>
+	<symbol row="19" col="16">+</symbol>
+	<integerConstant row="19" col="19">1</integerConstant>
+	<symbol row="19" col="19">;</symbol>
+	<symbol row="20" col="2">}</symbol>
+	<keyword row="22" col="4">let</keyword>
+	<identifier row="22" col="7">i</identifier>
+	<symbol row="22" col="8">=</symbol>
+	<integerConstant row="22" col="11">0</integerConstant>
+	<symbol row="22" col="11">;</symbol>
+	<keyword row="23" col="4">let</keyword>
+	<identifier row="23" col="9">sum</identifier>
+	<symbol row="23" col="10">=</symbol>
+	<integerConstant row="23" col="13">0</integerConstant>
+	<symbol row="23" col="13">;</symbol>
+	<keyword row="25" col="6">while</keyword>
+	<symbol row="25" col="8">(</symbol>
+	<identifier row="25" col="10">i</identifier>
+	<symbol row="25" col="11">&lt;</symbol>
+	<identifier row="25" col="19">length</identifier>
+	<symbol row="25" col="19">)</symbol>
+	<symbol row="25" col="21">{</symbol>
+	<keyword row="26" col="8">let</keyword>
+	<identifier row="26" col="13">sum</identifier>
+	<symbol row="26" col="14">=</symbol>
+	<identifier row="26" col="19">sum</identifier>
+	<symbol row="26" col="20">+</symbol>
+	<identifier row="26" col="23">a</identifier>
+	<symbol row="26" col="23">[</symbol>
+	<identifier row="26" col="25">i</identifier>
+	<symbol row="26" col="25">]</symbol>
+	<symbol row="26" col="26">;</symbol>
+	<keyword row="27" col="8">let</keyword>
+	<identifier row="27" col="11">i</identifier>
+	<symbol row="27" col="12">=</symbol>
+	<identifier row="27" col="15">i</identifier>
+	<symbol row="27" col="16">+</symbol>
+	<integerConstant row="27" col="19">1</integerConstant>
+	<symbol row="27" col="19">;</symbol>
+	<symbol row="28" col="2">}</symbol>
+	<keyword row="30" col="3">do</keyword>
+	<identifier row="30" col="11">Output</identifier>
+	<symbol row="30" col="11">.</symbol>
+	<identifier row="30" col="23">printString</identifier>
+	<symbol row="30" col="23">(</symbol>
+	<stringConstant row="30" col="41">THE AVERAGE IS: </stringConstant>
+	<symbol row="30" col="42">)</symbol>
+	<symbol row="30" col="43">;</symbol>
+	<keyword row="31" col="3">do</keyword>
+	<identifier row="31" col="11">Output</identifier>
+	<symbol row="31" col="11">.</symbol>
+	<identifier row="31" col="20">printInt</identifier>
+	<symbol row="31" col="20">(</symbol>
+	<identifier row="31" col="24">sum</identifier>
+	<symbol row="31" col="26">/</symbol>
+	<identifier row="31" col="33">length</identifier>
+	<symbol row="31" col="33">)</symbol>
+	<symbol row="31" col="34">;</symbol>
+	<keyword row="32" col="3">do</keyword>
+	<identifier row="32" col="11">Output</identifier>
+	<symbol row="32" col="11">.</symbol>
+	<identifier row="32" col="19">println</identifier>
+	<symbol row="32" col="19">(</symbol>
+	<symbol row="32" col="20">)</symbol>
+	<symbol row="32" col="21">;</symbol>
+	<keyword row="34" col="7">return</keyword>
+	<symbol row="34" col="8">;</symbol>
+	<symbol row="35" col="5">}</symbol>
+	<symbol row="36" col="1">}</symbol>
 </tokens>
