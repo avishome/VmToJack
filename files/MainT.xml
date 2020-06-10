@@ -6,8 +6,13 @@
 	<keyword row="8" col="17">void</keyword>
 	<identifier row="8" col="23">main</identifier>
 	<symbol row="8" col="23">(</symbol>
-	<symbol row="8" col="24">)</symbol>
-	<symbol row="8" col="26">{</symbol>
+	<keyword row="8" col="26">int</keyword>
+	<identifier row="8" col="29">x</identifier>
+	<symbol row="8" col="29">,</symbol>
+	<keyword row="8" col="32">int</keyword>
+	<identifier row="8" col="35">y</identifier>
+	<symbol row="8" col="35">)</symbol>
+	<symbol row="8" col="37">{</symbol>
 	<keyword row="9" col="11">var</keyword>
 	<identifier row="9" col="18">Array</identifier>
 	<identifier row="9" col="20">a</identifier>

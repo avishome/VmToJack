@@ -31,6 +31,7 @@ public type CodeWriter object {
     private function getCodeReq(Node node, Node? parent = ()) returns string|boolean {
         Node[] childeren = node.getChilderen();
         string code = "";
+
         if (node.getName() == "class") {
             self.class = childeren[1].getValue();
             childeren = childeren.slice(3, childeren.length() - 4);
@@ -42,10 +43,97 @@ public type CodeWriter object {
                     return false;
                 }
             }
+            self.tree.clearClassTable();
+        }
+
+        if (node.getName() == "classVarDec") {
+            string decType = childeren[0].getValue();
+            string decKind = childeren[1].getValue();
+            boolean succ = self.tree.addRecord("class", childeren[2].getValue(), decType, decKind);
+            if (!succ) {
+                return false;
+            }
+            int index = 3;
+            while (childeren[index].getValue() !== ";") {
+                succ = self.tree.addRecord("class", childeren[index + 1].getValue(), decType, decKind);
+                if (!succ) {
+                    return false;
+                }
+                index += 2;
+            }
+        }
+
+        if (node.getName() == "varDec") {
+            string decType = childeren[0].getValue();
+            string decKind = childeren[1].getValue();
+            boolean succ = self.tree.addRecord("class", childeren[2].getValue(), decType, decKind);
+            if (!succ) {
+                return false;
+            }
+            int index = 3;
+            while (childeren[index].getValue() !== ";") {
+                succ = self.tree.addRecord("class", childeren[index + 1].getValue(), decType, decKind);
+                if (!succ) {
+                    return false;
+                }
+                index += 2;
+            }
+        }
+
+        if (node.getName() == "subroutineDec") {
+            self.tree.clearMethodTable();
+            string returnType = "";
+            string funcType = "";
+            string funcName = "";
+            if (childeren[0].getValue() == "method") {
+                funcType = "method";
+                returnType = childeren[1].getValue();
+                funcName = childeren[2].getValue();
+                _ = self.tree.addRecord("func", "this", self.class, "arg");
+            }
+            if (childeren[0].getValue() == "function") {
+                funcType = "function";
+                returnType = childeren[1].getValue();
+                funcName = childeren[2].getValue();
+            }
+            if (childeren[0].getValue() == "constructor") {
+                funcType = "constructor";
+            }
+            _ = self.getCodeReq(childeren[4], node);
+            boolean|string res = self.getCodeReq(childeren[6], node);
+            if (res is boolean) {
+                return false;
+            } else {
+                code += res;
+            }
+        }
+
+        if (node.getName() == "parameterList") {
+            int index = 0;
+            while (index + 1 < childeren.length()) {
+                boolean succ = self.tree.addRecord("func", childeren[1].getValue(), childeren[0].getValue(), "arg");
+                if (!succ) {
+                    return false;
+                }
+                index += 3;
+            }
+        }
+
+        if (node.getName() == "subroutineBody") {
+            foreach var child in childeren {
+                if (child.getName() == "varDec" || child.getName() == "statements") {
+                    boolean|string res = self.getCodeReq(child, node);
+                    if (res is boolean) {
+                        return false;
+                    } else {
+                        code += res;
+                    }
+                }
+            }
         }
 
         //TODO Code writing here
-        return false;
+        return code;
     }
 };
 
