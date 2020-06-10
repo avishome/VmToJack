@@ -5,7 +5,6 @@ import ballerina/stringutils;
 # Prints `Hello World`.
 
 public function main() {
-    io:println("Hello World!");
     Tree|error t = new Tree("files/Main.xml");
     if (t is Tree) {
         t.print();
@@ -14,18 +13,37 @@ public function main() {
 
 public type CodeWriter object {
     private Node root;
+    private string class = "";
+    private string func = "";
+    private Tree tree;
     public function __init(string file) returns error? {
         Tree|error tree = new (file);
         if (tree is error) {
             return tree;
         } else {
+            self.tree = tree;
             self.root = tree.getRoot();
         }
     }
     public function getCode() returns string|boolean {
         return self.getCodeReq(self.root);
     }
-    private function getCodeReq(Node node) returns string|boolean {
+    private function getCodeReq(Node node, Node? parent = ()) returns string|boolean {
+        Node[] childeren = node.getChilderen();
+        string code = "";
+        if (node.getName() == "class") {
+            self.class = childeren[1].getValue();
+            childeren = childeren.slice(3, childeren.length() - 4);
+            foreach var child in childeren {
+                string|boolean res = self.getCodeReq(child, node);
+                if (res is string) {
+                    code += res;
+                } else {
+                    return false;
+                }
+            }
+        }
+
         //TODO Code writing here
         return false;
     }
@@ -44,65 +62,21 @@ public type Node object {
     private string name = "";
     private string row = "";
     private string col = "";
-    private map<VarRec> varTable;
-    private int argument = 0;
-    private int local = 0;
-    private int this = 0;
-    private int that = 0;
-    private int pointer = 0;
-    private int fieldT = 0;
-    private int static = 0;
+
 
     public function __init(string name, string value = "", string row = "", string col = "") {
         self.name = name;
         self.value = value;
         self.row = row;
         self.col = col;
-        self.varTable = {};
     }
 
-    public function getRecord(string name) returns VarRec? {
-        return self.varTable[name];
+    public function getName() returns string {
+        return self.name;
     }
 
-    public function addRecord(string name, string varType, string kind) returns boolean {
-        int num = 0;
-        match kind {
-            "argument" => {
-                self.argument += 1;
-                num = self.argument;
-            }
-            "local" => {
-                self.local += 1;
-                num = self.local;
-            }
-            "this" => {
-                self.this += 1;
-                num = self.this;
-            }
-            "that" => {
-                self.that += 1;
-                num = self.that;
-            }
-            "pointer" => {
-                self.pointer += 1;
-                num = self.pointer;
-            }
-            "field" => {
-                self.fieldT += 1;
-                num = self.fieldT;
-            }
-            "static" => {
-                self.static += 1;
-                num = self.static;
-            }
-        }
-        if (self.varTable[name] is VarRec) {
-            return false;
-        } else {
-            self.varTable[name] = {varType: varType, varKind: kind, number: num};
-            return true;
-        }
+    public function getValue() returns string {
+        return self.value;
     }
 
     public function isLeaf() returns boolean {
@@ -162,6 +136,12 @@ public type Node object {
 
 public type Tree object {
     private Node root;
+    private map<VarRec> classVarTable = {};
+    private map<VarRec> methodVarTable = {};
+    private int localT = 0;
+    private int argT = 0;
+    private int fieldT = 0;
+    private int staticT = 0;
     public function __init(string file) returns @tainted error? {
         self.root = new Node("class");
         xml|error treeFile = self.readXml(file);
@@ -169,6 +149,58 @@ public type Tree object {
             return treeFile;
         } else {
             self.buildTree(treeFile, self.root);
+        }
+    }
+    public function getClassRecord(string name) returns VarRec? {
+        return self.classVarTable[name];
+    }
+    public function getMethodRecord(string name) returns VarRec? {
+        return self.methodVarTable[name];
+    }
+    public function clearClassTable() {
+        self.classVarTable = {};
+    }
+    public function clearMethodTable() {
+        self.methodVarTable = {};
+    }
+    public function addRecord(string fromTable, string name, string varType, string kind) returns boolean {
+        int num = 0;
+        match kind {
+            "field" => {
+                self.fieldT += 1;
+                num = self.fieldT;
+            }
+            "static" => {
+                self.staticT += 1;
+                num = self.staticT;
+            }
+            "var" => {
+                self.localT += 1;
+                num = self.localT;
+            }
+            "let" => {
+                self.localT += 1;
+                num = self.localT;
+            }
+            "arg" => {
+                self.argT += 1;
+                num = self.argT;
+            }
+        }
+        if (fromTable == "class") {
+            if (self.classVarTable[name] is VarRec) {
+                return false;
+            } else {
+                self.classVarTable[name] = {varType: varType, varKind: kind, number: num};
+                return true;
+            }
+        } else {
+            if (self.methodVarTable[name] is VarRec) {
+                return false;
+            } else {
+                self.methodVarTable[name] = {varType: varType, varKind: kind, number: num};
+                return true;
+            }
         }
     }
     public function print() {
