@@ -93,6 +93,35 @@
 					</expression>
 					<symbol row="15" col="11" >;</symbol>
 				</letStatement>
+				<letStatement>
+					<keyword row="16" col="4" >let</keyword>
+					<identifier row="16" col="7" >i</identifier>
+					<symbol row="16" col="8" >=</symbol>
+					<expression>
+						<term>
+							<identifier row="16" col="11" >i</identifier>
+						</term>
+						<symbol row="16" col="12" >+</symbol>
+						<term>
+							<integerConstant row="16" col="15" >1</integerConstant>
+						</term>
+						<symbol row="16" col="16" >+</symbol>
+						<term>
+							<symbol row="16" col="18" >(</symbol>
+							<expression>
+								<term>
+									<identifier row="16" col="20" >i</identifier>
+								</term>
+								<symbol row="16" col="21" >+</symbol>
+								<term>
+									<identifier row="16" col="26" >sum</identifier>
+								</term>
+							</expression>
+							<symbol row="16" col="26" >)</symbol>
+						</term>
+					</expression>
+					<symbol row="16" col="27" >;</symbol>
+				</letStatement>
 				<whileStatement>
 					<keyword row="17" col="6" >while</keyword>
 					<symbol row="17" col="8" >(</symbol>

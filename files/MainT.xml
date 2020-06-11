@@ -52,6 +52,19 @@
 	<symbol row="15" col="8">=</symbol>
 	<integerConstant row="15" col="11">0</integerConstant>
 	<symbol row="15" col="11">;</symbol>
+	<keyword row="16" col="4">let</keyword>
+	<identifier row="16" col="7">i</identifier>
+	<symbol row="16" col="8">=</symbol>
+	<identifier row="16" col="11">i</identifier>
+	<symbol row="16" col="12">+</symbol>
+	<integerConstant row="16" col="15">1</integerConstant>
+	<symbol row="16" col="16">+</symbol>
+	<symbol row="16" col="18">(</symbol>
+	<identifier row="16" col="20">i</identifier>
+	<symbol row="16" col="21">+</symbol>
+	<identifier row="16" col="26">sum</identifier>
+	<symbol row="16" col="26">)</symbol>
+	<symbol row="16" col="27">;</symbol>
 	<keyword row="17" col="6">while</keyword>
 	<symbol row="17" col="8">(</symbol>
 	<identifier row="17" col="10">i</identifier>

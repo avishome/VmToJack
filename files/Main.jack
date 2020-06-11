@@ -13,7 +13,7 @@ class Main {
 	let length = Keyboard.readInt("HOW MANY NUMBERS? ");
 	let a = Array.new(length);
 	let i = 0;
-	
+	let i = i + 1 + (i + sum);
 	while (i < length) {
 	    let a[i] = Keyboard.readInt("ENTER THE NEXT NUMBER: ");
 	    let i = i + 1;
