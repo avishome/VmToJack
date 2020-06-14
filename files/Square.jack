@@ -20,15 +20,17 @@ class Square {
     constructor Square new(int Ax, int Ay, int Asize) {
         let x = Ax;
         let y = Ay;
-        let size = Asize;
-
+        let size = yes(x);
         do draw();
 
         return this;
     }
-
+    method int yes(int y5){
+        return 5;
+    }
     /** Deallocates the object's memory. */
     method void dispose() {
+        var int i;
         do Memory.deAlloc(this);
         return;
     }

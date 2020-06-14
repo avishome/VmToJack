@@ -32,29 +32,31 @@
 					<expression>
 						<term>
 							<identifier row="25" col="28" >Square</identifier>
-							<symbol row="25" col="28" >.</symbol>
-							<identifier row="25" col="32" >new</identifier>
-							<symbol row="25" col="32" >(</symbol>
-							<expressionList>
-								<expression>
-									<term>
-										<integerConstant row="25" col="34" >0</integerConstant>
-									</term>
-								</expression>
-								<symbol row="25" col="34" >,</symbol>
-								<expression>
-									<term>
-										<integerConstant row="25" col="37" >0</integerConstant>
-									</term>
-								</expression>
-								<symbol row="25" col="37" >,</symbol>
-								<expression>
-									<term>
-										<integerConstant row="25" col="41" >30</integerConstant>
-									</term>
-								</expression>
-							</expressionList>
-							<symbol row="25" col="41" >)</symbol>
+							<subroutineCall>
+								<symbol row="25" col="28" >.</symbol>
+								<identifier row="25" col="32" >new</identifier>
+								<symbol row="25" col="32" >(</symbol>
+								<expressionList>
+									<expression>
+										<term>
+											<integerConstant row="25" col="34" >0</integerConstant>
+										</term>
+									</expression>
+									<symbol row="25" col="34" >,</symbol>
+									<expression>
+										<term>
+											<integerConstant row="25" col="37" >0</integerConstant>
+										</term>
+									</expression>
+									<symbol row="25" col="37" >,</symbol>
+									<expression>
+										<term>
+											<integerConstant row="25" col="41" >30</integerConstant>
+										</term>
+									</expression>
+								</expressionList>
+								<symbol row="25" col="41" >)</symbol>
+							</subroutineCall>
 						</term>
 					</expression>
 					<symbol row="25" col="42" >;</symbol>
@@ -97,28 +99,32 @@
 				<doStatement>
 					<keyword row="33" col="10" >do</keyword>
 					<identifier row="33" col="18" >square</identifier>
-					<symbol row="33" col="18" >.</symbol>
-					<identifier row="33" col="26" >dispose</identifier>
-					<symbol row="33" col="26" >(</symbol>
-					<expressionList>
-					</expressionList>
-					<symbol row="33" col="27" >)</symbol>
+					<subroutineCall>
+						<symbol row="33" col="18" >.</symbol>
+						<identifier row="33" col="26" >dispose</identifier>
+						<symbol row="33" col="26" >(</symbol>
+						<expressionList>
+						</expressionList>
+						<symbol row="33" col="27" >)</symbol>
+					</subroutineCall>
 					<symbol row="33" col="28" >;</symbol>
 				</doStatement>
 				<doStatement>
 					<keyword row="34" col="10" >do</keyword>
 					<identifier row="34" col="18" >Memory</identifier>
-					<symbol row="34" col="18" >.</symbol>
-					<identifier row="34" col="26" >deAlloc</identifier>
-					<symbol row="34" col="26" >(</symbol>
-					<expressionList>
-						<expression>
-							<term>
-								<keyword row="34" col="30" >this</keyword>
-							</term>
-						</expression>
-					</expressionList>
-					<symbol row="34" col="31" >)</symbol>
+					<subroutineCall>
+						<symbol row="34" col="18" >.</symbol>
+						<identifier row="34" col="26" >deAlloc</identifier>
+						<symbol row="34" col="26" >(</symbol>
+						<expressionList>
+							<expression>
+								<term>
+									<keyword row="34" col="30" >this</keyword>
+								</term>
+							</expression>
+						</expressionList>
+						<symbol row="34" col="31" >)</symbol>
+					</subroutineCall>
 					<symbol row="34" col="32" >;</symbol>
 				</doStatement>
 				<returnStatement>
@@ -199,12 +205,14 @@
 									<expression>
 										<term>
 											<identifier row="49" col="35" >Keyboard</identifier>
-											<symbol row="49" col="35" >.</symbol>
-											<identifier row="49" col="46" >keyPressed</identifier>
-											<symbol row="49" col="46" >(</symbol>
-											<expressionList>
-											</expressionList>
-											<symbol row="49" col="47" >)</symbol>
+											<subroutineCall>
+												<symbol row="49" col="35" >.</symbol>
+												<identifier row="49" col="46" >keyPressed</identifier>
+												<symbol row="49" col="46" >(</symbol>
+												<expressionList>
+												</expressionList>
+												<symbol row="49" col="47" >)</symbol>
+											</subroutineCall>
 										</term>
 									</expression>
 									<symbol row="49" col="48" >;</symbol>
@@ -212,10 +220,12 @@
 								<doStatement>
 									<keyword row="50" col="18" >do</keyword>
 									<identifier row="50" col="30" >moveSquare</identifier>
-									<symbol row="50" col="30" >(</symbol>
-									<expressionList>
-									</expressionList>
-									<symbol row="50" col="31" >)</symbol>
+									<subroutineCall>
+										<symbol row="50" col="30" >(</symbol>
+										<expressionList>
+										</expressionList>
+										<symbol row="50" col="31" >)</symbol>
+									</subroutineCall>
 									<symbol row="50" col="32" >;</symbol>
 								</doStatement>
 							</statements>
@@ -268,12 +278,14 @@
 								<doStatement>
 									<keyword row="57" col="18" >do</keyword>
 									<identifier row="57" col="26" >square</identifier>
-									<symbol row="57" col="26" >.</symbol>
-									<identifier row="57" col="34" >decSize</identifier>
-									<symbol row="57" col="34" >(</symbol>
-									<expressionList>
-									</expressionList>
-									<symbol row="57" col="35" >)</symbol>
+									<subroutineCall>
+										<symbol row="57" col="26" >.</symbol>
+										<identifier row="57" col="34" >decSize</identifier>
+										<symbol row="57" col="34" >(</symbol>
+										<expressionList>
+										</expressionList>
+										<symbol row="57" col="35" >)</symbol>
+									</subroutineCall>
 									<symbol row="57" col="36" >;</symbol>
 								</doStatement>
 							</statements>
@@ -297,12 +309,14 @@
 								<doStatement>
 									<keyword row="60" col="18" >do</keyword>
 									<identifier row="60" col="26" >square</identifier>
-									<symbol row="60" col="26" >.</symbol>
-									<identifier row="60" col="34" >incSize</identifier>
-									<symbol row="60" col="34" >(</symbol>
-									<expressionList>
-									</expressionList>
-									<symbol row="60" col="35" >)</symbol>
+									<subroutineCall>
+										<symbol row="60" col="26" >.</symbol>
+										<identifier row="60" col="34" >incSize</identifier>
+										<symbol row="60" col="34" >(</symbol>
+										<expressionList>
+										</expressionList>
+										<symbol row="60" col="35" >)</symbol>
+									</subroutineCall>
 									<symbol row="60" col="36" >;</symbol>
 								</doStatement>
 							</statements>
@@ -455,12 +469,14 @@
 									<expression>
 										<term>
 											<identifier row="77" col="35" >Keyboard</identifier>
-											<symbol row="77" col="35" >.</symbol>
-											<identifier row="77" col="46" >keyPressed</identifier>
-											<symbol row="77" col="46" >(</symbol>
-											<expressionList>
-											</expressionList>
-											<symbol row="77" col="47" >)</symbol>
+											<subroutineCall>
+												<symbol row="77" col="35" >.</symbol>
+												<identifier row="77" col="46" >keyPressed</identifier>
+												<symbol row="77" col="46" >(</symbol>
+												<expressionList>
+												</expressionList>
+												<symbol row="77" col="47" >)</symbol>
+											</subroutineCall>
 										</term>
 									</expression>
 									<symbol row="77" col="48" >;</symbol>
@@ -468,10 +484,12 @@
 								<doStatement>
 									<keyword row="78" col="18" >do</keyword>
 									<identifier row="78" col="30" >moveSquare</identifier>
-									<symbol row="78" col="30" >(</symbol>
-									<expressionList>
-									</expressionList>
-									<symbol row="78" col="31" >)</symbol>
+									<subroutineCall>
+										<symbol row="78" col="30" >(</symbol>
+										<expressionList>
+										</expressionList>
+										<symbol row="78" col="31" >)</symbol>
+									</subroutineCall>
 									<symbol row="78" col="32" >;</symbol>
 								</doStatement>
 							</statements>
@@ -517,12 +535,14 @@
 						<doStatement>
 							<keyword row="88" col="14" >do</keyword>
 							<identifier row="88" col="22" >square</identifier>
-							<symbol row="88" col="22" >.</symbol>
-							<identifier row="88" col="29" >moveUp</identifier>
-							<symbol row="88" col="29" >(</symbol>
-							<expressionList>
-							</expressionList>
-							<symbol row="88" col="30" >)</symbol>
+							<subroutineCall>
+								<symbol row="88" col="22" >.</symbol>
+								<identifier row="88" col="29" >moveUp</identifier>
+								<symbol row="88" col="29" >(</symbol>
+								<expressionList>
+								</expressionList>
+								<symbol row="88" col="30" >)</symbol>
+							</subroutineCall>
 							<symbol row="88" col="31" >;</symbol>
 						</doStatement>
 					</statements>
@@ -546,12 +566,14 @@
 						<doStatement>
 							<keyword row="91" col="14" >do</keyword>
 							<identifier row="91" col="22" >square</identifier>
-							<symbol row="91" col="22" >.</symbol>
-							<identifier row="91" col="31" >moveDown</identifier>
-							<symbol row="91" col="31" >(</symbol>
-							<expressionList>
-							</expressionList>
-							<symbol row="91" col="32" >)</symbol>
+							<subroutineCall>
+								<symbol row="91" col="22" >.</symbol>
+								<identifier row="91" col="31" >moveDown</identifier>
+								<symbol row="91" col="31" >(</symbol>
+								<expressionList>
+								</expressionList>
+								<symbol row="91" col="32" >)</symbol>
+							</subroutineCall>
 							<symbol row="91" col="33" >;</symbol>
 						</doStatement>
 					</statements>
@@ -575,12 +597,14 @@
 						<doStatement>
 							<keyword row="94" col="14" >do</keyword>
 							<identifier row="94" col="22" >square</identifier>
-							<symbol row="94" col="22" >.</symbol>
-							<identifier row="94" col="31" >moveLeft</identifier>
-							<symbol row="94" col="31" >(</symbol>
-							<expressionList>
-							</expressionList>
-							<symbol row="94" col="32" >)</symbol>
+							<subroutineCall>
+								<symbol row="94" col="22" >.</symbol>
+								<identifier row="94" col="31" >moveLeft</identifier>
+								<symbol row="94" col="31" >(</symbol>
+								<expressionList>
+								</expressionList>
+								<symbol row="94" col="32" >)</symbol>
+							</subroutineCall>
 							<symbol row="94" col="33" >;</symbol>
 						</doStatement>
 					</statements>
@@ -604,12 +628,14 @@
 						<doStatement>
 							<keyword row="97" col="14" >do</keyword>
 							<identifier row="97" col="22" >square</identifier>
-							<symbol row="97" col="22" >.</symbol>
-							<identifier row="97" col="32" >moveRight</identifier>
-							<symbol row="97" col="32" >(</symbol>
-							<expressionList>
-							</expressionList>
-							<symbol row="97" col="33" >)</symbol>
+							<subroutineCall>
+								<symbol row="97" col="22" >.</symbol>
+								<identifier row="97" col="32" >moveRight</identifier>
+								<symbol row="97" col="32" >(</symbol>
+								<expressionList>
+								</expressionList>
+								<symbol row="97" col="33" >)</symbol>
+							</subroutineCall>
 							<symbol row="97" col="34" >;</symbol>
 						</doStatement>
 					</statements>
@@ -618,17 +644,19 @@
 				<doStatement>
 					<keyword row="100" col="10" >do</keyword>
 					<identifier row="100" col="15" >Sys</identifier>
-					<symbol row="100" col="15" >.</symbol>
-					<identifier row="100" col="20" >wait</identifier>
-					<symbol row="100" col="20" >(</symbol>
-					<expressionList>
-						<expression>
-							<term>
-								<integerConstant row="100" col="22" >5</integerConstant>
-							</term>
-						</expression>
-					</expressionList>
-					<symbol row="100" col="22" >)</symbol>
+					<subroutineCall>
+						<symbol row="100" col="15" >.</symbol>
+						<identifier row="100" col="20" >wait</identifier>
+						<symbol row="100" col="20" >(</symbol>
+						<expressionList>
+							<expression>
+								<term>
+									<integerConstant row="100" col="22" >5</integerConstant>
+								</term>
+							</expression>
+						</expressionList>
+						<symbol row="100" col="22" >)</symbol>
+					</subroutineCall>
 					<symbol row="100" col="23" >;</symbol>
 				</doStatement>
 				<returnStatement>

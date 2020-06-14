@@ -26,12 +26,14 @@
 					<expression>
 						<term>
 							<identifier row="15" col="30" >SquareGame</identifier>
-							<symbol row="15" col="30" >.</symbol>
-							<identifier row="15" col="34" >new</identifier>
-							<symbol row="15" col="34" >(</symbol>
-							<expressionList>
-							</expressionList>
-							<symbol row="15" col="35" >)</symbol>
+							<subroutineCall>
+								<symbol row="15" col="30" >.</symbol>
+								<identifier row="15" col="34" >new</identifier>
+								<symbol row="15" col="34" >(</symbol>
+								<expressionList>
+								</expressionList>
+								<symbol row="15" col="35" >)</symbol>
+							</subroutineCall>
 						</term>
 					</expression>
 					<symbol row="15" col="36" >;</symbol>
@@ -39,23 +41,27 @@
 				<doStatement>
 					<keyword row="16" col="10" >do</keyword>
 					<identifier row="16" col="16" >game</identifier>
-					<symbol row="16" col="16" >.</symbol>
-					<identifier row="16" col="20" >run</identifier>
-					<symbol row="16" col="20" >(</symbol>
-					<expressionList>
-					</expressionList>
-					<symbol row="16" col="21" >)</symbol>
+					<subroutineCall>
+						<symbol row="16" col="16" >.</symbol>
+						<identifier row="16" col="20" >run</identifier>
+						<symbol row="16" col="20" >(</symbol>
+						<expressionList>
+						</expressionList>
+						<symbol row="16" col="21" >)</symbol>
+					</subroutineCall>
 					<symbol row="16" col="22" >;</symbol>
 				</doStatement>
 				<doStatement>
 					<keyword row="17" col="3" >do</keyword>
 					<identifier row="17" col="9" >game</identifier>
-					<symbol row="17" col="9" >.</symbol>
-					<identifier row="17" col="17" >dispose</identifier>
-					<symbol row="17" col="17" >(</symbol>
-					<expressionList>
-					</expressionList>
-					<symbol row="17" col="18" >)</symbol>
+					<subroutineCall>
+						<symbol row="17" col="9" >.</symbol>
+						<identifier row="17" col="17" >dispose</identifier>
+						<symbol row="17" col="17" >(</symbol>
+						<expressionList>
+						</expressionList>
+						<symbol row="17" col="18" >)</symbol>
+					</subroutineCall>
 					<symbol row="17" col="19" >;</symbol>
 				</doStatement>
 				<returnStatement>

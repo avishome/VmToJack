@@ -25,6 +25,8 @@ public type CodeWriter object {
     public Tree tree;
     private int size = 0;
     private string errorStack = "";
+    private map<string> keybourdConstant = {"true":"1","false":"0","null":"0","this":"this"};
+    private map<string> unaryOp = {"-":"-","~":"~"};
     public function __init(string file) returns error? {
         Tree|error tree = new (file);
         if (tree is error) {
@@ -87,6 +89,7 @@ public type CodeWriter object {
             self.tree.clearClassTable();
         }
 
+        //class var define (static or field)
         if (node.getName() == "classVarDec") {
             string decType = childeren[0].getValue();
             string decKind = childeren[1].getValue();
@@ -112,6 +115,7 @@ public type CodeWriter object {
             }
         }
 
+        //method var define (var) in method
         if (node.getName() == "varDec") {
             string decType = childeren[0].getValue();
             string decKind = childeren[1].getValue();
@@ -131,6 +135,7 @@ public type CodeWriter object {
             }
         }
 
+        //the method
         if (node.getName() == "subroutineDec") {
             self.tree.clearMethodTable();
             string returnType = "";
@@ -157,7 +162,8 @@ public type CodeWriter object {
                     "call Memory.alloc 1\n" +
                     "pop pointer 0\n";
             }
-            var test = self.getCodeReq(childeren[4], node);
+            //parameter list?
+            var test = self.getCodeReq(childeren[4], node); 
             if(test is boolean){
                 self.addErrorToStack(node);
                 return false;
@@ -177,6 +183,7 @@ public type CodeWriter object {
             }
         }
 
+        //parametr to method
         if (node.getName() == "parameterList") {
             int index = 0;
             while (index + 1 < childeren.length()) {
@@ -189,6 +196,7 @@ public type CodeWriter object {
             }
         }
 
+        //method body
         if (node.getName() == "subroutineBody") {
             foreach var child in childeren {
                 if (child.getName() == "varDec" || child.getName() == "statements") {
@@ -203,6 +211,7 @@ public type CodeWriter object {
             }
         }
 
+        //in body method
         if (node.getName() == "statements") {
             foreach var child in childeren {
                 boolean|string res = self.getCodeReq(child, node);
@@ -214,7 +223,128 @@ public type CodeWriter object {
                 }
             }
         }
+        if (node.getName() == "expression") {
+            boolean|string term = self.getCodeReq(childeren[0], node);
+            if (term is boolean) {
+                self.addErrorToStack(node);
+                return false;
+            } else {
+                code += term;
+            }
+            string? op;
+            int index = 1;
+            map<string> addrMap = {"+": "ADD","-" : "SUB","=": "EQ",">": "GT","<" : "LT",
+            "&" : "AND","|" :"OR","*":"Math.Mux","/":"Math.div"};
+            while (index+1 < childeren.length()) {
+                term = self.getCodeReq(childeren[index+1], node);
+                if (term is boolean) {
+                    self.addErrorToStack(node);
+                    return false;
+                } else {
+                    code += term;
+                }
 
+                op = addrMap[childeren[index].getValue()];
+                if (op is string) {
+                    code += op  + "\n";
+                } else {
+                    io:println("op "+ childeren[index].getValue() +" not found");
+                }
+
+                index =+ 2;
+            }
+
+            return code;
+        }
+
+        if (node.getName() == "term") {
+            match childeren[0].getName() {
+                "integerConstant" => {
+                    code += "push "+childeren[0].getValue() + "\n";
+                }
+                "stringConstant" => {
+                    code += self.generateConstStringCode(childeren[0].getValue());
+                }
+                "identifier" => {
+                    if(childeren[1].getValue() == "subroutineCall"){
+                    var subroutineCall = self.getCodeReq(childeren[1], node);
+                        if (subroutineCall is boolean) {
+                            self.addErrorToStack(node);
+                            return false;
+                        } else {
+                            code += subroutineCall;
+                        }
+                        var varibale = self.getVariableCode(childeren[0].getValue());
+                        if(varibale is boolean){
+                        io:println("Variable "+childeren[0].getValue()+" is not declared");
+                        self.addErrorToStack(node);
+                        }else{
+                            code += "call "+ varibale;
+                        }
+                    } else{
+
+                        continue;
+                    }
+                    var varibale = self.getVariableCode(childeren[0].getValue());
+                    if(varibale is boolean){
+                        io:println("Variable "+childeren[0].getValue()+" is not declared");
+                        self.addErrorToStack(node);
+                    } else{
+
+                        code += "push "+ varibale + "\n";
+
+                        if(childeren.length()>2 && childeren[1].getValue() == "["){
+                            boolean|string experssion = self.getCodeReq(childeren[2], node);
+                            if (experssion is boolean) {
+                                self.addErrorToStack(node);
+                                return false;
+                            } else {
+                                code += experssion;
+                            }
+                            code += "add ";
+                        }
+                    }
+                } //var name/var name [exprtion]
+                "keyword" => {
+                    string? keybourd_constant = self.keybourdConstant[childeren[0].getValue()];
+                    if(keybourd_constant is string){
+                        code += "push " + keybourd_constant;
+                    }
+                }  //true false null this
+                "unaryOp" => {
+                    string? unary_op = self.unaryOp[childeren[0].getValue()];
+                    boolean|string term = self.getCodeReq(childeren[1], node);
+                    if (term is boolean) {
+                        self.addErrorToStack(node);
+                        return false;
+                    } else {
+                        code += term;
+                    }
+                    if(unary_op is string){
+                        code += "push " + unary_op;
+                    } else {
+                        self.addErrorToStack(node);
+                        return false;
+                    }
+                }
+                "symbol" => {
+                    if(childeren[0].getValue() == "("){
+                        boolean|string term = self.getCodeReq(childeren[1], node);
+                        if (term is boolean) {
+                            self.addErrorToStack(node);
+                            return false;
+                        } else {
+                            code += term;
+                        }
+                    }
+                }
+                "subroutingcall" => {
+                    
+                }
+            }
+            return code;
+        }
+        // '=' function in method
         if (node.getName() == "letStatement") {
             string variable = "";
             var dest = self.getVariableCode(childeren[1].getValue());
@@ -381,7 +511,7 @@ public type Tree object {
         self.fieldT=0;
     }
     public function getFunctionLocalNumber() returns int {
-        return self.localFuncN;
+        return self.localT; // i change from localFuncN
     }
     public function clearMethodTable() {
         self.methodVarTable = {};
@@ -389,6 +519,8 @@ public type Tree object {
         self.argT=0;
     }
     public function addRecord(string fromTable, string name, string varKind, string varType) returns boolean {
+        io:println("invalid variable identifier: " + "string fromTable: "+ fromTable +" , string name: "+ name +
+        " , string varKind: " + varKind + " , string varType: "+varType);
         int num = 0;
         string vmType = "";
         match varType {

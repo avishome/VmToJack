@@ -264,7 +264,7 @@ public type Node object {
 
     private function getCleardChilderen() returns Node[] {
         Node[] newChildren = [];
-        string[] toRemove = ["unaryOp", "subterm3", "subterm2", "subsubexpressionList", "keywordConstant", "subsubroutineCall1", "type", "subClassVarDec", "className", "parameterList1", "subparameterList", "subexpression", "op", "subletStatement", "subtemp1", "subvarDec", "statement", "subVarName", "subVarName1", "subroutineCall", "subsubroutineCall2", "subroutineName", "subexpressionList"];
+        string[] toRemove = ["unaryOp", "subterm3", "subterm2", "subsubexpressionList", "keywordConstant", "subsubroutineCall1", "type", "subClassVarDec", "className", "parameterList1", "subparameterList", "subexpression", "op", "subletStatement", "subtemp1", "subvarDec", "statement", "subVarName", "subVarName1", "subsubroutineCall2", "subroutineName", "subexpressionList"];
         foreach var child in self.childeren {
             foreach var c in child.getCleardChilderen() {
                 newChildren.push(c);

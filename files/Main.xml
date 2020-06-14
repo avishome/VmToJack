@@ -45,17 +45,19 @@
 					<expression>
 						<term>
 							<identifier row="13" col="23" >Keyboard</identifier>
-							<symbol row="13" col="23" >.</symbol>
-							<identifier row="13" col="31" >readInt</identifier>
-							<symbol row="13" col="31" >(</symbol>
-							<expressionList>
-								<expression>
-									<term>
-										<stringConstant row="13" col="51" >HOW MANY NUMBERS? </stringConstant>
-									</term>
-								</expression>
-							</expressionList>
-							<symbol row="13" col="52" >)</symbol>
+							<subroutineCall>
+								<symbol row="13" col="23" >.</symbol>
+								<identifier row="13" col="31" >readInt</identifier>
+								<symbol row="13" col="31" >(</symbol>
+								<expressionList>
+									<expression>
+										<term>
+											<stringConstant row="13" col="51" >HOW MANY NUMBERS? </stringConstant>
+										</term>
+									</expression>
+								</expressionList>
+								<symbol row="13" col="52" >)</symbol>
+							</subroutineCall>
 						</term>
 					</expression>
 					<symbol row="13" col="53" >;</symbol>
@@ -67,17 +69,19 @@
 					<expression>
 						<term>
 							<identifier row="14" col="15" >Array</identifier>
-							<symbol row="14" col="15" >.</symbol>
-							<identifier row="14" col="19" >new</identifier>
-							<symbol row="14" col="19" >(</symbol>
-							<expressionList>
-								<expression>
-									<term>
-										<identifier row="14" col="26" >length</identifier>
-									</term>
-								</expression>
-							</expressionList>
-							<symbol row="14" col="26" >)</symbol>
+							<subroutineCall>
+								<symbol row="14" col="15" >.</symbol>
+								<identifier row="14" col="19" >new</identifier>
+								<symbol row="14" col="19" >(</symbol>
+								<expressionList>
+									<expression>
+										<term>
+											<identifier row="14" col="26" >length</identifier>
+										</term>
+									</expression>
+								</expressionList>
+								<symbol row="14" col="26" >)</symbol>
+							</subroutineCall>
 						</term>
 					</expression>
 					<symbol row="14" col="27" >;</symbol>
@@ -151,17 +155,19 @@
 							<expression>
 								<term>
 									<identifier row="18" col="25" >Keyboard</identifier>
-									<symbol row="18" col="25" >.</symbol>
-									<identifier row="18" col="33" >readInt</identifier>
-									<symbol row="18" col="33" >(</symbol>
-									<expressionList>
-										<expression>
-											<term>
-												<stringConstant row="18" col="58" >ENTER THE NEXT NUMBER: </stringConstant>
-											</term>
-										</expression>
-									</expressionList>
-									<symbol row="18" col="59" >)</symbol>
+									<subroutineCall>
+										<symbol row="18" col="25" >.</symbol>
+										<identifier row="18" col="33" >readInt</identifier>
+										<symbol row="18" col="33" >(</symbol>
+										<expressionList>
+											<expression>
+												<term>
+													<stringConstant row="18" col="58" >ENTER THE NEXT NUMBER: </stringConstant>
+												</term>
+											</expression>
+										</expressionList>
+										<symbol row="18" col="59" >)</symbol>
+									</subroutineCall>
 								</term>
 							</expression>
 							<symbol row="18" col="60" >;</symbol>
@@ -264,48 +270,54 @@
 				<doStatement>
 					<keyword row="30" col="3" >do</keyword>
 					<identifier row="30" col="11" >Output</identifier>
-					<symbol row="30" col="11" >.</symbol>
-					<identifier row="30" col="23" >printString</identifier>
-					<symbol row="30" col="23" >(</symbol>
-					<expressionList>
-						<expression>
-							<term>
-								<stringConstant row="30" col="41" >THE AVERAGE IS: </stringConstant>
-							</term>
-						</expression>
-					</expressionList>
-					<symbol row="30" col="42" >)</symbol>
+					<subroutineCall>
+						<symbol row="30" col="11" >.</symbol>
+						<identifier row="30" col="23" >printString</identifier>
+						<symbol row="30" col="23" >(</symbol>
+						<expressionList>
+							<expression>
+								<term>
+									<stringConstant row="30" col="41" >THE AVERAGE IS: </stringConstant>
+								</term>
+							</expression>
+						</expressionList>
+						<symbol row="30" col="42" >)</symbol>
+					</subroutineCall>
 					<symbol row="30" col="43" >;</symbol>
 				</doStatement>
 				<doStatement>
 					<keyword row="31" col="3" >do</keyword>
 					<identifier row="31" col="11" >Output</identifier>
-					<symbol row="31" col="11" >.</symbol>
-					<identifier row="31" col="20" >printInt</identifier>
-					<symbol row="31" col="20" >(</symbol>
-					<expressionList>
-						<expression>
-							<term>
-								<identifier row="31" col="24" >sum</identifier>
-							</term>
-							<symbol row="31" col="26" >/</symbol>
-							<term>
-								<identifier row="31" col="33" >length</identifier>
-							</term>
-						</expression>
-					</expressionList>
-					<symbol row="31" col="33" >)</symbol>
+					<subroutineCall>
+						<symbol row="31" col="11" >.</symbol>
+						<identifier row="31" col="20" >printInt</identifier>
+						<symbol row="31" col="20" >(</symbol>
+						<expressionList>
+							<expression>
+								<term>
+									<identifier row="31" col="24" >sum</identifier>
+								</term>
+								<symbol row="31" col="26" >/</symbol>
+								<term>
+									<identifier row="31" col="33" >length</identifier>
+								</term>
+							</expression>
+						</expressionList>
+						<symbol row="31" col="33" >)</symbol>
+					</subroutineCall>
 					<symbol row="31" col="34" >;</symbol>
 				</doStatement>
 				<doStatement>
 					<keyword row="32" col="3" >do</keyword>
 					<identifier row="32" col="11" >Output</identifier>
-					<symbol row="32" col="11" >.</symbol>
-					<identifier row="32" col="19" >println</identifier>
-					<symbol row="32" col="19" >(</symbol>
-					<expressionList>
-					</expressionList>
-					<symbol row="32" col="20" >)</symbol>
+					<subroutineCall>
+						<symbol row="32" col="11" >.</symbol>
+						<identifier row="32" col="19" >println</identifier>
+						<symbol row="32" col="19" >(</symbol>
+						<expressionList>
+						</expressionList>
+						<symbol row="32" col="20" >)</symbol>
+					</subroutineCall>
 					<symbol row="32" col="21" >;</symbol>
 				</doStatement>
 				<returnStatement>
