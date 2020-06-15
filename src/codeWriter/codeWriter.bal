@@ -351,7 +351,7 @@ public type CodeWriter object {
                     code += expression;
                     code += "not \n";
                     code += "if-goto IF_TRUE0 \n";}
-            boolean|string statements = self.getCodeReq(childeren[4], node);
+            boolean|string statements = self.getCodeReq(childeren[5], node);
                 if (statements is boolean) {
                     self.addErrorToStack(node);
                     return false;
