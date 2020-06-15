@@ -297,8 +297,8 @@ public type CodeWriter object {
             }
             string? op;
             int index = 1;
-            map<string> addrMap = {"+": "ADD","-" : "SUB","=": "EQ",">": "GT","<" : "LT",
-            "&" : "AND","|" :"OR","*":"call Math.multiply 2","/":"call Math.divide 2"};
+            map<string> addrMap = {"+": "add","-" : "sub","=": "eq",">": "gt","<" : "lt",
+            "&" : "and","|" :"or","*":"call Math.multiply 2","/":"call Math.divide 2"};
             while (index+1 < childeren.length()) {
                 term = self.getCodeReq(childeren[index+1], node);
                 if (term is boolean) {
@@ -350,7 +350,7 @@ public type CodeWriter object {
                 } else { 
                     code += expression;
                     code += "not \n";
-                    code += "if-goto FALSEIF1 \n";}
+                    code += "if-goto IF_TRUE0 \n";}
             boolean|string statements = self.getCodeReq(childeren[4], node);
                 if (statements is boolean) {
                     self.addErrorToStack(node);
@@ -359,8 +359,8 @@ public type CodeWriter object {
                     code += statements;
                 }
             if(childeren.length() == 8){
-                code += "goto ENDIF \n";
-                code+= "label FALSEIF1 \n";
+                code += "goto IF_FALSE0 \n";
+                code+= "label IF_TRUE0 \n";
                 statements = self.getCodeReq(childeren[7], node);
                 if (statements is boolean) {
                     self.addErrorToStack(node);
@@ -368,9 +368,9 @@ public type CodeWriter object {
                 } else {
                     code += statements;
                 }
-                code+= "label ENDIF1 \n";
+                code+= "label IF_FALSE0 \n";
             } else {
-                code+= "label FALSEIF1 \n";
+                code+= "label IF_TRUE0 \n";
             }
         }
 
