@@ -11,7 +11,7 @@ public function main() {
         if (code is string) {
             string res = code;
             res = fillnumbers(res);
-            //io:println(res);
+            io:println(res);
         } else {
             io:println(c.getErrorStack());
             io:println(c.tree.classVarTable);
@@ -550,7 +550,7 @@ public type CodeWriter object {
             }
         }
         if(code == ""){
-            io:print(node.printXML() + "\n");
+            //io:print(node.printXML() + "\n");
         }
         //TODO Code writing here
         return code;
