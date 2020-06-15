@@ -32,7 +32,7 @@ public function fillnumbers(string res) returns string{
     return res1;
 }
 
-const map<string> keybourdConstant = {"true":"push 1\nneg","false":"0","null":"0","this":"pointer 0"};
+const map<string> keybourdConstant = {"true":"constant 1\nnot","false":"constant 0","null":"constant 0","this":"pointer 0"};
 
 public type CodeWriter object {
     private Node root;
@@ -163,11 +163,13 @@ public type CodeWriter object {
                 returnType = childeren[1].getValue();
                 funcName = childeren[2].getValue();
                 _ = self.tree.addRecord("func", "this", self.class, "arg"); // this to funcName
+                constractorCode = "push argument 0\npop pointer 0\n";
             }
             if (childeren[0].getValue() == "function") {
                 funcType = "function";
                 returnType = childeren[1].getValue();
                 funcName = childeren[2].getValue();
+                constractorCode = "push argument 0\npop pointer 0\n";
                 //TODO add record
             }
             if (childeren[0].getValue() == "constructor") {
@@ -257,7 +259,7 @@ public type CodeWriter object {
         }
 
         if (node.getName() == "doStatement"){
-            //TODO NO TREAT ROF subsubroutineCall2 .ID(PARAMS)
+
             string caller = "";
             string firstArg = "";
             boolean isOneWordDefin = childeren[2].getChilderen().length()>3;
@@ -269,7 +271,7 @@ public type CodeWriter object {
             //clac first arg (is known obj?)
             var varibale = self.getVariableCode(childeren[1].getValue());
             if(varibale is boolean){
-                if(isOneWordDefin){ //is freind in our class
+                if(!isOneWordDefin){ //is freind in our class
                     firstArg = "push pointer 0 " + "\n";
                 }
             } else{
@@ -427,7 +429,7 @@ public type CodeWriter object {
                         //clac first arg (is known obj?)
                         var varibale = self.getVariableCode(childeren[0].getValue());
                         if(varibale is boolean){
-                            if(isOneWordDefin){ //is freind in our class
+                            if(!isOneWordDefin){ //is freind in our class
                                 firstArg = "push pointer 0 " + "\n";
                             }
                         } else{
