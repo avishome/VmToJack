@@ -6,26 +6,19 @@ push argument 1
 pop this 0
 push argument 2
 pop this 1
-push pointer 0 
-push this 0
-call Square.yes 2
+push argument 3
 pop this 2
-push pointer 0 
+push pointer 0
 call Square.draw 1
-pop temp 0 
+pop temp 0
 push pointer 0
 return
-function Square.yes 0
-push argument 0
-pop pointer 0
-push constant 5
-return
-function Square.dispose 1
+function Square.dispose 0
 push argument 0
 pop pointer 0
 push pointer 0
 call Memory.deAlloc 1
-pop temp 0 
+pop temp 0
 push constant 0
 return
 function Square.draw 0
@@ -34,7 +27,7 @@ pop pointer 0
 push constant 0
 not
 call Screen.setColor 1
-pop temp 0 
+pop temp 0
 push this 0
 push this 1
 push this 0
@@ -44,7 +37,7 @@ push this 1
 push this 2
 add
 call Screen.drawRectangle 4
-pop temp 0 
+pop temp 0
 push constant 0
 return
 function Square.erase 0
@@ -52,7 +45,7 @@ push argument 0
 pop pointer 0
 push constant 0
 call Screen.setColor 1
-pop temp 0 
+pop temp 0
 push this 0
 push this 1
 push this 0
@@ -62,7 +55,7 @@ push this 1
 push this 2
 add
 call Screen.drawRectangle 4
-pop temp 0 
+pop temp 0
 push constant 0
 return
 function Square.incSize 0
@@ -79,19 +72,19 @@ add
 push constant 510
 lt
 and
-not 
-if-goto IF_TRUE2 
-push pointer 0 
+not
+if-goto IF_TRUE1
+push pointer 0
 call Square.erase 1
-pop temp 0 
+pop temp 0
 push this 2
 push constant 2
 add
 pop this 2
-push pointer 0 
+push pointer 0
 call Square.draw 1
-pop temp 0 
-label IF_TRUE2 
+pop temp 0
+label IF_TRUE1
 push constant 0
 return
 function Square.decSize 0
@@ -100,19 +93,19 @@ pop pointer 0
 push this 2
 push constant 2
 gt
-not 
-if-goto IF_TRUE3 
-push pointer 0 
+not
+if-goto IF_TRUE2
+push pointer 0
 call Square.erase 1
-pop temp 0 
+pop temp 0
 push this 2
 push constant 2
 sub
 pop this 2
-push pointer 0 
+push pointer 0
 call Square.draw 1
-pop temp 0 
-label IF_TRUE3 
+pop temp 0
+label IF_TRUE2
 push constant 0
 return
 function Square.moveUp 0
@@ -121,11 +114,11 @@ pop pointer 0
 push this 1
 push constant 1
 gt
-not 
-if-goto IF_TRUE4 
+not
+if-goto IF_TRUE3
 push constant 0
 call Screen.setColor 1
-pop temp 0 
+pop temp 0
 push this 0
 push this 1
 push this 2
@@ -139,7 +132,7 @@ push this 1
 push this 2
 add
 call Screen.drawRectangle 4
-pop temp 0 
+pop temp 0
 push this 1
 push constant 2
 sub
@@ -147,7 +140,7 @@ pop this 1
 push constant 0
 not
 call Screen.setColor 1
-pop temp 0 
+pop temp 0
 push this 0
 push this 1
 push this 0
@@ -157,8 +150,8 @@ push this 1
 push constant 1
 add
 call Screen.drawRectangle 4
-pop temp 0 
-label IF_TRUE4 
+pop temp 0
+label IF_TRUE3
 push constant 0
 return
 function Square.moveDown 0
@@ -169,11 +162,11 @@ push this 2
 add
 push constant 254
 lt
-not 
-if-goto IF_TRUE5 
+not
+if-goto IF_TRUE4
 push constant 0
 call Screen.setColor 1
-pop temp 0 
+pop temp 0
 push this 0
 push this 1
 push this 0
@@ -183,7 +176,7 @@ push this 1
 push constant 1
 add
 call Screen.drawRectangle 4
-pop temp 0 
+pop temp 0
 push this 1
 push constant 2
 add
@@ -191,7 +184,7 @@ pop this 1
 push constant 0
 not
 call Screen.setColor 1
-pop temp 0 
+pop temp 0
 push this 0
 push this 1
 push this 2
@@ -205,8 +198,8 @@ push this 1
 push this 2
 add
 call Screen.drawRectangle 4
-pop temp 0 
-label IF_TRUE5 
+pop temp 0
+label IF_TRUE4
 push constant 0
 return
 function Square.moveLeft 0
@@ -215,11 +208,11 @@ pop pointer 0
 push this 0
 push constant 1
 gt
-not 
-if-goto IF_TRUE6 
+not
+if-goto IF_TRUE5
 push constant 0
 call Screen.setColor 1
-pop temp 0 
+pop temp 0
 push this 0
 push this 2
 add
@@ -233,7 +226,7 @@ push this 1
 push this 2
 add
 call Screen.drawRectangle 4
-pop temp 0 
+pop temp 0
 push this 0
 push constant 2
 sub
@@ -241,7 +234,7 @@ pop this 0
 push constant 0
 not
 call Screen.setColor 1
-pop temp 0 
+pop temp 0
 push this 0
 push this 1
 push this 0
@@ -251,8 +244,8 @@ push this 1
 push this 2
 add
 call Screen.drawRectangle 4
-pop temp 0 
-label IF_TRUE6 
+pop temp 0
+label IF_TRUE5
 push constant 0
 return
 function Square.moveRight 0
@@ -263,11 +256,11 @@ push this 2
 add
 push constant 510
 lt
-not 
-if-goto IF_TRUE7 
+not
+if-goto IF_TRUE6
 push constant 0
 call Screen.setColor 1
-pop temp 0 
+pop temp 0
 push this 0
 push this 1
 push this 0
@@ -277,7 +270,7 @@ push this 1
 push this 2
 add
 call Screen.drawRectangle 4
-pop temp 0 
+pop temp 0
 push this 0
 push constant 2
 add
@@ -285,7 +278,7 @@ pop this 0
 push constant 0
 not
 call Screen.setColor 1
-pop temp 0 
+pop temp 0
 push this 0
 push this 2
 add
@@ -299,7 +292,7 @@ push this 1
 push this 2
 add
 call Screen.drawRectangle 4
-pop temp 0 
-label IF_TRUE7 
+pop temp 0
+label IF_TRUE6
 push constant 0
 return

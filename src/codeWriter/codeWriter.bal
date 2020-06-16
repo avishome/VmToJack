@@ -77,6 +77,21 @@ public type CodeWriter object {
 
         return code;
     }
+    private function getVariableType(string name) returns string|boolean {
+        VarRec? rec = self.tree.getMethodRecord(name);
+        if (rec is VarRec) {
+            return rec.jackType;
+        } else {
+            rec = self.tree.getMethodRecord("this");
+            if (rec is VarRec) {
+                rec = self.tree.getClassRecord(name);
+                if (rec is VarRec) {
+                    return rec.jackType;
+                }
+            }
+            return false;
+        }
+    }
     private function getVariableCode(string name) returns string|boolean {
         //io:println("class table"+ self.tree.classVarTable.keys().toString());
         //io:println("method table"+ self.tree.methodVarTable.keys().toString());
@@ -273,9 +288,13 @@ public type CodeWriter object {
             string firstArg = "";
             boolean isOneWordDefin = childeren[2].getChilderen().length()>3;
             int numofParams;
+            var varibale1 = self.getVariableType(childeren[1].getValue());
+            if(varibale1 is boolean){
+                varibale1 = childeren[1].getValue();
+            }
             if(isOneWordDefin){
                 numofParams = childeren[2].getChilderen()[3].getChilderen().length();
-                caller = "call " + childeren[1].getValue() +"."+ childeren[2].getChilderen()[1].getValue() + " ";
+                caller = "call " + varibale1.toString() +"."+ childeren[2].getChilderen()[1].getValue() + " ";
             } else {
                 numofParams = childeren[2].getChilderen()[1].getChilderen().length();
                 caller = "call " + self.class +"."+childeren[1].getValue() + " ";
@@ -287,7 +306,7 @@ public type CodeWriter object {
             var varibale = self.getVariableCode(childeren[1].getValue());
             if(varibale is boolean){
                 if(!isOneWordDefin){ //is freind in our class
-                    firstArg = "push pointer 0 " + "\n";
+                    firstArg = "push pointer 0" + "\n";
                     numofParams += 1;
                 }
             } else{
@@ -303,7 +322,7 @@ public type CodeWriter object {
                 code += subroutineCall;
             }
             code += caller + numofParams.toString() + "\n";
-            code += "pop temp 0 \n";
+            code += "pop temp 0\n";
         }
 
         if (node.getName() == "expression") {
@@ -372,8 +391,8 @@ public type CodeWriter object {
                     return false;
                 } else { 
                     code += expression;
-                    code += "not \n";
-                    code += "if-goto IF_TRUE"+ serialNum.toString() +" \n";}
+                    code += "not\n";
+                    code += "if-goto IF_TRUE"+ serialNum.toString() +"\n";}
             boolean|string statements = self.getCodeReq(childeren[5], node);
                 if (statements is boolean) {
                     self.addErrorToStack(node);
@@ -382,8 +401,8 @@ public type CodeWriter object {
                     code += statements;
                 }
             if(childeren.length() == 8){
-                code += "goto IF_FALSE"+ serialNum.toString() +" \n";
-                code+= "label IF_TRUE"+ serialNum.toString() +" \n";
+                code += "goto IF_FALSE"+ serialNum.toString() +"\n";
+                code+= "label IF_TRUE"+ serialNum.toString() +"\n";
                 statements = self.getCodeReq(childeren[7], node);
                 if (statements is boolean) {
                     self.addErrorToStack(node);
@@ -391,9 +410,9 @@ public type CodeWriter object {
                 } else {
                     code += statements;
                 }
-                code+= "label IF_FALSE"+ serialNum.toString() +" \n";
+                code+= "label IF_FALSE"+ serialNum.toString() +"\n";
             } else {
-                code+= "label IF_TRUE"+ serialNum.toString() +" \n";
+                code+= "label IF_TRUE"+ serialNum.toString() +"\n";
             }
         }
 
@@ -418,16 +437,16 @@ public type CodeWriter object {
                 } else { 
                     code += expression;
                     code += "not \n";
-                    code += "if-goto WHILE_END"+ serialNum.toString() +" \n";}
+                    code += "if-goto WHILE_END"+ serialNum.toString() +"\n";}
             boolean|string statements = self.getCodeReq(childeren[5], node);
                 if (statements is boolean) {
                     self.addErrorToStack(node);
                     return false;
                 } else {
                     code += statements;
-                    code += "goto WHILE_EXP"+ serialNum.toString() +" \n";
+                    code += "goto WHILE_EXP"+ serialNum.toString() +"\n";
                 }
-            code+= "label WHILE_END"+ serialNum.toString() +" \n";
+            code+= "label WHILE_END"+ serialNum.toString() +"\n";
         }
         if (node.getName() == "term") {
             match childeren[0].getName() {
@@ -445,18 +464,27 @@ public type CodeWriter object {
                         string firstArg = "";
                         int numofParams;
                         boolean isOneWordDefin = childeren[1].getChilderen().length()>3;
+                        var varibale1 = self.getVariableType(childeren[0].getValue());
+                        if(varibale1 is boolean){
+                            varibale1 = childeren[0].getValue();
+                        }
                         if(isOneWordDefin){
                             numofParams = +childeren[1].getChilderen()[3].getChilderen().length();
-                            caller = "call " + childeren[0].getValue() +"."+ childeren[1].getChilderen()[1].getValue()  + " " ;
+                            caller = "call " + varibale1.toString() +"."+ childeren[1].getChilderen()[1].getValue()  + " " ;
                         } else {
                             numofParams =  +childeren[1].getChilderen()[1].getChilderen().length();
                             caller = "call " + self.class +"."+childeren[0].getValue() + " ";
                         }
+                        
+                        if(numofParams > 2){
+                            numofParams = (numofParams+1)/2; //remove comma
+                        }
+
                         //clac first arg (is known obj?)
                         var varibale = self.getVariableCode(childeren[0].getValue());
                         if(varibale is boolean){
                             if(!isOneWordDefin){ //is freind in our class
-                                firstArg = "push pointer 0 " + "\n";
+                                firstArg = "push pointer 0" + "\n";
                                 numofParams += 1;
                             }
                         } else{
@@ -494,7 +522,7 @@ public type CodeWriter object {
                                 } else {
                                     code += experssion;
                                 }
-                                code += "add \n";
+                                code += "add\n";
                             }
                         }
                     }
