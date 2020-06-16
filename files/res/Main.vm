@@ -37,10 +37,10 @@ push constant 63
 call String.appendChar 2
 push constant 32
 call String.appendChar 2
-call Keyboard.readInt numberEmpty
+call Keyboard.readInt 1
 pop local 1
 push local 1
-call Array.new numberEmpty
+call Array.new 1
 pop local 0
 push constant 0
 pop local 2
@@ -109,7 +109,7 @@ push constant 58
 call String.appendChar 2
 push constant 32
 call String.appendChar 2
-call Keyboard.readInt numberEmpty
+call Keyboard.readInt 1
 pop temp 0
 pop pointer 1
 push temp 0
@@ -176,14 +176,14 @@ push constant 58
 call String.appendChar 2
 push constant 32
 call String.appendChar 2
-call Output.printString numberEmpty
+call Output.printString 1
 pop temp 0 
 push local 3
 push local 1
 call Math.divide 2
-call Output.printInt numberEmpty
+call Output.printInt 1
 pop temp 0 
-call Output.println numberEmpty
+call Output.println 0
 pop temp 0 
 push constant 0
 return

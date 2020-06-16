@@ -23,7 +23,7 @@ public function main(string... args) {
                         code = c.getCode();
                         if (code is string) {
                             string res = code;
-                            res = fillnumbers(res);
+                            //res = fillnumbers(res);
                             var wResult = write(res, <@untained>args[0] + "/res/" + item.getName().substring(0, <int>item.getName().lastIndexOf(".xml")) + ".vm");
                             if (wResult is error) {
                                 io:println(wResult);
@@ -40,19 +40,8 @@ public function main(string... args) {
     }
 }
 
-public function fillnumbers(string res) returns string{
-    string res1 = res;
-    string[] result = stringutils:split(res1, "\n");
-    foreach string line in result{
-        string[] words = stringutils:split(line, " ");
-        if(words[0] == "function"){
-            res1 = stringutils:replaceAll(res1, words[1] + " numberEmpty", words[1] +" "+ words[2]);
-        }   
-    }
-    return res1;
-}
 
-const map<string> keybourdConstant = {"true":"constant 1\nnot","false":"constant 0","null":"constant 0","this":"pointer 0"};
+const map<string> keybourdConstant = {"true":"constant 0\nnot","false":"constant 0","null":"constant 0","this":"pointer 0"};
 int counterLabel = 0;
 public type CodeWriter object {
     private Node root;
@@ -283,19 +272,27 @@ public type CodeWriter object {
             string caller = "";
             string firstArg = "";
             boolean isOneWordDefin = childeren[2].getChilderen().length()>3;
+            int numofParams;
             if(isOneWordDefin){
-                caller = "call " + childeren[1].getValue() +"."+ childeren[2].getChilderen()[1].getValue()  + " numberEmpty";
+                numofParams = childeren[2].getChilderen()[3].getChilderen().length();
+                caller = "call " + childeren[1].getValue() +"."+ childeren[2].getChilderen()[1].getValue() + " ";
             } else {
-                caller = "call " + self.class +"."+childeren[1].getValue() + " numberEmpty";
+                numofParams = childeren[2].getChilderen()[1].getChilderen().length();
+                caller = "call " + self.class +"."+childeren[1].getValue() + " ";
+            }
+            if(numofParams > 2){
+                numofParams = (numofParams+1)/2; //remove comma
             }
             //clac first arg (is known obj?)
             var varibale = self.getVariableCode(childeren[1].getValue());
             if(varibale is boolean){
                 if(!isOneWordDefin){ //is freind in our class
                     firstArg = "push pointer 0 " + "\n";
+                    numofParams += 1;
                 }
             } else{
                 firstArg = "push " + varibale + "\n";
+                numofParams += 1;
             }
             code += firstArg;
             var subroutineCall = self.getCodeReq(childeren[2], node);
@@ -305,7 +302,7 @@ public type CodeWriter object {
             } else {
                 code += subroutineCall;
             }
-            code += caller + "\n";
+            code += caller + numofParams.toString() + "\n";
             code += "pop temp 0 \n";
         }
 
@@ -446,20 +443,25 @@ public type CodeWriter object {
 
                         string caller = "";
                         string firstArg = "";
+                        int numofParams;
                         boolean isOneWordDefin = childeren[1].getChilderen().length()>3;
                         if(isOneWordDefin){
-                            caller = "call " + childeren[0].getValue() +"."+ childeren[1].getChilderen()[1].getValue()  + " numberEmpty";
+                            numofParams = +childeren[1].getChilderen()[3].getChilderen().length();
+                            caller = "call " + childeren[0].getValue() +"."+ childeren[1].getChilderen()[1].getValue()  + " " ;
                         } else {
-                            caller = "call " + self.class +"."+childeren[0].getValue() + " numberEmpty";
+                            numofParams =  +childeren[1].getChilderen()[1].getChilderen().length();
+                            caller = "call " + self.class +"."+childeren[0].getValue() + " ";
                         }
                         //clac first arg (is known obj?)
                         var varibale = self.getVariableCode(childeren[0].getValue());
                         if(varibale is boolean){
                             if(!isOneWordDefin){ //is freind in our class
                                 firstArg = "push pointer 0 " + "\n";
+                                numofParams += 1;
                             }
                         } else{
                             firstArg = "push " + varibale + "\n";
+                            numofParams += 1;
                         }
                         code += firstArg;
                         var subroutineCall = self.getCodeReq(childeren[1], node);
@@ -469,7 +471,7 @@ public type CodeWriter object {
                         } else {
                             code += subroutineCall;
                         }
-                        code += caller + "\n";
+                        code += caller + numofParams.toString() + "\n";
 
                         //
 

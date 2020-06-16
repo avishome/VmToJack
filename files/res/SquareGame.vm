@@ -5,7 +5,7 @@ pop pointer 0
 push constant 0
 push constant 0
 push constant 30
-call Square.new numberEmpty
+call Square.new 5
 pop this 0
 push constant 0
 pop this 1
@@ -15,10 +15,10 @@ function SquareGame.dispose 0
 push argument 0
 pop pointer 0
 push this 0
-call square.dispose numberEmpty
+call square.dispose 1
 pop temp 0 
 push pointer 0
-call Memory.deAlloc numberEmpty
+call Memory.deAlloc 1
 pop temp 0 
 push constant 0
 return
@@ -36,10 +36,10 @@ push constant 0
 eq
 not 
 if-goto WHILE_END9 
-call Keyboard.keyPressed numberEmpty
+call Keyboard.keyPressed 0
 pop local 0
 push pointer 0 
-call SquareGame.moveSquare 0
+call SquareGame.moveSquare 1
 pop temp 0 
 goto WHILE_EXP9 
 label WHILE_END9 
@@ -48,7 +48,7 @@ push constant 81
 eq
 not 
 if-goto IF_TRUE10 
-push constant 1
+push constant 0
 not
 pop local 1
 label IF_TRUE10 
@@ -58,7 +58,7 @@ eq
 not 
 if-goto IF_TRUE11 
 push this 0
-call square.decSize numberEmpty
+call square.decSize 1
 pop temp 0 
 label IF_TRUE11 
 push local 0
@@ -67,7 +67,7 @@ eq
 not 
 if-goto IF_TRUE12 
 push this 0
-call square.incSize numberEmpty
+call square.incSize 1
 pop temp 0 
 label IF_TRUE12 
 push local 0
@@ -105,10 +105,10 @@ label IF_TRUE16
 label WHILE_EXP17
 not 
 if-goto WHILE_END17 
-call Keyboard.keyPressed numberEmpty
+call Keyboard.keyPressed 0
 pop local 0
 push pointer 0 
-call SquareGame.moveSquare 0
+call SquareGame.moveSquare 1
 pop temp 0 
 goto WHILE_EXP17 
 label WHILE_END17 
@@ -125,7 +125,7 @@ eq
 not 
 if-goto IF_TRUE18 
 push this 0
-call square.moveUp numberEmpty
+call square.moveUp 1
 pop temp 0 
 label IF_TRUE18 
 push this 1
@@ -134,7 +134,7 @@ eq
 not 
 if-goto IF_TRUE19 
 push this 0
-call square.moveDown numberEmpty
+call square.moveDown 1
 pop temp 0 
 label IF_TRUE19 
 push this 1
@@ -143,7 +143,7 @@ eq
 not 
 if-goto IF_TRUE20 
 push this 0
-call square.moveLeft numberEmpty
+call square.moveLeft 1
 pop temp 0 
 label IF_TRUE20 
 push this 1
@@ -152,11 +152,11 @@ eq
 not 
 if-goto IF_TRUE21 
 push this 0
-call square.moveRight numberEmpty
+call square.moveRight 1
 pop temp 0 
 label IF_TRUE21 
 push constant 5
-call Sys.wait numberEmpty
+call Sys.wait 1
 pop temp 0 
 push constant 0
 return
