@@ -1,0 +1,162 @@
+function SquareGame.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push constant 0
+push constant 0
+push constant 30
+call Square.new numberEmpty
+pop this 0
+push constant 0
+pop this 1
+push pointer 0
+return
+function SquareGame.dispose 0
+push argument 0
+pop pointer 0
+push this 0
+call square.dispose numberEmpty
+pop temp 0 
+push pointer 0
+call Memory.deAlloc numberEmpty
+pop temp 0 
+push constant 0
+return
+function SquareGame.run 2
+push argument 0
+pop pointer 0
+push constant 0
+pop local 1
+label WHILE_EXP8
+not 
+if-goto WHILE_END8 
+label WHILE_EXP9
+push local 0
+push constant 0
+eq
+not 
+if-goto WHILE_END9 
+call Keyboard.keyPressed numberEmpty
+pop local 0
+push pointer 0 
+call SquareGame.moveSquare 0
+pop temp 0 
+goto WHILE_EXP9 
+label WHILE_END9 
+push local 0
+push constant 81
+eq
+not 
+if-goto IF_TRUE10 
+push constant 1
+not
+pop local 1
+label IF_TRUE10 
+push local 0
+push constant 90
+eq
+not 
+if-goto IF_TRUE11 
+push this 0
+call square.decSize numberEmpty
+pop temp 0 
+label IF_TRUE11 
+push local 0
+push constant 88
+eq
+not 
+if-goto IF_TRUE12 
+push this 0
+call square.incSize numberEmpty
+pop temp 0 
+label IF_TRUE12 
+push local 0
+push constant 131
+eq
+not 
+if-goto IF_TRUE13 
+push constant 1
+pop this 1
+label IF_TRUE13 
+push local 0
+push constant 133
+eq
+not 
+if-goto IF_TRUE14 
+push constant 2
+pop this 1
+label IF_TRUE14 
+push local 0
+push constant 130
+eq
+not 
+if-goto IF_TRUE15 
+push constant 3
+pop this 1
+label IF_TRUE15 
+push local 0
+push constant 132
+eq
+not 
+if-goto IF_TRUE16 
+push constant 4
+pop this 1
+label IF_TRUE16 
+label WHILE_EXP17
+not 
+if-goto WHILE_END17 
+call Keyboard.keyPressed numberEmpty
+pop local 0
+push pointer 0 
+call SquareGame.moveSquare 0
+pop temp 0 
+goto WHILE_EXP17 
+label WHILE_END17 
+goto WHILE_EXP8 
+label WHILE_END8 
+push constant 0
+return
+function SquareGame.moveSquare 0
+push argument 0
+pop pointer 0
+push this 1
+push constant 1
+eq
+not 
+if-goto IF_TRUE18 
+push this 0
+call square.moveUp numberEmpty
+pop temp 0 
+label IF_TRUE18 
+push this 1
+push constant 2
+eq
+not 
+if-goto IF_TRUE19 
+push this 0
+call square.moveDown numberEmpty
+pop temp 0 
+label IF_TRUE19 
+push this 1
+push constant 3
+eq
+not 
+if-goto IF_TRUE20 
+push this 0
+call square.moveLeft numberEmpty
+pop temp 0 
+label IF_TRUE20 
+push this 1
+push constant 4
+eq
+not 
+if-goto IF_TRUE21 
+push this 0
+call square.moveRight numberEmpty
+pop temp 0 
+label IF_TRUE21 
+push constant 5
+call Sys.wait numberEmpty
+pop temp 0 
+push constant 0
+return

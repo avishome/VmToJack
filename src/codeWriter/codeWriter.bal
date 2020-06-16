@@ -1,21 +1,41 @@
 import ballerina/io;
+import ballerina/file;
 import ballerina/lang.'xml as xmllib;
 import ballerina/stringutils;
 
 # Prints `Hello World`.
 
-public function main() {
-    CodeWriter|error c = new ("files/Square.xml");
-    if (c is CodeWriter) {
-        var code = c.getCode();
-        if (code is string) {
-            string res = code;
-            res = fillnumbers(res);
-            io:println(res);
+public function main(string... args) {
+    if (args.length() < 1) {
+        io:println("Please enter a source folder");
+    } else {
+        file:FileInfo[]|error readDirResults = file:readDir(<@untained>args[0]);
+        if (readDirResults is error) {
+            io:println(readDirResults);
+            return;
         } else {
-            io:println(c.getErrorStack());
-            io:println(c.tree.classVarTable);
-            io:println(c.tree.methodVarTable);
+            string|boolean code = "";
+            foreach file:FileInfo item in readDirResults {
+                if (!item.getName().endsWith("T.xml") && item.getName().endsWith(".xml")) {
+                    io:println("Proccessing file: " + item.getName());
+                    CodeWriter|error c = new (<@untained>args[0] + "/" + item.getName());
+                    if (c is CodeWriter) {
+                        code = c.getCode();
+                        if (code is string) {
+                            string res = code;
+                            res = fillnumbers(res);
+                            var wResult = write(res, <@untained>args[0] + "/res/" + item.getName().substring(0, <int>item.getName().lastIndexOf(".xml")) + ".vm");
+                            if (wResult is error) {
+                                io:println(wResult);
+                            }
+                        }else {
+                            io:println(c.getErrorStack());
+                            io:println(c.tree.classVarTable);
+                            io:println(c.tree.methodVarTable);
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -33,7 +53,7 @@ public function fillnumbers(string res) returns string{
 }
 
 const map<string> keybourdConstant = {"true":"constant 1\nnot","false":"constant 0","null":"constant 0","this":"pointer 0"};
-
+int counterLabel = 0;
 public type CodeWriter object {
     private Node root;
     private string class = "";
@@ -169,7 +189,7 @@ public type CodeWriter object {
                 funcType = "function";
                 returnType = childeren[1].getValue();
                 funcName = childeren[2].getValue();
-                constractorCode = "push argument 0\npop pointer 0\n";
+                //constractorCode = "push argument 0\npop pointer 0\n";
                 //TODO add record
             }
             if (childeren[0].getValue() == "constructor") {
@@ -314,10 +334,12 @@ public type CodeWriter object {
                 if (op is string) {
                     code += op  + "\n";
                 } else {
-                    io:println("op "+ childeren[index].getValue() +" not found");
+                    io:println("op "+ childeren[index].getValue() +" not found. index "+ index.toString() );
+                    self.addErrorToStack(node);
+                    return false;
                 }
 
-                index =+ 2;
+                index += 2;
             }
 
             return code;
@@ -345,6 +367,8 @@ public type CodeWriter object {
             return code;
         }
         if(node.getName() == "ifStatement"){
+            int serialNum = counterLabel;
+            counterLabel += 1;
             boolean|string expression = self.getCodeReq(childeren[2], node);
                 if (expression is boolean) {
                     self.addErrorToStack(node);
@@ -352,7 +376,7 @@ public type CodeWriter object {
                 } else { 
                     code += expression;
                     code += "not \n";
-                    code += "if-goto IF_TRUE0 \n";}
+                    code += "if-goto IF_TRUE"+ serialNum.toString() +" \n";}
             boolean|string statements = self.getCodeReq(childeren[5], node);
                 if (statements is boolean) {
                     self.addErrorToStack(node);
@@ -361,8 +385,8 @@ public type CodeWriter object {
                     code += statements;
                 }
             if(childeren.length() == 8){
-                code += "goto IF_FALSE0 \n";
-                code+= "label IF_TRUE0 \n";
+                code += "goto IF_FALSE"+ serialNum.toString() +" \n";
+                code+= "label IF_TRUE"+ serialNum.toString() +" \n";
                 statements = self.getCodeReq(childeren[7], node);
                 if (statements is boolean) {
                     self.addErrorToStack(node);
@@ -370,9 +394,9 @@ public type CodeWriter object {
                 } else {
                     code += statements;
                 }
-                code+= "label IF_FALSE0 \n";
+                code+= "label IF_FALSE"+ serialNum.toString() +" \n";
             } else {
-                code+= "label IF_TRUE0 \n";
+                code+= "label IF_TRUE"+ serialNum.toString() +" \n";
             }
         }
 
@@ -387,7 +411,9 @@ public type CodeWriter object {
         }
 
         if(node.getName() == "whileStatement"){
-            code += "label WHILEBOOLEAN1";
+            int serialNum = counterLabel;
+            counterLabel += 1;
+            code += "label WHILE_EXP" + serialNum.toString() + "\n";
             boolean|string expression = self.getCodeReq(childeren[2], node);
                 if (expression is boolean) {
                     self.addErrorToStack(node);
@@ -395,16 +421,16 @@ public type CodeWriter object {
                 } else { 
                     code += expression;
                     code += "not \n";
-                    code += "if-goto EXITWHILE1 \n";}
-            boolean|string statements = self.getCodeReq(childeren[4], node);
+                    code += "if-goto WHILE_END"+ serialNum.toString() +" \n";}
+            boolean|string statements = self.getCodeReq(childeren[5], node);
                 if (statements is boolean) {
                     self.addErrorToStack(node);
                     return false;
                 } else {
                     code += statements;
-                    code += "goto WHILEBOOLEAN1 \n";
+                    code += "goto WHILE_EXP"+ serialNum.toString() +" \n";
                 }
-            code+= "label EXITWHILE1 \n";
+            code+= "label WHILE_END"+ serialNum.toString() +" \n";
         }
         if (node.getName() == "term") {
             match childeren[0].getName() {
@@ -412,7 +438,7 @@ public type CodeWriter object {
                     code += "push constant "+childeren[0].getValue() + "\n";
                 }
                 "stringConstant" => {
-                    code += self.generateConstStringCode(childeren[0].getValue()) + "\n";
+                    code += self.generateConstStringCode(childeren[0].getValue());
                 }
                 "identifier" => {
                     if(childeren.length()>1 && childeren[1].getName() == "subroutineCall"){
@@ -527,7 +553,7 @@ public type CodeWriter object {
                 } else {
                     code += "push " + variable + "\n";
                     code += expression;
-                    code += "add";
+                    code += "add\n";
                     expression = self.getCodeReq(childeren[6], node);
                     if (expression is boolean) {
                         self.addErrorToStack(node);
@@ -775,3 +801,17 @@ public type Tree object {
     }
 };
 
+public function write(string content, string path) returns @tainted int|error? {
+    io:WritableByteChannel wbc = check io:openWritableFile(path);
+    io:WritableCharacterChannel wch = new (wbc, "UTF8");
+    var result = wch.write(content, 0);
+    closeWc(wch);
+    return result;
+}
+
+public function closeWc(io:WritableCharacterChannel wc) {
+    var result = wc.close();
+    if (result is error) {
+        io:print("Error occurred while closing character stream");
+    }
+}
