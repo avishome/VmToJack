@@ -1,5 +1,5 @@
-import ballerina/io;
 import ballerina/file;
+import ballerina/io;
 import ballerina/lang.'xml as xmllib;
 import ballerina/stringutils;
 
@@ -24,11 +24,11 @@ public function main(string... args) {
                         if (code is string) {
                             string res = code;
                             //res = fillnumbers(res);
-                            var wResult = write(res, <@untained>args[0] + "/res/" + item.getName().substring(0, <int>item.getName().lastIndexOf(".xml")) + ".vm");
+                            var wResult = write(res, <@untained>args[0] + "/" + item.getName().substring(0, <int>item.getName().lastIndexOf(".xml")) + ".vm");
                             if (wResult is error) {
                                 io:println(wResult);
                             }
-                        }else {
+                        } else {
                             io:println(c.getErrorStack());
                             io:println(c.tree.classVarTable);
                             io:println(c.tree.methodVarTable);
@@ -41,7 +41,7 @@ public function main(string... args) {
 }
 
 
-const map<string> keybourdConstant = {"true":"constant 0\nnot","false":"constant 0","null":"constant 0","this":"pointer 0"};
+const map<string> keybourdConstant = {"true": "constant 0\nnot", "false": "constant 0", "null": "constant 0", "this": "pointer 0"};
 int counterLabel = 0;
 public type CodeWriter object {
     private Node root;
@@ -50,7 +50,7 @@ public type CodeWriter object {
     public Tree tree;
     private int size = 0;
     private string errorStack = "";
-    private map<string> unaryOp = {"-":"-","~":"neg"};
+    private map<string> unaryOp = {"-": "neg", "~": "not"};
     public function __init(string file) returns error? {
         Tree|error tree = new (file);
         if (tree is error) {
@@ -83,7 +83,7 @@ public type CodeWriter object {
             return rec.jackType;
         } else {
             rec = self.tree.getMethodRecord("this");
-            if (rec is VarRec) {
+            if (rec is VarRec || self.tree.isConstractor()) {
                 rec = self.tree.getClassRecord(name);
                 if (rec is VarRec) {
                     return rec.jackType;
@@ -100,7 +100,7 @@ public type CodeWriter object {
             return rec.vmType + " " + rec.number.toString();
         } else {
             rec = self.tree.getMethodRecord("this");
-            if (rec is VarRec) {
+            if (rec is VarRec || self.tree.isConstractor()) {
                 rec = self.tree.getClassRecord(name);
                 if (rec is VarRec) {
                     return rec.vmType + " " + rec.number.toString();
@@ -112,7 +112,7 @@ public type CodeWriter object {
     public function getCode() returns @tainted string|boolean {
         return self.getCodeReq(self.root);
     }
-    private function getCodeReq(Node node, Node? parent = (),boolean deepScan = true) returns @tainted string|boolean {
+    private function getCodeReq(Node node, Node? parent = (), boolean deepScan = true) returns @tainted string|boolean {
         Node[] childeren = node.getChilderen();
         string code = "";
         if (node.getName() == "class") {
@@ -159,14 +159,14 @@ public type CodeWriter object {
         if (node.getName() == "varDec") {
             string decType = childeren[0].getValue();
             string decKind = childeren[1].getValue();
-            boolean succ = self.tree.addRecord("func", childeren[2].getValue(), decKind,decType);
+            boolean succ = self.tree.addRecord("func", childeren[2].getValue(), decKind, decType);
             if (!succ) {
                 self.addErrorToStack(node);
                 return false;
             }
             int index = 3;
             while (childeren[index].getValue() !== ";") {
-                succ = self.tree.addRecord("func", childeren[index + 1].getValue(),decKind, decType);
+                succ = self.tree.addRecord("func", childeren[index + 1].getValue(), decKind, decType);
                 if (!succ) {
                     self.addErrorToStack(node);
                     return false;
@@ -186,28 +186,29 @@ public type CodeWriter object {
                 funcType = "method";
                 returnType = childeren[1].getValue();
                 funcName = childeren[2].getValue();
-                _ = self.tree.addRecord("func", "this", self.class, "arg"); // this to funcName
+                _ = self.tree.addRecord("func", "this", self.class, "arg");                // this to funcName
                 constractorCode = "push argument 0\npop pointer 0\n";
             }
             if (childeren[0].getValue() == "function") {
                 funcType = "function";
                 returnType = childeren[1].getValue();
                 funcName = childeren[2].getValue();
-                //constractorCode = "push argument 0\npop pointer 0\n";
-                //TODO add record
+            //constractorCode = "push argument 0\npop pointer 0\n";
+            //TODO add record
             }
             if (childeren[0].getValue() == "constructor") {
                 funcType = "constructor";
                 returnType = childeren[1].getValue();
                 funcName = childeren[2].getValue();
-                _ = self.tree.addRecord("func", "this", self.class, "arg");
+                self.tree.setConstractor();
+                //_ = self.tree.addRecord("func", "this", self.class, "arg");
                 constractorCode = "push constant " + self.size.toString() + "\n" +
                     "call Memory.alloc 1\n" +
                     "pop pointer 0\n";
             }
             //parameter list?
-            var test = self.getCodeReq(childeren[4], node); 
-            if(test is boolean){
+            var test = self.getCodeReq(childeren[4], node);
+            if (test is boolean) {
                 self.addErrorToStack(node);
                 return false;
             }
@@ -219,10 +220,10 @@ public type CodeWriter object {
                 code += "function " + self.class + "." + funcName + " " + self.tree.getFunctionLocalNumber().toString() + "\n";
                 code += constractorCode;
                 code += res;
-                //if (funcType == "constructor") {
-                //    code += "push pointer 0\n" +
-                //        "return\n";
-                //} return sastment
+            //if (funcType == "constructor") {
+            //    code += "push pointer 0\n" +
+            //        "return\n";
+            //} return sastment
             }
         }
 
@@ -230,7 +231,7 @@ public type CodeWriter object {
         if (node.getName() == "parameterList") {
             int index = 0;
             while (index + 1 < childeren.length()) {
-                boolean succ = self.tree.addRecord("func", childeren[index+1].getValue(), childeren[index].getValue(),"arg");
+                boolean succ = self.tree.addRecord("func", childeren[index + 1].getValue(), childeren[index].getValue(), "arg");
                 if (!succ) {
                     self.addErrorToStack(node);
                     return false;
@@ -267,8 +268,8 @@ public type CodeWriter object {
             }
         }
 
-        if (node.getName() == "returnStatement"){
-            if(childeren[1].getName() == "expression"){
+        if (node.getName() == "returnStatement") {
+            if (childeren[1].getName() == "expression") {
                 var expression = self.getCodeReq(childeren[1], node);
                 if (expression is boolean) {
                     self.addErrorToStack(node);
@@ -282,34 +283,34 @@ public type CodeWriter object {
             code += "return\n";
         }
 
-        if (node.getName() == "doStatement"){
+        if (node.getName() == "doStatement") {
 
             string caller = "";
             string firstArg = "";
-            boolean isOneWordDefin = childeren[2].getChilderen().length()>3;
+            boolean isOneWordDefin = childeren[2].getChilderen().length() > 3;
             int numofParams;
             var varibale1 = self.getVariableType(childeren[1].getValue());
-            if(varibale1 is boolean){
+            if (varibale1 is boolean) {
                 varibale1 = childeren[1].getValue();
             }
-            if(isOneWordDefin){
+            if (isOneWordDefin) {
                 numofParams = childeren[2].getChilderen()[3].getChilderen().length();
-                caller = "call " + varibale1.toString() +"."+ childeren[2].getChilderen()[1].getValue() + " ";
+                caller = "call " + varibale1.toString() + "." + childeren[2].getChilderen()[1].getValue() + " ";
             } else {
                 numofParams = childeren[2].getChilderen()[1].getChilderen().length();
-                caller = "call " + self.class +"."+childeren[1].getValue() + " ";
+                caller = "call " + self.class + "." + childeren[1].getValue() + " ";
             }
-            if(numofParams > 2){
-                numofParams = (numofParams+1)/2; //remove comma
+            if (numofParams > 2) {
+                numofParams = (numofParams + 1) / 2;            //remove comma
             }
             //clac first arg (is known obj?)
             var varibale = self.getVariableCode(childeren[1].getValue());
-            if(varibale is boolean){
-                if(!isOneWordDefin){ //is freind in our class
+            if (varibale is boolean) {
+                if (!isOneWordDefin) {                    //is freind in our class
                     firstArg = "push pointer 0" + "\n";
                     numofParams += 1;
                 }
-            } else{
+            } else {
                 firstArg = "push " + varibale + "\n";
                 numofParams += 1;
             }
@@ -335,10 +336,19 @@ public type CodeWriter object {
             }
             string? op;
             int index = 1;
-            map<string> addrMap = {"+": "add","-" : "sub","=": "eq",">": "gt","<" : "lt",
-            "&" : "and","|" :"or","*":"call Math.multiply 2","/":"call Math.divide 2"};
-            while (index+1 < childeren.length()) {
-                term = self.getCodeReq(childeren[index+1], node);
+            map<string> addrMap = {
+                "+": "add",
+                "-": "sub",
+                "=": "eq",
+                ">": "gt",
+                "<": "lt",
+                "&": "and",
+                "|": "or",
+                "*": "call Math.multiply 2",
+                "/": "call Math.divide 2"
+            };
+            while (index + 1 < childeren.length()) {
+                term = self.getCodeReq(childeren[index + 1], node);
                 if (term is boolean) {
                     self.addErrorToStack(node);
                     return false;
@@ -348,9 +358,9 @@ public type CodeWriter object {
 
                 op = addrMap[childeren[index].getValue()];
                 if (op is string) {
-                    code += op  + "\n";
+                    code += op + "\n";
                 } else {
-                    io:println("op "+ childeren[index].getValue() +" not found. index "+ index.toString() );
+                    io:println("op " + childeren[index].getValue() + " not found. index " + index.toString());
                     self.addErrorToStack(node);
                     return false;
                 }
@@ -361,13 +371,15 @@ public type CodeWriter object {
             return code;
         }
         if (node.getName() == "subroutineCall") {
-            if(childeren.length() == 3) {
+            if (childeren.length() == 3) {
                 return self.getCodeReq(childeren[1], node);
             }
-            else {return self.getCodeReq(childeren[3], node);}
+            else {
+                return self.getCodeReq(childeren[3], node);
+            }
         }
 
-        if (node.getName() == "expressionList"){
+        if (node.getName() == "expressionList") {
             boolean|string expression;
             int index = 0;
             while (index < childeren.length()) {
@@ -377,32 +389,34 @@ public type CodeWriter object {
                     return false;
                 } else {
                     code += expression;
-                } 
+                }
                 index += 1;
             }
             return code;
         }
-        if(node.getName() == "ifStatement"){
+        if (node.getName() == "ifStatement") {
             int serialNum = counterLabel;
             counterLabel += 1;
             boolean|string expression = self.getCodeReq(childeren[2], node);
-                if (expression is boolean) {
-                    self.addErrorToStack(node);
-                    return false;
-                } else { 
-                    code += expression;
-                    code += "not\n";
-                    code += "if-goto IF_TRUE"+ serialNum.toString() +"\n";}
+            if (expression is boolean) {
+                self.addErrorToStack(node);
+                return false;
+            } else {
+                code += expression;
+                code += "if-goto IF_TRUE" + serialNum.toString() + "\n";
+                code += "goto IF_FALSE" + serialNum.toString() + "\n";
+                code += "label IF_TRUE" + serialNum.toString() + "\n";
+            }
             boolean|string statements = self.getCodeReq(childeren[5], node);
-                if (statements is boolean) {
-                    self.addErrorToStack(node);
-                    return false;
-                } else {
-                    code += statements;
-                }
-            if(childeren.length() == 8){
-                code += "goto IF_FALSE"+ serialNum.toString() +"\n";
-                code+= "label IF_TRUE"+ serialNum.toString() +"\n";
+            if (statements is boolean) {
+                self.addErrorToStack(node);
+                return false;
+            } else {
+                code += statements;
+            }
+            if (childeren.length() == 8) {
+                code += "goto IF_END" + serialNum.toString() + "\n";
+                code += "label IF_FALSE" + serialNum.toString() + "\n";
                 statements = self.getCodeReq(childeren[7], node);
                 if (statements is boolean) {
                     self.addErrorToStack(node);
@@ -410,13 +424,13 @@ public type CodeWriter object {
                 } else {
                     code += statements;
                 }
-                code+= "label IF_FALSE"+ serialNum.toString() +"\n";
+                code += "label IF_END" + serialNum.toString() + "\n";
             } else {
-                code+= "label IF_TRUE"+ serialNum.toString() +"\n";
+                code += "label IF_FALSE" + serialNum.toString() + "\n";
             }
         }
 
-        if(node.getName() == "elseifStatement"){
+        if (node.getName() == "elseifStatement") {
             var statements = self.getCodeReq(childeren[2], node);
             if (statements is boolean) {
                 self.addErrorToStack(node);
@@ -426,68 +440,70 @@ public type CodeWriter object {
             }
         }
 
-        if(node.getName() == "whileStatement"){
+        if (node.getName() == "whileStatement") {
             int serialNum = counterLabel;
             counterLabel += 1;
             code += "label WHILE_EXP" + serialNum.toString() + "\n";
             boolean|string expression = self.getCodeReq(childeren[2], node);
-                if (expression is boolean) {
-                    self.addErrorToStack(node);
-                    return false;
-                } else { 
-                    code += expression;
-                    code += "not \n";
-                    code += "if-goto WHILE_END"+ serialNum.toString() +"\n";}
+            if (expression is boolean) {
+                self.addErrorToStack(node);
+                return false;
+            } else {
+                code += expression;
+                code += "not \n";
+                code += "if-goto WHILE_END" + serialNum.toString() + "\n";
+            }
             boolean|string statements = self.getCodeReq(childeren[5], node);
-                if (statements is boolean) {
-                    self.addErrorToStack(node);
-                    return false;
-                } else {
-                    code += statements;
-                    code += "goto WHILE_EXP"+ serialNum.toString() +"\n";
-                }
-            code+= "label WHILE_END"+ serialNum.toString() +"\n";
+            if (statements is boolean) {
+                self.addErrorToStack(node);
+                return false;
+            } else {
+                code += statements;
+                code += "goto WHILE_EXP" + serialNum.toString() + "\n";
+            }
+            code += "label WHILE_END" + serialNum.toString() + "\n";
         }
+
         if (node.getName() == "term") {
             match childeren[0].getName() {
                 "integerConstant" => {
-                    code += "push constant "+childeren[0].getValue() + "\n";
+                    code += "push constant " + childeren[0].getValue() + "\n";
                 }
                 "stringConstant" => {
                     code += self.generateConstStringCode(childeren[0].getValue());
                 }
                 "identifier" => {
-                    if(childeren.length()>1 && childeren[1].getName() == "subroutineCall"){
+                    if (childeren.length() > 1 && childeren[1].getName() == "subroutineCall") {
                         //same code as in do.
 
                         string caller = "";
                         string firstArg = "";
                         int numofParams;
-                        boolean isOneWordDefin = childeren[1].getChilderen().length()>3;
+                        boolean isOneWordDefin = childeren[1].getChilderen().length() > 3;
                         var varibale1 = self.getVariableType(childeren[0].getValue());
-                        if(varibale1 is boolean){
+                        if (varibale1 is boolean) {
                             varibale1 = childeren[0].getValue();
                         }
-                        if(isOneWordDefin){
+                        if (isOneWordDefin) {
                             numofParams = +childeren[1].getChilderen()[3].getChilderen().length();
-                            caller = "call " + varibale1.toString() +"."+ childeren[1].getChilderen()[1].getValue()  + " " ;
+                            caller = "call " + varibale1.toString() + "." + childeren[1].getChilderen()[1].getValue() + " ";
                         } else {
-                            numofParams =  +childeren[1].getChilderen()[1].getChilderen().length();
-                            caller = "call " + self.class +"."+childeren[0].getValue() + " ";
+                            numofParams = +childeren[1].getChilderen()[1].getChilderen().length();
+                            caller = "call " + self.class + "." + childeren[0].getValue() + " ";
                         }
-                        
-                        if(numofParams > 2){
-                            numofParams = (numofParams+1)/2; //remove comma
+
+                        if (numofParams > 2) {
+                            numofParams = (numofParams + 1) / 2;                        //remove comma
                         }
 
                         //clac first arg (is known obj?)
                         var varibale = self.getVariableCode(childeren[0].getValue());
-                        if(varibale is boolean){
-                            if(!isOneWordDefin){ //is freind in our class
+                        if (varibale is boolean) {
+                            if (!isOneWordDefin) {                                //is freind in our class
                                 firstArg = "push pointer 0" + "\n";
                                 numofParams += 1;
                             }
-                        } else{
+                        } else {
                             firstArg = "push " + varibale + "\n";
                             numofParams += 1;
                         }
@@ -505,35 +521,37 @@ public type CodeWriter object {
 
 
                         return code;
-                    } else{
+                    } else {
                         var varibale = self.getVariableCode(childeren[0].getValue());
-                        if(varibale is boolean){
-                            io:println("Variable "+childeren[0].getValue()+" is not declared");
+                        if (varibale is boolean) {
+                            io:println("Variable " + childeren[0].getValue() + " is not declared");
                             self.addErrorToStack(node);
-                        } else{
-
-                            code += "push "+ varibale + "\n";
-
-                            if(childeren.length()>2 && childeren[1].getValue() == "["){
+                        } else {
+                            if (childeren.length() > 2 && childeren[1].getValue() == "[") {
                                 boolean|string experssion = self.getCodeReq(childeren[2], node);
                                 if (experssion is boolean) {
                                     self.addErrorToStack(node);
                                     return false;
                                 } else {
                                     code += experssion;
+                                    code += "push " + varibale + "\n";
                                 }
                                 code += "add\n";
+                                code += "pop pointer 1\n";
+                                code += "push that 0\n";
+                            } else {
+                                code += "push " + varibale + "\n";
                             }
                         }
                     }
 
-                } //var name/var name [exprtion]
+                }                //var name/var name [exprtion]
                 "keyword" => {
                     string? keybourd_constant = keybourdConstant[childeren[0].getValue()];
-                    if(keybourd_constant is string){
+                    if (keybourd_constant is string) {
                         code += "push " + keybourd_constant + "\n";
                     }
-                }  //true false null this
+                }                //true false null this
                 "unaryOp" => {
                     string? unary_op = self.unaryOp[childeren[0].getValue()];
                     boolean|string term = self.getCodeReq(childeren[1], node);
@@ -543,15 +561,15 @@ public type CodeWriter object {
                     } else {
                         code += term;
                     }
-                    if(unary_op is string){
-                        code += "push " + unary_op + "\n";
+                    if (unary_op is string) {
+                        code += unary_op + "\n";
                     } else {
                         self.addErrorToStack(node);
                         return false;
                     }
                 }
                 "symbol" => {
-                    if(childeren[0].getValue() == "("){
+                    if (childeren[0].getValue() == "(") {
                         boolean|string term = self.getCodeReq(childeren[1], node);
                         if (term is boolean) {
                             self.addErrorToStack(node);
@@ -559,6 +577,17 @@ public type CodeWriter object {
                         } else {
                             code += term;
                         }
+                    }
+                    string? unary_op = self.unaryOp[childeren[0].getValue()];
+                    if (unary_op is string) {
+                        boolean|string term = self.getCodeReq(childeren[1], node);
+                        if (term is boolean) {
+                            self.addErrorToStack(node);
+                            return false;
+                        } else {
+                            code += term;
+                        }
+                        code += unary_op + "\n";
                     }
                 }
             }
@@ -569,7 +598,7 @@ public type CodeWriter object {
             string variable = "";
             var dest = self.getVariableCode(childeren[1].getValue());
             if (dest is boolean) {
-                io:println("Variable "+childeren[1].getValue()+" is not declared");
+                io:println("Variable " + childeren[1].getValue() + " is not declared");
                 self.addErrorToStack(node);
                 return false;
             } else {
@@ -581,8 +610,8 @@ public type CodeWriter object {
                     self.addErrorToStack(node);
                     return false;
                 } else {
-                    code += "push " + variable + "\n";
                     code += expression;
+                    code += "push " + variable + "\n";
                     code += "add\n";
                     expression = self.getCodeReq(childeren[6], node);
                     if (expression is boolean) {
@@ -607,8 +636,8 @@ public type CodeWriter object {
                 code += "pop " + variable + "\n";
             }
         }
-        if(code == ""){
-            //io:print(node.printXML() + "\n");
+        if (code == "") {
+        //io:print(node.printXML() + "\n");
         }
         //TODO Code writing here
         return code;
@@ -713,6 +742,7 @@ public type Tree object {
     private int fieldT = 0;
     private int staticT = 0;
     private int localFuncN = 0;
+    private boolean constractor = false;
     public function __init(string file) returns @tainted error? {
         self.root = new Node("class");
         xml|error treeFile = self.readXml(file);
@@ -725,20 +755,26 @@ public type Tree object {
     public function getClassRecord(string name) returns VarRec? {
         return self.classVarTable[name];
     }
+    public function isConstractor() returns boolean {
+        return self.constractor;
+    }
+    public function setConstractor()  {
+        self.constractor = true;
+    }
     public function getMethodRecord(string name) returns VarRec? {
         return self.methodVarTable[name];
     }
     public function clearClassTable() {
         self.classVarTable = {};
-        self.fieldT=0;
+        self.fieldT = 0;
     }
     public function getFunctionLocalNumber() returns int {
-        return self.localT; // i change from localFuncN
+        return self.localT;    // i change from localFuncN
     }
     public function clearMethodTable() {
         self.methodVarTable = {};
-        self.localT=0;
-        self.argT=0;
+        self.localT = 0;
+        self.argT = 0;
     }
     public function addRecord(string fromTable, string name, string varKind, string varType) returns boolean {
         int num = 0;
@@ -767,14 +803,14 @@ public type Tree object {
                 self.argT += 1;
                 vmType = "argument";
             }
-            _=>{
+            _ => {
                 io:println("invalid variable identifier: " + varType);
                 return false;
             }
         }
         if (fromTable == "class") {
             if (self.classVarTable[name] is VarRec) {
-                io:println("variable "+ name + " is declared already");
+                io:println("variable " + name + " is declared already");
                 return false;
             } else {
                 self.classVarTable[name] = {jackType: varKind, vmType: vmType, number: num};
@@ -782,7 +818,7 @@ public type Tree object {
             }
         } else {
             if (self.methodVarTable[name] is VarRec) {
-                io:println("variable "+ name + " is declared already");
+                io:println("variable " + name + " is declared already");
                 return false;
             } else {
                 self.methodVarTable[name] = {jackType: varKind, vmType: vmType, number: num};
