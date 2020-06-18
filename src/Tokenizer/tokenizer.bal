@@ -220,7 +220,7 @@ public type Tokenizer object {
         if (self.matchWord("if")) {
             return self.handle0Args(KEYWORD, "if");
         }
-        if (self.matchWord("do")) {
+        if (self.matchWord("do ")) {
             return self.handle0Args(KEYWORD, "do");
         }
         if (self.matchWord("let")) {
